@@ -1,0 +1,96 @@
+---
+/**
+ * Página Nosotros — historia, valores y equipo (/, /en/about).
+ */
+import type { Lang } from '../../i18n/ui';
+import { contentFor } from '../../data';
+import type { Member, Value } from '../../data';
+import Icon from '../Icon.astro';
+import PageHeader from '../sections/PageHeader.astro';
+import CtaBand from '../sections/CtaBand.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const a = contentFor(lang).about;
+---
+
+<PageHeader eyebrow={a.page.eyebrow} title={a.page.title} lead={a.page.lead} />
+
+<!-- ============ HISTORIA ============ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="split" style="grid-template-columns: 0.8fr 1.2fr;">
+      <div>
+        <p class="eyebrow">{a.story.heading}</p>
+        <div class="card" style="margin-top: 6px;">
+          <div class="feature-icon">
+            <Icon name="sparkle" style="color: var(--violet)" />
+          </div>
+          <h3 style="font-size: 1.15rem;">Pixel Web</h3>
+          <p class="text-faint" style="font-size: 0.9rem; margin-top: 8px;">
+            {a.page.lead}
+          </p>
+        </div>
+      </div>
+      <div class="prose" style="max-width: none;">
+        {a.story.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VALORES ============ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <p class="eyebrow">{a.values.eyebrow}</p>
+      <h2 class="h-section">{a.values.title}</h2>
+    </div>
+    <div class="grid-features">
+      {
+        a.values.items.map((v: Value) => (
+          <article class="card">
+            <span class="card__glow"></span>
+            <div class="feature-icon">
+              <Icon name={v.icon} style="color: var(--violet)" />
+            </div>
+            <h3 style="font-size: 1.15rem;">{v.title}</h3>
+            <p class="text-muted" style="margin-top: 10px; font-size: 0.96rem;">{v.desc}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ============ EQUIPO ============ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{a.team.eyebrow}</p>
+      <h2 class="h-section">{a.team.title}</h2>
+      <p class="lead" style="margin-top: 16px;">{a.team.lead}</p>
+    </div>
+    <div class="team-grid">
+      {
+        a.team.members.map((m: Member) => (
+          <article class="card">
+            <div class="avatar">{m.initials}</div>
+            <h3 style="font-size: 1.15rem;">{m.name}</h3>
+            <p class="text-muted" style="font-size: 0.9rem; margin-top: 4px;">{m.role}</p>
+            <p class="text-faint" style="font-size: 0.85rem; margin-top: 10px;">{m.bio}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<CtaBand
+  title={a.cta.title}
+  lead={a.cta.lead}
+  btn={{ label: a.cta.btnLabel, href: a.cta.btnHref }}
+/>

@@ -1,0 +1,24 @@
+{
+  "name": "pixel-web",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pixel Web — Agencia web con showcase en vivo de proyectos.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "astro": "^7.2.10"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^5.8.3"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}

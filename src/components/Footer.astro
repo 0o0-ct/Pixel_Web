@@ -1,0 +1,112 @@
+---
+/**
+ * Footer de sitio completo: marca, navegación, servicios, contacto y legal.
+ */
+import type { Lang } from '../i18n/ui';
+import { t, pageHref } from '../i18n/ui';
+import { contentFor, CONTACT, SOCIALS, SITE_NAME } from '../data';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const c = contentFor(lang);
+const year = new Date().getFullYear();
+
+const navLinks = [
+  { label: t(lang, 'nav.home'), href: pageHref(lang, 'home') },
+  { label: t(lang, 'nav.services'), href: pageHref(lang, 'services') },
+  { label: t(lang, 'nav.about'), href: pageHref(lang, 'about') },
+  { label: t(lang, 'nav.blog'), href: pageHref(lang, 'blog') },
+  { label: t(lang, 'nav.contact'), href: pageHref(lang, 'contact') },
+];
+
+const contactRows = [
+  { label: t(lang, 'footer.email'), value: CONTACT.email, href: `mailto:${CONTACT.email}` },
+  { label: t(lang, 'footer.whatsapp'), value: CONTACT.whatsapp, href: '' },
+  { label: t(lang, 'footer.location'), value: CONTACT.location, href: '' },
+] as const;
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <a class="brand" href={pageHref(lang, 'home')} aria-label={SITE_NAME}>
+          <img class="brand__logo" src="/favicon.svg" width="34" height="34" alt="" aria-hidden="true" />
+          <span>{SITE_NAME}</span>
+        </a>
+        <p class="footer__about" style="margin-top: 18px;">
+          {c.shared.footerTagline}
+        </p>
+        <p class="footer__about" style="margin-top: 10px;">
+          {c.shared.footerAbout}
+        </p>
+        <nav aria-label="Social" style="display: flex; gap: 10px; margin-top: 20px;">
+          {
+            SOCIALS.map((s) => (
+              <a class="chip" href={s.href} target="_blank" rel="noopener noreferrer">
+                {s.label}
+                <Icon name="external" />
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+
+      <nav aria-label={t(lang, 'footer.nav')}>
+        <h4>{t(lang, 'footer.nav')}</h4>
+        <ul role="list">
+          {
+            navLinks.map((l) => (
+              <li>
+                <a href={l.href}>{l.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label={t(lang, 'footer.services')}>
+        <h4>{t(lang, 'footer.services')}</h4>
+        <ul role="list">
+          {
+            c.home.services.items.map((s) => (
+              <li>
+                <a href={s.href}>{s.title}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <h4>{t(lang, 'footer.contact')}</h4>
+        <ul class="footer__contact" role="list">
+          {
+            contactRows.map((row) => (
+              <li>
+                <span class="mono">{row.label}</span>
+                {row.href ? <a href={row.href}>{row.value}</a> : <span>{row.value}</span>}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>
+        © {year} {SITE_NAME}. {t(lang, 'footer.rights')}
+      </p>
+      <p>
+        {t(lang, 'footer.built')}{' '}
+        <a href="https://astro.build" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted);">
+          Astro
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>

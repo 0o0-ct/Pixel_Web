@@ -1,0 +1,141 @@
+---
+/**
+ * Página de Contacto — canales + formulario (mailto mejorado con JS).
+ * Ruta: /contacto y /en/contact.
+ */
+import type { Lang } from '../../i18n/ui';
+import { contentFor, CONTACT } from '../../data';
+import Icon from '../Icon.astro';
+import PageHeader from '../sections/PageHeader.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ct = contentFor(lang).contact;
+const l = ct.form.labels;
+const mailtoBase = `mailto:${CONTACT.email}`;
+---
+
+<PageHeader eyebrow={ct.page.eyebrow} title={ct.page.title} lead={ct.page.lead} />
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="split">
+      <!-- Canales -->
+      <div>
+        <p class="eyebrow">{ct.channels.eyebrow}</p>
+        <h2 class="h-sub">{ct.channels.title}</h2>
+        <div style="margin-top: 28px;">
+          {
+            ct.channels.items.map((ch) => (
+              <div class="contact-item">
+                <div class="contact-item__icon">
+                  <Icon name={ch.icon} style="color: var(--violet)" />
+                </div>
+                <div>
+                  <h3>{ch.title}</h3>
+                  {ch.href ? (
+                    <a href={ch.href}>{ch.text}</a>
+                  ) : (
+                    <p>{ch.text}</p>
+                  )}
+                  <span class="mono text-faint" style="font-size: 0.74rem;">{ch.hint}</span>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+        <div class="notice" style="margin-top: 34px;">
+          <Icon name="message" />
+          <span>{ct.channels.notice}</span>
+        </div>
+      </div>
+
+      <!-- Formulario -->
+      <div class="card" style="padding: clamp(24px, 3vw, 36px);">
+        <p class="eyebrow">{ct.form.eyebrow}</p>
+        <h2 class="h-sub" style="font-size: 1.5rem;">{ct.form.title}</h2>
+        <p class="text-muted" style="margin-top: 8px; font-size: 0.95rem;">{ct.form.lead}</p>
+
+        <form id="contact-form" data-mailto={mailtoBase} style="margin-top: 26px;" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="cf-name">{l.name}</label>
+              <input id="cf-name" name="name" type="text" autocomplete="name" placeholder={l.namePh} required />
+            </div>
+            <div class="field">
+              <label for="cf-email">{l.email}</label>
+              <input id="cf-email" name="email" type="email" autocomplete="email" placeholder={l.emailPh} required />
+            </div>
+            <div class="field">
+              <label for="cf-type">{l.type}</label>
+              <select id="cf-type" name="type" required>
+                <option value="" disabled selected>
+                  {l.typePh}
+                </option>
+                {
+                  ct.form.types.map((o) => <option value={o.value}>{o.label}</option>)
+                }
+              </select>
+            </div>
+            <div class="field">
+              <label for="cf-budget">{l.budget}</label>
+              <select id="cf-budget" name="budget">
+                <option value="" disabled selected>
+                  {l.budgetPh}
+                </option>
+                {
+                  ct.form.budgets.map((o) => <option value={o.value}>{o.label}</option>)
+                }
+              </select>
+            </div>
+            <div class="field field--full">
+              <label for="cf-message">{l.message}</label>
+              <textarea id="cf-message" name="message" placeholder={l.messagePh} required></textarea>
+            </div>
+          </div>
+
+          <p class="notice" id="cf-success" hidden>
+            <Icon name="check" />
+            <span>{ct.form.success}</span>
+          </p>
+
+          <button class="btn btn-primary" type="submit" style="width: 100%; margin-top: 22px;">
+            {l.submit}
+            <Icon name="arrowRight" />
+          </button>
+          <p class="text-faint" style="font-size: 0.8rem; margin-top: 14px; text-align: center;">
+            {l.privacy}
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  const success = document.querySelector<HTMLElement>('#cf-success');
+  if (form && success) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const subject = encodeURIComponent(
+        `[Pixel Web] ${String(data.get('type') ?? '')} — ${String(data.get('name') ?? '')}`,
+      );
+      const lines = [
+        `Nombre: ${String(data.get('name') ?? '')}`,
+        `Email: ${String(data.get('email') ?? '')}`,
+        `Tipo: ${String(data.get('type') ?? '')}`,
+        `Presupuesto: ${String(data.get('budget') ?? '')}`,
+        '',
+        String(data.get('message') ?? ''),
+      ];
+      const body = encodeURIComponent(lines.join('\n'));
+      window.location.href = `${form.dataset.mailto}?subject=${subject}&body=${body}`;
+      success.hidden = false;
+    });
+  }
+</script>

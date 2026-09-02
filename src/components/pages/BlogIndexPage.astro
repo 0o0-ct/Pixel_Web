@@ -1,0 +1,59 @@
+---
+/**
+ * Listado del blog por idioma (/blog y /en/blog).
+ */
+import type { Lang } from '../../i18n/ui';
+import { contentFor } from '../../data';
+import { getPosts, formatDate } from '../../lib/blog';
+import PageHeader from '../sections/PageHeader.astro';
+import Icon from '../Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const b = contentFor(lang).blogIndex;
+const posts = await getPosts(lang);
+const isEn = lang === 'en';
+---
+
+<PageHeader eyebrow={b.page.eyebrow} title={b.page.title} lead={b.page.lead} />
+
+<section class="section section--tight">
+  <div class="container">
+    {
+      posts.length === 0 ? (
+        <p class="text-muted">{b.empty}</p>
+      ) : (
+        <div class="project-grid">
+          {
+            posts.map((post) => (
+              <article class="card post-card">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {formatDate(post.data.pubDate, lang)}
+                </time>
+                <h3>
+                  <a href={`${isEn ? '/en' : ''}/blog/${post.cleanSlug}/`}>
+                    {post.data.title}
+                  </a>
+                </h3>
+                <p>{post.data.description}</p>
+                <div class="chip-row">
+                  {post.data.tags.map((tag) => <span class="chip">{tag}</span>)}
+                </div>
+                <a
+                  class="project-card__link"
+                  href={`${isEn ? '/en' : ''}/blog/${post.cleanSlug}/`}
+                >
+                  {b.readMore}
+                  <Icon name="arrowRight" />
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      )
+    }
+  </div>
+</section>

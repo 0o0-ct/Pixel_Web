@@ -1,0 +1,27 @@
+---
+// Página 404 estática (sirve para cualquier idioma).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { t } from '../i18n/ui';
+import Icon from '../components/Icon.astro';
+---
+
+<BaseLayout lang="es" title="404 — Página no encontrada · Pixel Web">
+  <section class="section" style="min-height: 62vh; display: grid; place-items: center;">
+    <div class="container" style="text-align: center; max-width: 600px;">
+      <p class="h-display text-gradient" style="font-size: clamp(4rem, 12vw, 7rem); line-height: 1;">404</p>
+      <h1 class="h-sub" style="margin-top: 8px;">Página no encontrada</h1>
+      <p class="text-muted" style="margin-top: 6px; font-size: 0.95rem;">Page not found</p>
+      <p class="lead" style="margin: 18px auto 0;">
+        {t('es', 'nav.home')} · {t('es', 'nav.services')} · {t('es', 'nav.about')} ·{' '}
+        {t('es', 'nav.blog')} · {t('es', 'nav.contact')}
+      </p>
+      <div class="btn-row" style="justify-content: center; margin-top: 30px;">
+        <a class="btn btn-primary" href="/">
+          {t('es', 'nav.home')}
+          <Icon name="arrowRight" />
+        </a>
+        <a class="btn btn-ghost" href="/en">English</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

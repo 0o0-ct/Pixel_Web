@@ -1,0 +1,73 @@
+---
+/**
+ * Layout base: <html lang>, <head> SEO/OG completo, header y footer.
+ * Recibe el idioma y la ruta localizada se infiere de la URL en build.
+ */
+import '../styles/global.css';
+import type { Lang } from '../i18n/ui';
+import { t, translatePath } from '../i18n/ui';
+import { contentFor } from '../data';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+}
+
+const { lang } = Astro.props;
+const c = contentFor(lang);
+const title = Astro.props.title ?? c.meta.title;
+const description = Astro.props.description ?? c.meta.description;
+const { pathname } = Astro.url;
+const esPath = translatePath(pathname, lang, 'es');
+const enPath = translatePath(pathname, lang, 'en');
+const isEn = lang === 'en';
+const canonical = new URL(pathname, Astro.site);
+const siteName = t(lang, 'site.name');
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={c.meta.keywords} />
+    <meta name="theme-color" content="#07070d" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es" href={new URL(esPath, Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site)} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={isEn ? 'en_US' : 'es_ES'} />
+    <meta property="og:locale:alternate" content={isEn ? 'es_ES' : 'en_US'} />
+    <meta property="og:image" content={new URL('/favicon.svg', Astro.site)} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">{t(lang, 'skip.to-content')}</a>
+    <Header lang={lang} pathname={pathname} />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

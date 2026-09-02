@@ -2,44 +2,62 @@
 
 ¡Bienvenido al repositorio principal de **Pixel Web**! 🌐
 
-Este sitio es nuestra plataforma central para la venta y exhibición de páginas web profesionales, donde mostramos en **tiempo real** los proyectos y sitios que desarrollamos para nuestros clientes.
+Sitio bilingüe (español raíz + inglés en `/en`) de la agencia Pixel Web: venta y
+exhibición de páginas web profesionales con **showcase en vivo** de los proyectos.
 
----
+## 🛠️ Stack
 
-## 🌟 Propósito del Proyecto
+- **Astro 7** — framework web ultrarrápido (compilador Rust).
+- **Componentes Astro** — arquitectura modular y reutilizable.
+- **Vanilla CSS** — diseño oscuro premium, sin frameworks de UI.
+- **i18n manual** — diccionarios tipados por idioma en `src/data/{es,en}.ts`.
 
-Pixel Web funciona como nuestra agencia web y catálogo activo. Aquí los clientes pueden explorar nuestro trabajo, conocer nuestros servicios y visualizar los sitios creados en vivo.
+## 🧞 Comandos
 
-### ✨ Características Principales
-- 🎨 **Showcase en Vivo**: Demostración interactiva y en tiempo real de las webs desarrolladas.
-- 💼 **Venta de Servicios Web**: Presentación de soluciones digitales, landing pages, tiendas y sitios corporativos.
-- ⚡ **Rendimiento Impecable**: Enfocado en máxima velocidad de carga, experiencia de usuario (UX) y optimización SEO.
+```bash
+npm install        # instala dependencias
+npm run dev        # servidor de desarrollo → http://localhost:4321
+npm run build      # genera el sitio estático en dist/
+npm run preview    # sirve la build localmente
+npm run check      # revisión de tipos (astro check)
+```
 
----
-
-## 🛠️ Stack Tecnológico
-
-El proyecto está diseñado y construido utilizando tecnologías de vanguardia:
-
-- 🚀 **[Astro](https://astro.build/)**: Framework web ultrarrápido centrado en contenido.
-- 🧩 **Componentes Astro**: Arquitectura modular y reutilizable.
-- 🎨 **Vanilla CSS Moderno**: Diseños dinámicos, adaptables y con estética premium.
-
----
-
-## 📁 Estructura General
+## 📁 Estructura
 
 ```text
 Pixel_Web/
-├── src/            # Componentes, layouts y páginas en Astro
-├── public/         # Recursos estáticos (imágenes, favicons, logos)
-└── README.md       # Documentación del repositorio
+├── public/                 # recursos estáticos (favicon, robots.txt)
+├── src/
+│   ├── components/         # Icon, Header, Footer + páginas (pages/) y secciones
+│   ├── content/blog/       # artículos: {es,en}/…md  (Content Collections)
+│   ├── content.config.ts   # esquema de la colección blog
+│   ├── data/               # contenido del sitio: types.ts, es.ts, en.ts, site.ts
+│   ├── i18n/ui.ts          # idiomas, claves UI y mapa de rutas por idioma
+│   ├── layouts/            # BaseLayout (SEO, OG, hreflang)
+│   ├── lib/blog.ts         # lectura de posts por idioma
+│   ├── pages/              # rutas: /, /servicios, /nosotros, /contacto, /blog…
+│   │                       #   y versiones inglesas bajo /en/…
+│   └── styles/global.css   # sistema de diseño (variables, componentes CSS)
+└── README.md
 ```
 
----
+## 📄 Páginas (ES · EN)
 
-## 🛠️ Estado del Proyecto
+- Inicio con **showcase en vivo** de proyectos + proceso + testimonios.
+- Servicios detallados y **precios** con FAQ.
+- Nosotros (historia, valores, equipo) y **Contacto** con formulario.
+- Blog con artículos por idioma (`/blog/…` y `/en/blog/…`).
 
-- [x] Repositorio inicializado y documentado.
-- [ ] Configuración inicial de Astro.
-- [ ] Diseño de UI/UX para la página principal y showcase.
+## ✏️ Contenido de demostración
+
+Los proyectos del showcase, precios, datos de contacto, equipo y redes son
+**placeholders** (`TODO(real)` en el código). Sustitúyelos por los datos reales:
+
+- `src/data/site.ts` → email, WhatsApp, ubicación y redes.
+- `src/data/es.ts` y `src/data/en.ts` → proyectos, precios, equipo, textos.
+- `src/pages/servicios|contacto…` y `astro.config.mjs` → dominio (`site`).
+
+## 🚀 Despliegue
+
+Proyecto estático: apto para Netlify, Vercel, Cloudflare Pages o cualquier host.
+`npm run build` y sirve `dist/`.

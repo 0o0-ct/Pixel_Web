@@ -1,0 +1,22 @@
+---
+/**
+ * Cabecera compacta para páginas interiores.
+ */
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+}
+
+const { eyebrow, title, lead } = Astro.props;
+---
+
+<section class="page-head">
+  <div class="container">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1 class="h-display page-head__title" style="font-size: clamp(2.2rem, 5.4vw, 3.8rem);">
+      {title}
+    </h1>
+    {lead && <p class="lead page-head__lead" style="margin-top: 20px;">{lead}</p>}
+  </div>
+</section>

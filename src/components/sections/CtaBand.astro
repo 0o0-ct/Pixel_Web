@@ -1,0 +1,35 @@
+---
+/**
+ * Banda CTA reutilizable al final de páginas interiores.
+ */
+import Icon from '../Icon.astro';
+
+interface Props {
+  title: string;
+  lead: string;
+  btn: { label: string; href: string };
+  btnAlt?: { label: string; href: string };
+}
+
+const { title, lead, btn, btnAlt } = Astro.props;
+---
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="cta-band">
+      <h2 class="h-section">{title}</h2>
+      <p class="lead">{lead}</p>
+      <div class="btn-row" style="justify-content: center;">
+        <a class="btn btn-primary" href={btn.href}>
+          {btn.label}
+          <Icon name="arrowRight" />
+        </a>
+        {btnAlt && (
+          <a class="btn btn-ghost" href={btnAlt.href}>
+            {btnAlt.label}
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

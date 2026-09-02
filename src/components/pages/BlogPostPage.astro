@@ -1,0 +1,74 @@
+---
+/**
+ * Detalle de un artículo del blog (/blog/[slug] y /en/blog/[slug]).
+ */
+import { render } from 'astro:content';
+import type { Lang } from '../../i18n/ui';
+import { t } from '../../i18n/ui';
+import { contentFor } from '../../data';
+import { getPost, formatDate } from '../../lib/blog';
+import CtaBand from '../sections/CtaBand.astro';
+import Icon from '../Icon.astro';
+
+interface Props {
+  lang: Lang;
+  slug: string;
+}
+
+const { lang, slug } = Astro.props;
+const isEn = lang === 'en';
+const post = await getPost(lang, slug);
+
+if (!post) {
+  throw new Error(`Blog post not found: ${lang}/${slug}`);
+}
+
+const c = contentFor(lang);
+const { Content } = await render(post);
+const blogHref = isEn ? '/en/blog/' : '/blog/';
+---
+
+<article>
+  <section class="page-head">
+    <div class="container" style="max-width: 840px;">
+      <a class="text-faint mono" style="font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px;" href={blogHref}>
+        <Icon name="arrowRight" style="transform: rotate(180deg);" />
+        {t(lang, 'nav.blog')}
+      </a>
+      <h1 class="h-section" style="margin-top: 26px; max-width: 20ch;">
+        {post.data.title}
+      </h1>
+      <div class="chip-row" style="margin-top: 22px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+        <time class="mono text-faint" style="font-size: 0.82rem;" datetime={post.data.pubDate.toISOString()}>
+          {formatDate(post.data.pubDate, lang)}
+        </time>
+        <span class="chip chip--accent">
+          <Icon name="pen" />
+          {post.data.author}
+        </span>
+        {post.data.tags.map((tag) => <span class="chip">{tag}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" style="padding-top: 0;">
+    <div class="container" style="max-width: 840px;">
+      <div class="prose">
+        <Content />
+      </div>
+
+      <div style="margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border);">
+        <a class="btn btn-ghost btn-sm" href={blogHref}>
+          <Icon name="arrowRight" style="transform: rotate(180deg);" />
+          {t(lang, 'nav.blog')}
+        </a>
+      </div>
+    </div>
+  </section>
+</article>
+
+<CtaBand
+  title={c.shared.ctaTitle}
+  lead={c.shared.ctaLead}
+  btn={{ label: c.shared.ctaBtn, href: isEn ? '/en/contact' : '/contacto' }}
+/>

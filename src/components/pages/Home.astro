@@ -1,0 +1,261 @@
+---
+/**
+ * Página de inicio — se ensambla desde el diccionario de contenido.
+ * Se renderiza para / (es) y /en (en) mediante envoltorios en pages/.
+ */
+import type { Lang } from '../../i18n/ui';
+import { t } from '../../i18n/ui';
+import { contentFor } from '../../data';
+import type { Feature, Project, Step } from '../../data';
+import Icon from '../Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const home = contentFor(lang).home;
+const SHARE_TITLE = t(lang, 'site.name');
+---
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container hero__grid">
+    <div>
+      <p class="eyebrow hero__eyebrow">{home.hero.eyebrow}</p>
+      <h1 class="h-display hero__title">
+        {home.hero.titlePre}<span class="text-gradient">{home.hero.titleGrad}</span
+        >{home.hero.titlePost}
+      </h1>
+      <p class="lead hero__lead">{home.hero.lead}</p>
+      <div class="hero__cta">
+        <a class="btn btn-primary" href={home.hero.ctaPrimary.href}>
+          {home.hero.ctaPrimary.label}
+          <Icon name="arrowRight" />
+        </a>
+        <a class="btn btn-ghost" href={home.hero.ctaSecondary.href}>
+          {home.hero.ctaSecondary.label}
+        </a>
+      </div>
+      <p class="hero__hint mono">{home.hero.hint}</p>
+    </div>
+
+    <div class="hero__visual">
+      <span class="hero__orb orb-1"></span>
+      <span class="hero__orb orb-2"></span>
+
+      <div class="browser">
+        <div class="browser__bar">
+          <div class="browser__dots">
+            <i></i><i></i><i></i>
+          </div>
+          <div class="browser__url">{SHARE_TITLE.toLowerCase()}.dev</div>
+        </div>
+        <div class="browser__body">
+          <div class="mini-nav">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="mini-hero">
+            <span class="mini-kicker">Agencia web · Showcase en vivo</span>
+            <span class="mini-title">Tu proyecto, funcionando en tiempo real.</span>
+            <div class="mini-lines">
+              <p></p>
+              <p></p>
+              <p></p>
+            </div>
+            <div class="mini-actions">
+              <span class="mini-btn"></span>
+              <span class="mini-btn mini-btn--ghost"></span>
+            </div>
+          </div>
+          <div class="mini-chart" aria-hidden="true">
+            <i style="height: 34%"></i>
+            <i style="height: 48%"></i>
+            <i style="height: 40%"></i>
+            <i style="height: 64%"></i>
+            <i style="height: 58%"></i>
+            <i style="height: 78%"></i>
+            <i style="height: 92%"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-card float-card--a">
+        <span class="dot dot--live"></span>
+        <div>
+          <strong>{home.hero.floatA.title}</strong>
+          <div class="text-faint mono" style="font-size: 0.78rem;">{home.hero.floatA.sub}</div>
+        </div>
+      </div>
+      <div class="float-card float-card--b">
+        <Icon name="trending" style="color: var(--cyan)" />
+        <div>
+          <strong>{home.hero.floatB.title}</strong>
+          <div class="text-faint" style="font-size: 0.78rem;">{home.hero.floatB.sub}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="container">
+    <div class="stats" style="border-top: 0; margin-top: clamp(40px, 6vw, 70px);">
+      {
+        home.stats.items.map((s) => (
+          <div>
+            <div class="stat__value text-gradient">{s.value}</div>
+            <div class="stat__label">{s.label}</div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHOWCASE EN VIVO ============ -->
+<section class="section" id="showcase">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{home.showcase.eyebrow}</p>
+      <h2 class="h-section">{home.showcase.title}</h2>
+      <p class="lead" style="margin-top: 16px;">{home.showcase.lead}</p>
+    </div>
+
+    <div class="project-grid">
+      {
+        home.showcase.items.map((p: Project) => (
+          <article class="project-card">
+            <a
+              class="project-card__shot"
+              style={`background: ${p.theme};`}
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${p.name} — ${p.desc}`}
+            >
+              <span class="project-card__name">{p.name}</span>
+            </a>
+            <div class="project-card__meta">
+              <div class="project-card__tags">
+                <span class="chip chip--accent">
+                  <span class="dot dot--live"></span>
+                  {home.showcase.liveLabel}
+                </span>
+                {
+                  p.tags.slice(0, 2).map((tag) => <span class="chip">{tag}</span>)
+                }
+              </div>
+              <a
+                class="project-card__link"
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {home.showcase.visitLabel}
+                <Icon name="external" />
+              </a>
+            </div>
+          </article>
+        ))
+      }
+
+      <!-- Tarjeta fantasma: tu próximo proyecto -->
+      <a class="project-card project-card--ghost" href={home.showcase.ghost.href}>
+        <div>
+          <Icon name="sparkle" style="width: 34px; height: 34px; color: var(--cyan); margin: 0 auto 14px; display: block;" />
+          <h3 class="h-sub" style="color: var(--text);">{home.showcase.ghost.title}</h3>
+          <p style="max-width: 30ch; margin: 10px auto 0;">{home.showcase.ghost.desc}</p>
+          <span class="link-arrow" style="justify-content: center; margin-top: 18px;">
+            {home.showcase.ghost.cta}
+            <Icon name="arrowRight" />
+          </span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICIOS DESTACADOS ============ -->
+<section class="section" id="servicios">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <p class="eyebrow">{home.services.eyebrow}</p>
+      <h2 class="h-section">{home.services.title}</h2>
+      <p class="lead" style="margin: 16px auto 0;">{home.services.lead}</p>
+    </div>
+
+    <div class="grid-features">
+      {
+        home.services.items.map((f: Feature) => (
+          <article class="card">
+            <span class="card__glow"></span>
+            <div class="feature-icon">
+              <Icon name={f.icon} style="color: var(--violet)" />
+            </div>
+            <h3 class="h-sub" style="font-size: 1.2rem;">{f.title}</h3>
+            <p class="text-muted" style="margin-top: 10px; font-size: 0.97rem;">{f.desc}</p>
+            <a class="link-arrow" href={f.href} aria-label={f.title}>
+              <Icon name="arrowRight" />
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESO ============ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{home.process.eyebrow}</p>
+      <h2 class="h-section">{home.process.title}</h2>
+      <p class="lead" style="margin-top: 16px;">{home.process.lead}</p>
+    </div>
+
+    <div class="grid-process">
+      {
+        home.process.steps.map((s: Step) => (
+          <div class="card">
+            <span class="step-num">{s.num}</span>
+            <h3 style="font-size: 1.1rem;">{s.title}</h3>
+            <p class="text-muted" style="margin-top: 10px; font-size: 0.95rem;">{s.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ============ CITA ============ -->
+<section class="section section--tight">
+  <div class="container">
+    <figure class="quote">
+      <span class="quote__mark">“</span>
+      <blockquote>{home.quote.text}</blockquote>
+      <figcaption>
+        <strong>{home.quote.author}</strong>
+        {home.quote.role}
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="cta-band">
+      <h2 class="h-section">{home.cta.title}</h2>
+      <p class="lead">{home.cta.lead}</p>
+      <div class="btn-row" style="justify-content: center;">
+        <a class="btn btn-primary" href={home.cta.btnPrimary.href}>
+          {home.cta.btnPrimary.label}
+          <Icon name="arrowRight" />
+        </a>
+        <a class="btn btn-ghost" href={home.cta.btnSecondary.href}>
+          {home.cta.btnSecondary.label}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

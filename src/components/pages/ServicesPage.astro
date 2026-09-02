@@ -1,0 +1,117 @@
+---
+/**
+ * Página de Servicios y Precios — se renderiza para /servicios y /en/services.
+ */
+import type { Lang } from '../../i18n/ui';
+import { t } from '../../i18n/ui';
+import { contentFor } from '../../data';
+import type { Plan, ServiceItem } from '../../data';
+import Icon from '../Icon.astro';
+import PageHeader from '../sections/PageHeader.astro';
+import CtaBand from '../sections/CtaBand.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const s = contentFor(lang).services;
+---
+
+<PageHeader eyebrow={s.page.eyebrow} title={s.page.title} lead={s.page.lead} />
+
+<!-- ============ SERVICIOS DETALLADOS ============ -->
+<section class="section section--tight">
+  <div class="container">
+    {
+      s.items.map((item: ServiceItem) => (
+        <article class="service" id={item.anchor}>
+          <div>
+            <div class="service__feature-icon">
+              <Icon name={item.icon} />
+            </div>
+            <h2 class="h-sub" style="font-size: clamp(1.5rem, 2.6vw, 1.9rem);">
+              {item.title}
+            </h2>
+            <p class="lead" style="margin-top: 14px; font-size: 1.02rem;">{item.desc}</p>
+            <a class="btn btn-ghost btn-sm" style="margin-top: 26px;" href={item.cta.href}>
+              {item.cta.label}
+              <Icon name="arrowRight" />
+            </a>
+          </div>
+          <div class="service__panel">
+            <ul class="check-list" role="list">
+              {item.features.map((f) => <li>{f}</li>)}
+            </ul>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<!-- ============ PRECIOS ============ -->
+<section class="section" id="precios">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <p class="eyebrow">{s.pricing.eyebrow}</p>
+      <h2 class="h-section">{s.pricing.title}</h2>
+      <p class="lead" style="margin: 16px auto 0;">{s.pricing.lead}</p>
+    </div>
+
+    <div class="pricing-grid">
+      {
+        s.pricing.plans.map((plan: Plan) => (
+          <article class={`card plan${plan.featured ? ' plan--featured' : ''}`}>
+            {plan.featured && <span class="plan__badge">{t(lang, 'badge.popular')}</span>}
+            <h3 style="font-size: 1.3rem;">{plan.name}</h3>
+            <p class="text-muted" style="margin-top: 6px; font-size: 0.92rem;">
+              {plan.tagline}
+            </p>
+            <p class="plan__price" style="margin-top: 22px;">
+              {plan.price}
+            </p>
+            <p class="mono text-faint" style="font-size: 0.78rem;">{plan.priceNote}</p>
+            <ul role="list">
+              {plan.features.map((f) => <li>{f}</li>)}
+            </ul>
+            <a
+              class={`btn ${plan.featured ? 'btn-primary' : 'btn-ghost'}`}
+              style="width: 100%;"
+              href={plan.cta.href}
+            >
+              {plan.cta.label}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+    <p class="pricing-note">{s.pricing.note}</p>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section section--tight" id="faq">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <p class="eyebrow">{s.faq.eyebrow}</p>
+      <h2 class="h-section">{s.faq.title}</h2>
+    </div>
+    <div class="faq">
+      {
+        s.faq.items.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<CtaBand
+  title={s.cta.title}
+  lead={s.cta.lead}
+  btn={{ label: s.cta.btnLabel, href: s.cta.btnHref }}
+/>

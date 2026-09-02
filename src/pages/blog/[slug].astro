@@ -1,0 +1,15 @@
+---
+// /blog/[slug] (español).
+import { getPosts } from '../../lib/blog';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPostPage from '../../components/pages/BlogPostPage.astro';
+
+export async function getStaticPaths() {
+  const posts = await getPosts('es');
+  return posts.map((post) => ({ params: { slug: post.cleanSlug } }));
+}
+---
+
+<BaseLayout lang="es">
+  <BlogPostPage lang="es" slug={Astro.params.slug!} />
+</BaseLayout>

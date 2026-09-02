@@ -1,2 +1,21 @@
 .agents/
 clever-a/
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Astro
+.astro/
+
+# Logs
+npm-debug.log*
+*.log
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json

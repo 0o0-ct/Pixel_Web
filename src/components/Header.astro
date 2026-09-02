@@ -1,0 +1,119 @@
+---
+/**
+ * Navegación superior sticky. Incluye conmutador ES/EN y menú móvil.
+ */
+import type { Lang, UiKey } from '../i18n/ui';
+import { t, pageHref, translatePath } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  pathname: string;
+}
+
+const { lang, pathname } = Astro.props;
+
+const NAV: { label: UiKey }[] = [
+  { label: 'nav.home' },
+  { label: 'nav.services' },
+  { label: 'nav.about' },
+  { label: 'nav.blog' },
+];
+
+const NAV_KEY = ['home', 'services', 'about', 'blog'] as const;
+
+const items = NAV.map((n, i) => ({
+  label: t(lang, n.label),
+  href: pageHref(lang, NAV_KEY[i]),
+}));
+
+const contactHref = pageHref(lang, 'contact');
+const homeHref = pageHref(lang, 'home');
+const esHref = translatePath(pathname, lang, 'es');
+const enHref = translatePath(pathname, lang, 'en');
+
+function isActive(href: string): boolean {
+  if (href === '/') return pathname === '/' || pathname === '/en';
+  return pathname === href || pathname.startsWith(href + '/');
+}
+---
+
+<header class="nav">
+  <div class="container nav__inner">
+    <a class="brand" href={homeHref} aria-label={t(lang, 'site.name')}>
+      <img class="brand__logo" src="/favicon.svg" width="34" height="34" alt="" aria-hidden="true" />
+      <span>{t(lang, 'site.name')}</span>
+    </a>
+
+    <ul class="nav__links" id="nav-links" role="list">
+      {
+        items.map((item) => (
+          <li>
+            <a
+              class="nav__link"
+              href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="nav__right">
+      <nav class="lang-switch" aria-label={t(lang, 'lang.switch')}>
+        <a href={esHref} lang="es" aria-current={lang === 'es' ? 'true' : undefined}>
+          {t(lang, 'lang.es')}
+        </a>
+        <a href={enHref} lang="en" aria-current={lang === 'en' ? 'true' : undefined}>
+          {t(lang, 'lang.en')}
+        </a>
+      </nav>
+
+      <a class="btn btn-primary btn-sm" href={contactHref}>
+        {t(lang, 'nav.cta')}
+      </a>
+
+      <button
+        class="nav__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="nav-links"
+        aria-label={t(lang, 'menu.open')}
+        data-open-label={t(lang, 'menu.open')}
+        data-close-label={t(lang, 'menu.close')}
+      >
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.nav__toggle');
+  const links = document.querySelector<HTMLElement>('#nav-links');
+  if (toggle && links) {
+    const update = () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      const nextOpen = !open;
+      links.classList.toggle('is-open', nextOpen);
+      toggle.setAttribute('aria-expanded', String(nextOpen));
+      toggle.setAttribute(
+        'aria-label',
+        nextOpen ? toggle.dataset.closeLabel! : toggle.dataset.openLabel!,
+      );
+    };
+    toggle.addEventListener('click', update);
+    links.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
+      links.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && links.classList.contains('is-open')) {
+        links.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
+      }
+    });
+  }
+</script>

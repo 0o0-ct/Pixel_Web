@@ -39,6 +39,39 @@
   --radius-lg: 26px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --shadow-card: 0 20px 50px -22px rgb(0 0 0 / 0.7);
+
+  --scheme: dark;
+  --nav-bg: rgb(7 7 13 / 0.78);
+  --btn-primary-text: #0b0716;
+}
+
+/* ---------- Tema claro (activado con el botón de tema) ---------- */
+html[data-theme='light'] {
+  --bg: #f5f5f7;
+  --bg-soft: #ececef;
+  --surface: #ffffff;
+  --surface-2: #f7f7f9;
+  --surface-3: #ececf0;
+  --border: rgb(0 0 0 / 0.1);
+  --border-strong: rgb(0 0 0 / 0.2);
+  --text: #0e0e12;
+  --text-muted: #4b4b56;
+  --text-faint: #8a8a97;
+
+  --violet: #494952;
+  --fuchsia: #6b6b76;
+  --cyan: #2f2f38;
+  --green: #1f1f28;
+  --amber: #5a5a64;
+  --red: #5a5a64;
+
+  --grad-accent: linear-gradient(115deg, #111116 0%, #55555f 48%, #1d1d24 100%);
+  --grad-surface: linear-gradient(180deg, rgb(0 0 0 / 0.05), rgb(0 0 0 / 0.01));
+
+  --scheme: light;
+  --nav-bg: rgb(255 255 255 / 0.8);
+  --btn-primary-text: #ffffff;
+  --shadow-card: 0 20px 50px -26px rgb(0 0 0 / 0.3);
 }
 
 /* ---------- Reset ---------- */
@@ -54,7 +87,7 @@
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: var(--scheme);
 }
 
 body {
@@ -85,16 +118,46 @@ body::before {
   -webkit-mask-image: radial-gradient(1200px 720px at 50% -8%, #000, transparent 72%);
 }
 
-/* Grano de cine */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.045;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+/* Grano de cine (eliminado por petición) */
+
+/* ---------- Botón de tema (oscuro ↔ claro) ---------- */
+.theme-toggle {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(255 255 255 / 0.05);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.25s var(--ease), border-color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+
+.theme-toggle:hover {
+  background: rgb(255 255 255 / 0.1);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+html[data-theme='dark'] .theme-toggle .icon-moon {
+  display: none;
+}
+
+html[data-theme='light'] .theme-toggle .icon-sun {
+  display: none;
+}
+
+html[data-theme='light'] body::before {
+  background-image:
+    repeating-linear-gradient(45deg, rgb(0 0 0 / 0.03) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(-45deg, rgb(0 0 0 / 0.03) 0 1px, transparent 1px 4px);
 }
 
 img,
@@ -294,13 +357,13 @@ h4 {
   background: var(--grad-accent);
   background-size: 160% 100%;
   background-position: 0% 0%;
-  color: #0b0716;
-  box-shadow: 0 10px 30px -12px rgb(229 229 229 / 0.65);
+  color: var(--btn-primary-text);
+  box-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.5);
 }
 
 .btn-primary:hover {
   background-position: 90% 0%;
-  box-shadow: 0 14px 38px -12px rgb(161 161 170 / 0.6);
+  box-shadow: 0 14px 38px -12px rgb(0 0 0 / 0.45);
   transform: translateY(-2px);
 }
 
@@ -430,11 +493,25 @@ h4 {
   position: sticky;
   top: 0;
   z-index: 60;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  background: rgb(7 7 13 / 0.72);
+  background: transparent;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.3s var(--ease);
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease),
+    border-radius 0.3s var(--ease), box-shadow 0.3s var(--ease), top 0.3s var(--ease),
+    margin 0.3s var(--ease), width 0.3s var(--ease), padding 0.3s var(--ease);
+}
+
+/* Cabecera flotante al hacer scroll */
+.nav--float {
+  top: 14px;
+  margin-inline: auto;
+  width: min(100% - 28px, var(--container));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-strong);
+  border-radius: 28px;
+  box-shadow: var(--shadow-card);
+  padding-bottom: 2px;
 }
 
 .nav__inner {

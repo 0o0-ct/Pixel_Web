@@ -61,3 +61,8 @@ Los proyectos del showcase, precios, datos de contacto, equipo y redes son
 
 Proyecto estático: apto para Netlify, Vercel, Cloudflare Pages o cualquier host.
 `npm run build` y sirve `dist/`.
+
+# viva sofia      
+
+# viva la sara 
+

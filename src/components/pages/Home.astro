@@ -102,19 +102,21 @@ const SHARE_TITLE = t(lang, 'site.name');
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Stats -->
-  <div class="container">
-    <div class="stats" style="border-top: 0; margin-top: clamp(40px, 6vw, 70px);">
-      {
+<!-- ============ FRANJA DE ESTADÍSTICAS EN MOVIMIENTO ============ -->
+<section class="marquee stats-marquee" aria-label={home.stats.eyebrow}>
+  <div class="marquee__track">
+    {
+      [0, 1, 2, 3, 4, 5, 6, 7].map(() =>
         home.stats.items.map((s) => (
-          <div>
-            <div class="stat__value text-gradient">{s.value}</div>
-            <div class="stat__label">{s.label}</div>
+          <div class="marquee__item marquee__item--stat">
+            <span class="marquee__value text-gradient">{s.value}</span>
+            <span class="marquee__label">{s.label}</span>
           </div>
-        ))
-      }
-    </div>
+        )),
+      )
+    }
   </div>
 </section>
 

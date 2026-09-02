@@ -58,6 +58,14 @@ export const content: SiteContent = {
       visitLabel: 'Visit website',
       items: [
         {
+          name: 'Centro Educativo Vocacional San José',
+          url: 'https://centroeducativovocacionalsanjose.edu.gt/',
+          desc: 'Official site of the school in Mixco, Guatemala: comprehensive academic and technical education.',
+          tags: ['Education', 'Corporate'],
+          theme: 'linear-gradient(135deg,#0b1020 0%,#1e2749 50%,#0e3a5f 100%)',
+          image: 'cvsj',
+        },
+        {
           name: 'Lumen Studio',
           url: 'https://lumenstudio.dev',
           desc: 'Portfolio for a creative studio with fluid animations.',

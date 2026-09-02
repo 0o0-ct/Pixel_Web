@@ -29,8 +29,10 @@ export interface Project {
   url: string;
   desc: string;
   tags: string[];
-  /** Gradiente CSS que pinta la captura de demostración. */
+  /** Gradiente CSS que pinta la captura de demostración (si no hay imagen). */
   theme: string;
+  /** Clave de imagen (miniatura real) para el recuadro, si existe. */
+  image?: string;
 }
 
 export interface Stat {

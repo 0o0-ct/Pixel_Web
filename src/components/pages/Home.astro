@@ -7,11 +7,17 @@ import type { Lang } from '../../i18n/ui';
 import { t } from '../../i18n/ui';
 import { contentFor } from '../../data';
 import type { Feature, Project, Step } from '../../data';
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
 import Icon from '../Icon.astro';
+import cvsj from '../../gallery/cvsj.webp';
 
 interface Props {
   lang: Lang;
 }
+
+/** Miniaturas reales del showcase, indexadas por la clave `image` de cada proyecto. */
+const PROJECT_IMAGES: Record<string, ImageMetadata> = { cvsj };
 
 const { lang } = Astro.props;
 const home = contentFor(lang).home;
@@ -123,40 +129,54 @@ const SHARE_TITLE = t(lang, 'site.name');
 
     <div class="project-grid">
       {
-        home.showcase.items.map((p: Project) => (
-          <article class="project-card">
-            <a
-              class="project-card__shot"
-              style={`background: ${p.theme};`}
-              href={p.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${p.name} — ${p.desc}`}
-            >
-              <span class="project-card__name">{p.name}</span>
-            </a>
-            <div class="project-card__meta">
-              <div class="project-card__tags">
-                <span class="chip chip--accent">
-                  <span class="dot dot--live"></span>
-                  {home.showcase.liveLabel}
-                </span>
-                {
-                  p.tags.slice(0, 2).map((tag) => <span class="chip">{tag}</span>)
-                }
-              </div>
+        home.showcase.items.map((p: Project) => {
+          const img = p.image ? PROJECT_IMAGES[p.image] : undefined;
+          return (
+            <article class="project-card">
               <a
-                class="project-card__link"
+                class="project-card__shot"
+                style={`background: ${p.theme};`}
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${p.name} — ${p.desc}`}
               >
-                {home.showcase.visitLabel}
-                <Icon name="external" />
+                {img ? (
+                  <Image
+                    src={img}
+                    alt={p.name}
+                    loading="lazy"
+                    width={1200}
+                    height={750}
+                  />
+                ) : (
+                  <span class="project-card__name">{p.name}</span>
+                )}
               </a>
-            </div>
-          </article>
-        ))
+              <div class="project-card__meta">
+                <div class="project-card__info">
+                  <h3 class="project-card__title">{p.name}</h3>
+                  <a
+                    class="project-card__link"
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {home.showcase.visitLabel}
+                    <Icon name="external" />
+                  </a>
+                </div>
+                <div class="project-card__tags">
+                  <span class="chip chip--accent">
+                    <span class="dot dot--live"></span>
+                    {home.showcase.liveLabel}
+                  </span>
+                  {p.tags.map((tag) => <span class="chip">{tag}</span>)}
+                </div>
+              </div>
+            </article>
+          );
+        })
       }
 
       <!-- Tarjeta fantasma: tu próximo proyecto -->

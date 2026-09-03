@@ -44,21 +44,26 @@ function isActive(href: string): boolean {
       <span>{t(lang, 'site.name')}</span>
     </a>
 
-    <ul class="nav__links" id="nav-links" role="list">
-      {
-        items.map((item) => (
-          <li>
-            <a
-              class="nav__link"
-              href={item.href}
-              aria-current={isActive(item.href) ? 'page' : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <nav class="nav__links" id="nav-links" aria-label={t(lang, 'nav.label')}>
+      <ul role="list" style="display: contents;">
+        {
+          items.map((item) => (
+            <li>
+              <a
+                class="nav__link"
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="btn btn-primary btn-sm nav-cta-mobile" href={contactHref}>
+        {t(lang, 'nav.cta')}
+      </a>
+    </nav>
 
     <div class="nav__right">
       <nav class="lang-switch" aria-label={t(lang, 'lang.switch')}>
@@ -128,22 +133,48 @@ function isActive(href: string): boolean {
   }
   const themeBtn = document.querySelector<HTMLButtonElement>('.theme-toggle');
   if (themeBtn) {
-    themeBtn.addEventListener('click', () => {
+    const applyTheme = (next: string) => {
       const root = document.documentElement;
-      const cur = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-      const next = cur === 'light' ? 'dark' : 'light';
       root.setAttribute('data-theme', next);
       try {
         localStorage.setItem('pixel-theme', next);
       } catch (e) {}
       themeBtn.setAttribute('aria-pressed', String(next === 'light'));
+      const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', next === 'light' ? '#f5f5f7' : '#07070d');
+    };
+    // aria-pressed inicial según el tema ya aplicado (evita parpadeo del head).
+    applyTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+    themeBtn.addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      applyTheme(cur === 'light' ? 'dark' : 'light');
     });
   }
-  // Cabecera flotante al hacer scroll
+  // Cabecera flotante al hacer scroll (+ ocultar al bajar en móvil)
   const nav = document.querySelector<HTMLElement>('.nav');
+  const mobileMQ = window.matchMedia('(max-width: 900px)');
+  let lastY = window.scrollY;
+
   const setFloat = () => {
     if (nav) nav.classList.toggle('nav--float', window.scrollY > 14);
   };
-  setFloat();
-  window.addEventListener('scroll', setFloat, { passive: true });
+  const onScroll = () => {
+    const y = window.scrollY;
+    setFloat();
+    if (nav && mobileMQ.matches) {
+      const menuOpen = links?.classList.contains('is-open') ?? false;
+      const goingDown = y > lastY + 4;
+      const goingUp = y < lastY - 4;
+      if (menuOpen || y < 80 || goingUp) {
+        // Menú abierto, cerca del inicio o subiendo → mostrar
+        nav.classList.remove('nav--hidden');
+      } else if (goingDown && y > 160) {
+        // Bajando y con suficiente scroll → ocultar para no tapar contenido
+        nav.classList.add('nav--hidden');
+      }
+    }
+    lastY = y;
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
 </script>

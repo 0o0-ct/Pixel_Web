@@ -35,6 +35,7 @@ export const content: SiteContent = {
       titleGrad: ' sell',
       titlePost: ' — and we prove it live.',
       lead: 'Pixel Web is your agency and your catalogue: explore real projects running in real time, pick the service you need and launch your site with premium design, speed and SEO from day one.',
+      miniTitle: 'Your project, running in real time.',
       ctaPrimary: { label: 'See live projects', href: '#showcase' },
       ctaSecondary: { label: "Let's talk about your site", href: '/en/contact' },
       hint: 'Landing pages · Online stores · Corporate sites · SEO',

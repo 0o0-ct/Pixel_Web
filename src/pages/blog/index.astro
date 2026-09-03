@@ -2,8 +2,10 @@
 // /blog (español).
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogIndexPage from '../../components/pages/BlogIndexPage.astro';
+import { contentFor } from '../../data';
+const c = contentFor('es');
 ---
 
-<BaseLayout lang="es">
+<BaseLayout lang="es" title={`${c.blogIndex.page.title} · Pixel Web`} description={c.blogIndex.page.lead}>
   <BlogIndexPage lang="es" />
 </BaseLayout>

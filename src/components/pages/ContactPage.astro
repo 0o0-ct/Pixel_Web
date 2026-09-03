@@ -41,7 +41,7 @@ const mailtoBase = `mailto:${CONTACT.email}`;
                   ) : (
                     <p>{ch.text}</p>
                   )}
-                  <span class="mono text-faint" style="font-size: 0.74rem;">{ch.hint}</span>
+                  <span class="mono text-faint" style="font-size: 0.8rem;">{ch.hint}</span>
                 </div>
               </div>
             ))
@@ -59,7 +59,7 @@ const mailtoBase = `mailto:${CONTACT.email}`;
         <h2 class="h-sub" style="font-size: 1.5rem;">{ct.form.title}</h2>
         <p class="text-muted" style="margin-top: 8px; font-size: 0.95rem;">{ct.form.lead}</p>
 
-        <form id="contact-form" data-mailto={mailtoBase} style="margin-top: 26px;" novalidate>
+        <form id="contact-form" data-mailto={mailtoBase} style="margin-top: 26px;">
           <div class="form-grid">
             <div class="field">
               <label for="cf-name">{l.name}</label>
@@ -97,7 +97,7 @@ const mailtoBase = `mailto:${CONTACT.email}`;
             </div>
           </div>
 
-          <p class="notice" id="cf-success" hidden>
+          <p class="notice" id="cf-success" role="status" aria-live="polite" tabindex="-1" hidden>
             <Icon name="check" />
             <span>{ct.form.success}</span>
           </p>
@@ -115,9 +115,9 @@ const mailtoBase = `mailto:${CONTACT.email}`;
   </div>
 </section>
 
-<script>
-  const form = document.querySelector<HTMLFormElement>('#contact-form');
-  const success = document.querySelector<HTMLElement>('#cf-success');
+<script is:inline define:vars={{ lName: l.name, lEmail: l.email, lType: l.type, lBudget: l.budget }}>
+  const form = document.querySelector('#contact-form');
+  const success = document.querySelector('#cf-success');
   if (form && success) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -126,16 +126,17 @@ const mailtoBase = `mailto:${CONTACT.email}`;
         `[Pixel Web] ${String(data.get('type') ?? '')} — ${String(data.get('name') ?? '')}`,
       );
       const lines = [
-        `Nombre: ${String(data.get('name') ?? '')}`,
-        `Email: ${String(data.get('email') ?? '')}`,
-        `Tipo: ${String(data.get('type') ?? '')}`,
-        `Presupuesto: ${String(data.get('budget') ?? '')}`,
+        `${lName}: ${String(data.get('name') ?? '')}`,
+        `${lEmail}: ${String(data.get('email') ?? '')}`,
+        `${lType}: ${String(data.get('type') ?? '')}`,
+        `${lBudget}: ${String(data.get('budget') ?? '')}`,
         '',
         String(data.get('message') ?? ''),
       ];
       const body = encodeURIComponent(lines.join('\n'));
       window.location.href = `${form.dataset.mailto}?subject=${subject}&body=${body}`;
       success.hidden = false;
+      success.focus();
     });
   }
 </script>

@@ -2,8 +2,10 @@
 // /servicios (español).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ServicesPage from '../components/pages/ServicesPage.astro';
+import { contentFor } from '../data';
+const c = contentFor('es');
 ---
 
-<BaseLayout lang="es">
+<BaseLayout lang="es" title={`${c.services.page.title} · Pixel Web`} description={c.services.page.lead}>
   <ServicesPage lang="es" />
 </BaseLayout>

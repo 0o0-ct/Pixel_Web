@@ -1,6 +1,6 @@
 ---
 // /en/blog/[slug] (inglés).
-import { getPosts } from '../../../lib/blog';
+import { getPosts, getPost } from '../../../lib/blog';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import BlogPostPage from '../../../components/pages/BlogPostPage.astro';
 
@@ -8,8 +8,14 @@ export async function getStaticPaths() {
   const posts = await getPosts('en');
   return posts.map((post) => ({ params: { slug: post.cleanSlug } }));
 }
+
+const post = await getPost('en', Astro.params.slug!);
 ---
 
-<BaseLayout lang="en">
+<BaseLayout
+  lang="en"
+  title={post ? `${post.data.title} · Pixel Web` : undefined}
+  description={post?.data.description}
+>
   <BlogPostPage lang="en" slug={Astro.params.slug!} />
 </BaseLayout>

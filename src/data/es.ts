@@ -35,6 +35,7 @@ export const content: SiteContent = {
       titleGrad: ' venden',
       titlePost: ' — y lo demostramos en vivo.',
       lead: 'Pixel Web es tu agencia y tu catálogo: explora proyectos reales funcionando en tiempo real, elige el servicio que necesitas y lanza tu sitio con diseño premium, velocidad y SEO desde el primer día.',
+      miniTitle: 'Tu proyecto, funcionando en tiempo real.',
       ctaPrimary: { label: 'Ver proyectos en vivo', href: '#showcase' },
       ctaSecondary: { label: 'Hablemos de tu web', href: '/contacto' },
       hint: 'Landing pages · Tiendas online · Webs corporativas · SEO',

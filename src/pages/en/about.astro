@@ -2,8 +2,10 @@
 // /en/about (inglés).
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AboutPage from '../../components/pages/AboutPage.astro';
+import { contentFor } from '../../data';
+const c = contentFor('en');
 ---
 
-<BaseLayout lang="en">
+<BaseLayout lang="en" title={`${c.about.page.title} · Pixel Web`} description={c.about.page.lead}>
   <AboutPage lang="en" />
 </BaseLayout>

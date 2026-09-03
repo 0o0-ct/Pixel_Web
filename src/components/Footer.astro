@@ -44,7 +44,7 @@ const contactRows = [
         <p class="footer__about" style="margin-top: 10px;">
           {c.shared.footerAbout}
         </p>
-        <nav aria-label="Social" style="display: flex; gap: 10px; margin-top: 20px;">
+        <nav aria-label={t(lang, 'footer.social')} style="display: flex; gap: 10px; margin-top: 20px;">
           {
             SOCIALS.map((s) => (
               <a class="chip" href={s.href} target="_blank" rel="noopener noreferrer">

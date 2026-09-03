@@ -50,7 +50,7 @@ const SHARE_TITLE = t(lang, 'site.name');
       <span class="hero__orb orb-1"></span>
       <span class="hero__orb orb-2"></span>
 
-      <div class="browser">
+      <div class="browser" aria-hidden="true">
         <div class="browser__bar">
           <div class="browser__dots">
             <i></i><i></i><i></i>
@@ -62,8 +62,8 @@ const SHARE_TITLE = t(lang, 'site.name');
             <span></span><span></span><span></span>
           </div>
           <div class="mini-hero">
-            <span class="mini-kicker">Agencia web · Showcase en vivo</span>
-            <span class="mini-title">Tu proyecto, funcionando en tiempo real.</span>
+            <span class="mini-kicker">{home.hero.eyebrow}</span>
+            <span class="mini-title">{home.hero.miniTitle}</span>
             <div class="mini-lines">
               <p></p>
               <p></p>
@@ -108,9 +108,12 @@ const SHARE_TITLE = t(lang, 'site.name');
 <section class="marquee stats-marquee" aria-label={home.stats.eyebrow}>
   <div class="marquee__track">
     {
-      [0, 1, 2, 3, 4, 5, 6, 7].map(() =>
+      [0, 1, 2, 3, 4, 5, 6, 7].map((i) =>
         home.stats.items.map((s) => (
-          <div class="marquee__item marquee__item--stat">
+          <div
+            class="marquee__item marquee__item--stat"
+            aria-hidden={i > 0 ? 'true' : undefined}
+          >
             <span class="marquee__value text-gradient">{s.value}</span>
             <span class="marquee__label">{s.label}</span>
           </div>

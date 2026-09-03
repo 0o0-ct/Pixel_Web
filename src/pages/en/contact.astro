@@ -2,8 +2,10 @@
 // /en/contact (inglés).
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ContactPage from '../../components/pages/ContactPage.astro';
+import { contentFor } from '../../data';
+const c = contentFor('en');
 ---
 
-<BaseLayout lang="en">
+<BaseLayout lang="en" title={`${c.contact.page.title} · Pixel Web`} description={c.contact.page.lead}>
   <ContactPage lang="en" />
 </BaseLayout>

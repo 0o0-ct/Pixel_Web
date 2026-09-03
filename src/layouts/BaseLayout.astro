@@ -51,13 +51,12 @@ const siteName = t(lang, 'site.name');
     </script>
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content={c.meta.keywords} />
     <meta name="theme-color" content="#07070d" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="es" href={new URL(esPath, Astro.site)} />
     <link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site)} />
-    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(esPath, Astro.site)} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteName} />

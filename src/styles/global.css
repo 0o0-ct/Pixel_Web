@@ -124,9 +124,9 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background-image:
-    repeating-linear-gradient(45deg, rgb(255 255 255 / 0.085) 0 1px, transparent 1px 4px),
-    repeating-linear-gradient(-45deg, rgb(255 255 255 / 0.085) 0 1px, transparent 1px 4px);
-  background-size: 4px 4px;
+    repeating-linear-gradient(45deg, rgb(255 255 255 / 0.085) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(-45deg, rgb(255 255 255 / 0.085) 0 1px, transparent 1px 3px);
+  background-size: 3px 3px;
   mask-image: radial-gradient(1200px 720px at 50% -8%, #000, transparent 82%);
   -webkit-mask-image: radial-gradient(1200px 720px at 50% -8%, #000, transparent 82%);
 }
@@ -169,8 +169,8 @@ html[data-theme='light'] .theme-toggle .icon-sun {
 
 html[data-theme='light'] body::before {
   background-image:
-    repeating-linear-gradient(45deg, rgb(0 0 0 / 0.09) 0 1px, transparent 1px 4px),
-    repeating-linear-gradient(-45deg, rgb(0 0 0 / 0.09) 0 1px, transparent 1px 4px);
+    repeating-linear-gradient(45deg, rgb(0 0 0 / 0.09) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(-45deg, rgb(0 0 0 / 0.09) 0 1px, transparent 1px 3px);
 }
 
 img,
@@ -2268,6 +2268,21 @@ html[data-theme='light'] .card:hover {
 
 html[data-theme='light'] .card__glow {
   background: radial-gradient(closest-side, rgb(0 0 0 / 0.14), transparent);
+}
+
+/* ---------- Cards en TEMA OSCURO: gris que combina con el fondo ---------- */
+html[data-theme='dark'] .card {
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.015)),
+    linear-gradient(180deg, #1e1e26 0%, #131318 100%);
+  border-color: rgb(255 255 255 / 0.1);
+}
+html[data-theme='dark'] .card:hover {
+  border-color: rgb(255 255 255 / 0.22);
+}
+html[data-theme='dark'] .feature-icon {
+  background: rgb(255 255 255 / 0.07);
+  border-color: rgb(255 255 255 / 0.16);
 }
 
 html[data-theme='light'] .hero__orb.orb-1 {

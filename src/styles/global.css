@@ -128,23 +128,22 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(1.2px 1.2px at center, rgb(139 124 255 / 0.95) 0, rgb(139 124 255 / 0.5) 1px, transparent 1.2px),
-    radial-gradient(1px 1px at center, rgb(228 228 235 / 0.7) 0, rgb(228 228 235 / 0.35) 1px, transparent 1px),
-    radial-gradient(0.8px 0.8px at center, rgb(168 155 255 / 0.55) 0, transparent 0.9px);
-  background-size: 16px 16px, 16px 16px, 16px 16px;
-  background-position: 0 0, 8px 8px, 4px 12px;
+    radial-gradient(1.4px 1.4px at center, rgb(139 124 255 / 0.9) 0, rgb(139 124 255 / 0.45) 1px, transparent 1.4px),
+    radial-gradient(1.1px 1.1px at center, rgb(228 228 235 / 0.65) 0, transparent 1.1px);
+  background-size: 18px 18px, 18px 18px;
+  background-position: 0 0, 9px 9px;
   mask-image: radial-gradient(
-    580px circle at var(--mx) var(--my),
+    600px circle at var(--mx) var(--my),
     #000 0%,
-    rgb(0 0 0 / 0.9) 30%,
-    rgb(0 0 0 / 0.35) 60%,
+    rgb(0 0 0 / 0.85) 40%,
+    rgb(0 0 0 / 0.3) 70%,
     transparent 100%
   );
   -webkit-mask-image: radial-gradient(
-    580px circle at var(--mx) var(--my),
+    600px circle at var(--mx) var(--my),
     #000 0%,
-    rgb(0 0 0 / 0.9) 30%,
-    rgb(0 0 0 / 0.35) 60%,
+    rgb(0 0 0 / 0.85) 40%,
+    rgb(0 0 0 / 0.3) 70%,
     transparent 100%
   );
   opacity: 0;
@@ -156,12 +155,12 @@ html.has-spot body::before {
 }
 /* Luciérnagas: los píxeles respiran (se encienden y apagan suave) */
 @keyframes firefly {
-  0%, 100% { opacity: 0.55; }
+  0%, 100% { opacity: 0.65; }
   25% { opacity: 1; }
-  50% { opacity: 0.7; }
+  50% { opacity: 0.75; }
   75% { opacity: 0.95; }
 }
-/* Halo suave detrás de los píxeles */
+/* Halo suave detrás de los píxeles (estilo Aceternity CardSpotlight Radial Glow) */
 body::after {
   content: '';
   position: fixed;
@@ -169,9 +168,10 @@ body::after {
   z-index: 0;
   pointer-events: none;
   background: radial-gradient(
-    440px circle at var(--mx) var(--my),
-    rgb(139 124 255 / 0.12),
-    transparent 70%
+    650px circle at var(--mx) var(--my),
+    rgb(139 124 255 / 0.22),
+    rgb(99 102 241 / 0.1) 45%,
+    transparent 75%
   );
   opacity: 0;
   transition: opacity 0.35s ease;

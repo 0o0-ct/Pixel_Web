@@ -52,45 +52,121 @@ const s = contentFor(lang).services;
   </div>
 </section>
 <script>
-  // Stacking cards: la anterior se encoge/oscurece suavemente cuando la siguiente la cubre.
-  (function () {
-    var stack = document.querySelector('[data-stack]');
-    if (!stack) return;
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce || !('requestAnimationFrame' in window)) return;
-    var cards = Array.prototype.slice.call(stack.querySelectorAll('.stack-card'));
-    var small = window.matchMedia('(max-width: 768px)');
-    var tops: number[] = [];
-    function measure() {
-      var base = small.matches ? 72 : 90;
-      var step = small.matches ? 12 : 18;
-      tops = cards.map(function (_, i) { return base + i * step; });
-    }
-    var ticking = false;
-    function update() {
-      ticking = false;
-      for (var i = 0; i < cards.length; i++) {
-        var depth = 0;
-        for (var j = i + 1; j < cards.length; j++) {
-          if (cards[j].getBoundingClientRect().top <= tops[j] + 2) depth++;
+  import { inView, animate, spring } from 'motion';
+
+  // Framer Motion: Animaciones de entrada (spring), hover interactivo y apilamiento progresivo
+  if (typeof window !== 'undefined') {
+    const initMotion = () => {
+      const cards = Array.from(document.querySelectorAll<HTMLElement>('.stack-card'));
+      if (!cards.length) return;
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      cards.forEach((card, index) => {
+        // 1. Animación de entrada con Framer Motion inView y física de resorte (spring)
+        if (!reduce) {
+          inView(
+            card,
+            () => {
+              animate(
+                card,
+                { opacity: [0, 1], y: [45, 0] },
+                {
+                  duration: 0.65,
+                  delay: index * 0.08,
+                  easing: spring({ stiffness: 130, damping: 16 })
+                }
+              );
+            },
+            { amount: 0.2 }
+          );
         }
-        var scale = Math.max(0.94, 1 - depth * 0.035);
-        var brightness = depth > 0 ? (1 - depth * 0.06) : 1;
-        cards[i].style.setProperty('--stack-scale', scale.toString());
-        cards[i].style.setProperty('--stack-brightness', brightness.toString());
+
+        // 2. Animaciones de gestos / hover interactivo con Framer Motion spring physics
+        const icon = card.querySelector<HTMLElement>('.service__feature-icon');
+
+        card.addEventListener('mouseenter', () => {
+          if (!reduce) {
+            animate(
+              card,
+              { y: -8 },
+              { duration: 0.35, easing: spring({ stiffness: 350, damping: 22 }) }
+            );
+            if (icon) {
+              animate(
+                icon,
+                { scale: 1.12, rotate: -4 },
+                { duration: 0.35, easing: spring({ stiffness: 400, damping: 18 }) }
+              );
+            }
+          }
+        });
+
+        card.addEventListener('mouseleave', () => {
+          if (!reduce) {
+            animate(
+              card,
+              { y: 0 },
+              { duration: 0.35, easing: spring({ stiffness: 300, damping: 25 }) }
+            );
+            if (icon) {
+              animate(
+                icon,
+                { scale: 1, rotate: 0 },
+                { duration: 0.35, easing: spring({ stiffness: 300, damping: 25 }) }
+              );
+            }
+          }
+        });
+      });
+
+      // 3. Stacking scroll calculation con escala y brillo suave
+      const stack = document.querySelector('[data-stack]');
+      if (!stack || reduce) return;
+
+      const small = window.matchMedia('(max-width: 768px)');
+      let tops: number[] = [];
+
+      function measure() {
+        const base = small.matches ? 72 : 90;
+        const step = small.matches ? 12 : 18;
+        tops = cards.map((_, i) => base + i * step);
       }
-    }
-    function request() {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
+
+      let ticking = false;
+      function update() {
+        ticking = false;
+        cards.forEach((card, i) => {
+          let depth = 0;
+          for (let j = i + 1; j < cards.length; j++) {
+            if (cards[j].getBoundingClientRect().top <= tops[j] + 2) depth++;
+          }
+          const scale = Math.max(0.94, 1 - depth * 0.035);
+          const brightness = depth > 0 ? (1 - depth * 0.06) : 1;
+          card.style.setProperty('--stack-scale', scale.toString());
+          card.style.setProperty('--stack-brightness', brightness.toString());
+        });
       }
+
+      function request() {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      }
+
+      measure();
+      update();
+      window.addEventListener('scroll', request, { passive: true });
+      window.addEventListener('resize', () => { measure(); request(); });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMotion);
+    } else {
+      initMotion();
     }
-    measure();
-    update();
-    window.addEventListener('scroll', request, { passive: true });
-    window.addEventListener('resize', function () { measure(); request(); });
-  })();
+  }
 </script>
 
 <!-- ============ PRECIOS ============ -->

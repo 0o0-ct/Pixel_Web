@@ -14,7 +14,7 @@ const blog = defineCollection({
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
-    author: z.string().default('Pixel Web'),
+    author: z.string().default('Design Web'),
   }),
 });
 

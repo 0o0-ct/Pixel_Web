@@ -16,7 +16,7 @@ export const languages: Record<Lang, string> = {
 
 export const ui = {
   es: {
-    'site.name': 'Pixel Web',
+    'site.name': 'Design Web',
     'skip.to-content': 'Saltar al contenido',
     'nav.home': 'Inicio',
     'nav.services': 'Servicios',
@@ -39,11 +39,11 @@ export const ui = {
     'footer.whatsapp': 'WhatsApp',
     'footer.location': 'Ubicación',
     'footer.rights': 'Todos los derechos reservados.',
-    'footer.alt.logo': 'Logo de Pixel Web',
+    'footer.alt.logo': 'Logo de Design Web',
     'badge.popular': 'Popular',
   },
   en: {
-    'site.name': 'Pixel Web',
+    'site.name': 'Design Web',
     'skip.to-content': 'Skip to content',
     'nav.home': 'Home',
     'nav.services': 'Services',
@@ -66,7 +66,7 @@ export const ui = {
     'footer.whatsapp': 'WhatsApp',
     'footer.location': 'Location',
     'footer.rights': 'All rights reserved.',
-    'footer.alt.logo': 'Pixel Web logo',
+    'footer.alt.logo': 'Design Web logo',
     'badge.popular': 'Most popular',
   },
 } satisfies Record<Lang, Record<string, string>>;

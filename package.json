@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
-  "description": "Pixel Web — Agencia web con showcase en vivo de proyectos.",
+  "description": "Design Web — Agencia web con showcase en vivo de proyectos.",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

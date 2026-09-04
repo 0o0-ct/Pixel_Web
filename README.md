@@ -1,8 +1,8 @@
-# 🚀 Pixel Web
+# 🚀 Design Web
 
-¡Bienvenido al repositorio principal de **Pixel Web**! 🌐
+¡Bienvenido al repositorio principal de **Design Web**! 🌐
 
-Sitio bilingüe (español raíz + inglés en `/en`) de la agencia Pixel Web: venta y
+Sitio bilingüe (español raíz + inglés en `/en`) de la agencia Design Web: venta y
 exhibición de páginas web profesionales con **showcase en vivo** de los proyectos.
 
 ## 🛠️ Stack

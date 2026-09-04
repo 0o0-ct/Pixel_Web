@@ -14,7 +14,7 @@ const post = await getPost('en', Astro.params.slug!);
 
 <BaseLayout
   lang="en"
-  title={post ? `${post.data.title} · Pixel Web` : undefined}
+  title={post ? `${post.data.title} · Design Web` : undefined}
   description={post?.data.description}
 >
   <BlogPostPage lang="en" slug={Astro.params.slug!} />

@@ -7,7 +7,7 @@ import type { SiteContent } from './types';
 
 export const content: SiteContent = {
   meta: {
-    title: 'Pixel Web — Web agency with a live showcase',
+    title: 'Design Web — Web agency with a live showcase',
     description:
       'We build landing pages, online stores and corporate websites… and show them running in real time. Premium design, speed and SEO from day one.',
     keywords:
@@ -34,7 +34,7 @@ export const content: SiteContent = {
       titlePre: 'We build websites that',
       titleGrad: ' sell',
       titlePost: ' — and we prove it live.',
-      lead: 'Pixel Web is your agency and your catalogue: explore real projects running in real time, pick the service you need and launch your site with premium design, speed and SEO from day one.',
+      lead: 'Design Web is your agency and your catalogue: explore real projects running in real time, pick the service you need and launch your site with premium design, speed and SEO from day one.',
       miniTitle: 'Your project, running in real time.',
       ctaPrimary: { label: 'See live projects', href: '#showcase' },
       ctaSecondary: { label: "Let's talk about your site", href: '/en/contact' },
@@ -175,7 +175,7 @@ export const content: SiteContent = {
       ],
     },
     quote: {
-      text: 'Pixel Web did not just build our website: they showed it to us running live from day one. Total transparency and zero surprises.',
+      text: 'Design Web did not just build our website: they showed it to us running live from day one. Total transparency and zero surprises.',
       author: 'María Gutiérrez',
       role: 'Founder · Verde Market',
     },
@@ -191,7 +191,7 @@ export const content: SiteContent = {
     page: {
       eyebrow: 'Services',
       title: 'Web solutions that work and show',
-      lead: 'From a clear quote to a live delivery: this is how we run every Pixel Web project.',
+      lead: 'From a clear quote to a live delivery: this is how we run every Design Web project.',
     },
     items: [
       {
@@ -325,7 +325,7 @@ export const content: SiteContent = {
         },
         {
           q: "Will my site be in the showcase even with a one-time payment?",
-          a: "Yes. All our projects are part of Pixel Web's public showcase while they are live — that is our calling card.",
+          a: "Yes. All our projects are part of Design Web's public showcase while they are live — that is our calling card.",
         },
       ],
     },
@@ -346,7 +346,7 @@ export const content: SiteContent = {
     story: {
       heading: 'Our story',
       paragraphs: [
-        'Pixel Web was born from a simple frustration: too many agencies sell websites with pretty screenshots you never know actually work. We decided to do the opposite.',
+        'Design Web was born from a simple frustration: too many agencies sell websites with pretty screenshots you never know actually work. We decided to do the opposite.',
         'We build sites with modern technology —fast, secure and easy to maintain— and show them running in real time. If something is in our showcase, it is published and live.',
         'Today we help brands, local businesses and founders build a digital presence that truly sells. And every new project joins the proof: our own living catalogue.',
       ],

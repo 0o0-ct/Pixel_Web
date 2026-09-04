@@ -1,12 +1,12 @@
 ---
 title: 'Por qué mostramos tus proyectos en vivo (y por qué tú deberías)'
-description: 'El showcase en vivo no es una moda: es la prueba social más honesta que existe. Te contamos cómo lo usamos en Pixel Web y cómo puede beneficiarte.'
+description: 'El showcase en vivo no es una moda: es la prueba social más honesta que existe. Te contamos cómo lo usamos en Design Web y cómo puede beneficiarte.'
 pubDate: 2026-08-20
 tags: ['Showcase', 'Marketing', 'Confianza']
-author: 'Equipo Pixel Web'
+author: 'Equipo Design Web'
 ---
 
-En Pixel Web tenemos una regla no negociable: **si un proyecto está en nuestro showcase, está publicado y funcionando.** Nada de capturas maquetadas ni demos simulados.
+En Design Web tenemos una regla no negociable: **si un proyecto está en nuestro showcase, está publicado y funcionando.** Nada de capturas maquetadas ni demos simulados.
 
 Esa decisión empezó como una forma de diferenciarnos… y terminó siendo nuestra mejor herramienta de venta.
 
@@ -20,7 +20,7 @@ Una captura de pantalla te dice cómo se ve una web. Un enlace en vivo te dice c
 
 Cuando un cliente potencial ve un sitio tuyo funcionando a las 2 de la mañana desde su móvil, la confianza se construye sola. No hay discurso de ventas que lo iguale.
 
-## Cómo lo hacemos en Pixel Web
+## Cómo lo hacemos en Design Web
 
 1. **Todo proyecto público se publica en su dominio real.** Si es una web en desarrollo, usamos una URL provisional hasta el lanzamiento.
 2. **Etiquetamos el estado.** En nuestro showcase cada tarjeta indica si el sitio está *en vivo*.

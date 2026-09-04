@@ -1,12 +1,12 @@
 ---
 title: 'Why we show your projects live (and why you should too)'
-description: 'A live showcase is not a trend: it is the most honest social proof there is. Here is how we use it at Pixel Web and how it can help you.'
+description: 'A live showcase is not a trend: it is the most honest social proof there is. Here is how we use it at Design Web and how it can help you.'
 pubDate: 2026-08-20
 tags: ['Showcase', 'Marketing', 'Trust']
-author: 'Pixel Web team'
+author: 'Design Web team'
 ---
 
-At Pixel Web we have a non-negotiable rule: **if a project is in our showcase, it is published and running.** No mockups, no simulated demos.
+At Design Web we have a non-negotiable rule: **if a project is in our showcase, it is published and running.** No mockups, no simulated demos.
 
 It started as a way to stand out… and ended up being our best sales tool.
 
@@ -20,7 +20,7 @@ A screenshot tells you what a website looks like. A live link tells you how it a
 
 When a potential client opens one of your sites at 2 AM from their phone, trust builds itself. No sales pitch comes close.
 
-## How we do it at Pixel Web
+## How we do it at Design Web
 
 1. **Every public project is published on its real domain.** If the site is in development, we use a temporary URL until launch.
 2. **We label the status.** Each card in our showcase shows whether the site is *live*.

@@ -3,7 +3,7 @@
  * TODO(real): sustituir emails, teléfonos, redes y dirección por los reales.
  */
 
-export const SITE_NAME = 'Pixel Web';
+export const SITE_NAME = 'Design Web';
 
 export const CONTACT = {
   email: 'hola@pixelweb.dev',

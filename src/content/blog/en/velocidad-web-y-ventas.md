@@ -3,7 +3,7 @@ title: 'Website speed and sales: every second counts (with data)'
 description: 'Speed is not a technical luxury: it is a conversion metric. Here is what to measure and which improvements pay off most.'
 pubDate: 2026-08-05
 tags: ['Performance', 'SEO', 'Conversion']
-author: 'Pixel Web team'
+author: 'Design Web team'
 ---
 
 "My site loads in three seconds — isn't that enough?" It is the question we hear most. The short answer: **it depends on your competition** — and almost always, it is not.
@@ -37,7 +37,7 @@ If you have to prioritize, start here:
 - **CSS/JS**: remove what is unused and defer third-party scripts (analytics, widgets) until after load.
 - **Hosting and caching**: good infrastructure with a CDN does more than a hundred micro-optimizations.
 
-At Pixel Web we build with **Astro**, which ships minimal HTML by default and defers JavaScript to what is strictly necessary. It is not magic: it is not sending the browser what it does not need.
+At Design Web we build with **Astro**, which ships minimal HTML by default and defers JavaScript to what is strictly necessary. It is not magic: it is not sending the browser what it does not need.
 
 ## The proof is in the showcase
 

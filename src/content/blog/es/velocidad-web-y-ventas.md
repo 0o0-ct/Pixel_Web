@@ -3,7 +3,7 @@ title: 'Velocidad web y ventas: cada segundo cuenta (con datos)'
 description: 'La velocidad no es un lujo técnico: es una métrica de conversión. Repasamos qué medir y qué mejoras dan más resultado.'
 pubDate: 2026-08-05
 tags: ['Rendimiento', 'SEO', 'Conversión']
-author: 'Equipo Pixel Web'
+author: 'Equipo Design Web'
 ---
 
 "Mi web carga en tres segundos, ¿no es suficiente?" Es la pregunta más habitual que recibimos. La respuesta corta: **depende de tu competencia** — y casi siempre, no.
@@ -37,7 +37,7 @@ Si tienes que priorizar, empieza por aquí:
 - **CSS/JS**: eliminar lo que no se usa y diferir scripts de terceros (analítica, widgets) hasta después de la carga.
 - **Hosting y caché**: una buena infraestructura con CDN hace más que cien micro-optimizaciones.
 
-En Pixel Web construimos con **Astro**, que entrega HTML mínimo por defecto y aplaza JavaScript a lo imprescindible. No es magia: es no enviar al navegador lo que no necesita.
+En Design Web construimos con **Astro**, que entrega HTML mínimo por defecto y aplaza JavaScript a lo imprescindible. No es magia: es no enviar al navegador lo que no necesita.
 
 ## La prueba está en el showcase
 

@@ -7,7 +7,7 @@ import type { SiteContent } from './types';
 
 export const content: SiteContent = {
   meta: {
-    title: 'Pixel Web — Agencia web con showcase en vivo',
+    title: 'Design Web — Agencia web con showcase en vivo',
     description:
       'Creamos landing pages, tiendas online y webs corporativas… y las mostramos funcionando en tiempo real. Diseño premium, velocidad y SEO desde el primer día.',
     keywords:
@@ -34,7 +34,7 @@ export const content: SiteContent = {
       titlePre: 'Diseñamos webs que',
       titleGrad: ' venden',
       titlePost: ' — y lo demostramos en vivo.',
-      lead: 'Pixel Web es tu agencia y tu catálogo: explora proyectos reales funcionando en tiempo real, elige el servicio que necesitas y lanza tu sitio con diseño premium, velocidad y SEO desde el primer día.',
+      lead: 'Design Web es tu agencia y tu catálogo: explora proyectos reales funcionando en tiempo real, elige el servicio que necesitas y lanza tu sitio con diseño premium, velocidad y SEO desde el primer día.',
       miniTitle: 'Tu proyecto, funcionando en tiempo real.',
       ctaPrimary: { label: 'Ver proyectos en vivo', href: '#showcase' },
       ctaSecondary: { label: 'Hablemos de tu web', href: '/contacto' },
@@ -175,7 +175,7 @@ export const content: SiteContent = {
       ],
     },
     quote: {
-      text: 'Pixel Web no solo nos construyó la web: nos enseñó a verla funcionando en vivo desde el primer día. Transparencia total y cero sorpresas.',
+      text: 'Design Web no solo nos construyó la web: nos enseñó a verla funcionando en vivo desde el primer día. Transparencia total y cero sorpresas.',
       author: 'María Gutiérrez',
       role: 'Fundadora · Verde Market',
     },
@@ -191,7 +191,7 @@ export const content: SiteContent = {
     page: {
       eyebrow: 'Servicios',
       title: 'Soluciones web que funcionan y se ven',
-      lead: 'Del presupuesto claro a la entrega en vivo: así trabajamos cada proyecto de Pixel Web.',
+      lead: 'Del presupuesto claro a la entrega en vivo: así trabajamos cada proyecto de Design Web.',
     },
     items: [
       {
@@ -325,7 +325,7 @@ export const content: SiteContent = {
         },
         {
           q: '¿La web se ve en el showcase aunque sea de pago único?',
-          a: 'Sí. Todos nuestros proyectos forman parte del showcase público de Pixel Web mientras estén activos: esa es nuestra carta de presentación.',
+          a: 'Sí. Todos nuestros proyectos forman parte del showcase público de Design Web mientras estén activos: esa es nuestra carta de presentación.',
         },
       ],
     },
@@ -346,7 +346,7 @@ export const content: SiteContent = {
     story: {
       heading: 'Nuestra historia',
       paragraphs: [
-        'Pixel Web nació de una frustración simple: demasiadas agencias venden webs con capturas bonitas que no sabes si funcionan de verdad. Nosotros decidimos hacer lo contrario.',
+        'Design Web nació de una frustración simple: demasiadas agencias venden webs con capturas bonitas que no sabes si funcionan de verdad. Nosotros decidimos hacer lo contrario.',
         'Construimos sitios con tecnología moderna —rápidos, seguros y fáciles de mantener— y los mostramos funcionando en tiempo real. Si algo está en nuestro showcase, está publicado y activo.',
         'Hoy ayudamos a marcas, negocios locales y emprendedores a tener una presencia digital que de verdad vende. Y cada nuevo proyecto se suma a la prueba: nuestro propio catálogo vivo.',
       ],

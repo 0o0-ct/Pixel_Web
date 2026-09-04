@@ -5,15 +5,15 @@ import { t } from '../i18n/ui';
 import Icon from '../components/Icon.astro';
 ---
 
-<BaseLayout lang="es" title="404 — Pixel Web">
+<BaseLayout lang="es" title="404 — Design Web">
   <!-- Ajusta idioma y textos según la URL (/en → inglés) -->
   <script is:inline>
     (function () {
       var isEn = /^\/en\b/.test(window.location.pathname);
       document.documentElement.lang = isEn ? 'en' : 'es';
       document.title = isEn
-        ? '404 — Page not found · Pixel Web'
-        : '404 — Página no encontrada · Pixel Web';
+        ? '404 — Page not found · Design Web'
+        : '404 — Página no encontrada · Design Web';
       document.querySelectorAll('[data-es]').forEach(function (el) {
         el.textContent = isEn ? el.getAttribute('data-en') : el.getAttribute('data-es');
       });

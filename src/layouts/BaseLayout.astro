@@ -152,17 +152,17 @@ const siteName = t(lang, 'site.name');
           canvas.style.width = W + 'px';
           canvas.style.height = H + 'px';
           ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-          var gap = W < 768 ? 32 : 24;
+          var gap = W < 768 ? 20 : 14;
           dots = [];
           for (var y = gap / 2; y < H; y += gap) {
             for (var x = gap / 2; x < W; x += gap) {
               dots.push({
-                x: x + (Math.random() - 0.5) * 8,
-                y: y + (Math.random() - 0.5) * 8,
+                x: x + (Math.random() - 0.5) * 6,
+                y: y + (Math.random() - 0.5) * 6,
                 c: (Math.random() * 3) | 0,
                 p: Math.random() * Math.PI * 2,
                 s: 0.6 + Math.random() * 0.9,
-                r: 0.9 + Math.random() * 0.7,
+                r: 0.5 + Math.random() * 0.4,
               });
             }
           }
@@ -172,7 +172,7 @@ const siteName = t(lang, 'site.name');
           var t = now / 1000;
           var pal = palette();
           ctx.clearRect(0, 0, W, H);
-          var R = 470;
+          var R = 520;
           for (var i = 0; i < dots.length; i++) {
             var d = dots[i];
             var dx = d.x - mx;

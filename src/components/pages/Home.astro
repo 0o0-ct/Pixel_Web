@@ -46,11 +46,11 @@ const SHARE_TITLE = t(lang, 'site.name');
       <p class="hero__hint mono">{home.hero.hint}</p>
     </div>
 
-    <div class="hero__visual">
+    <div class="hero__visual" data-hero-visual>
       <span class="hero__orb orb-1"></span>
       <span class="hero__orb orb-2"></span>
 
-      <div class="browser" aria-hidden="true">
+      <div class="browser" aria-hidden="true" data-hero-browser>
         <div class="browser__bar">
           <div class="browser__dots">
             <i></i><i></i><i></i>
@@ -86,14 +86,14 @@ const SHARE_TITLE = t(lang, 'site.name');
         </div>
       </div>
 
-      <div class="float-card float-card--a">
+      <div class="float-card float-card--a" data-hero-float-a>
         <span class="dot dot--live"></span>
         <div>
           <strong>{home.hero.floatA.title}</strong>
           <div class="text-faint mono" style="font-size: 0.78rem;">{home.hero.floatA.sub}</div>
         </div>
       </div>
-      <div class="float-card float-card--b">
+      <div class="float-card float-card--b" data-hero-float-b>
         <Icon name="trending" style="color: var(--cyan)" />
         <div>
           <strong>{home.hero.floatB.title}</strong>
@@ -103,6 +103,106 @@ const SHARE_TITLE = t(lang, 'site.name');
     </div>
   </div>
 </section>
+
+<script>
+  import { animate, spring } from 'motion';
+
+  // Framer Motion: Movimiento 3D Tilt y Parallax al pasar el scroll / cursor sobre el cuadro héroe
+  if (typeof window !== 'undefined') {
+    const initHeroMotion = () => {
+      const container = document.querySelector<HTMLElement>('[data-hero-visual]');
+      const browser = document.querySelector<HTMLElement>('[data-hero-browser]');
+      const floatA = document.querySelector<HTMLElement>('[data-hero-float-a]');
+      const floatB = document.querySelector<HTMLElement>('[data-hero-float-b]');
+
+      if (!container || !browser) return;
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) return;
+
+      // 1. Movimiento 3D Tilt interactivo con física de resorte (spring)
+      container.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = container.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        // Inclinación 3D del cuadro del navegador (browser)
+        animate(
+          browser,
+          {
+            transform: `perspective(1000px) rotateX(${-y * 14}deg) rotateY(${x * 14}deg) translateY(-8px) scale(1.02)`
+          },
+          { duration: 0.4, easing: spring({ stiffness: 250, damping: 20 }) }
+        );
+
+        // Movimiento desfasado en 3D para las tarjetas flotantes
+        if (floatA) {
+          animate(
+            floatA,
+            {
+              transform: `translate3d(${x * -25}px, ${y * -25 - 6}px, 20px) scale(1.04)`
+            },
+            { duration: 0.45, easing: spring({ stiffness: 220, damping: 18 }) }
+          );
+        }
+
+        if (floatB) {
+          animate(
+            floatB,
+            {
+              transform: `translate3d(${x * 30}px, ${y * 30 + 6}px, 30px) scale(1.05)`
+            },
+            { duration: 0.5, easing: spring({ stiffness: 200, damping: 16 }) }
+          );
+        }
+      });
+
+      // Restablecer posición suave al salir el puntero
+      container.addEventListener('mouseleave', () => {
+        animate(
+          browser,
+          { transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)' },
+          { duration: 0.6, easing: spring({ stiffness: 180, damping: 20 }) }
+        );
+
+        if (floatA) {
+          animate(
+            floatA,
+            { transform: 'translate3d(0px, 0px, 0px) scale(1)' },
+            { duration: 0.6, easing: spring({ stiffness: 180, damping: 20 }) }
+          );
+        }
+
+        if (floatB) {
+          animate(
+            floatB,
+            { transform: 'translate3d(0px, 0px, 0px) scale(1)' },
+            { duration: 0.6, easing: spring({ stiffness: 180, damping: 20 }) }
+          );
+        }
+      });
+
+      // 2. Parallax continuo de scroll sobre la sección héroe
+      window.addEventListener(
+        'scroll',
+        () => {
+          const scrollY = window.scrollY;
+          if (scrollY < 900) {
+            const shiftY = scrollY * 0.08;
+            container.style.setProperty('--scroll-parallax', `${shiftY}px`);
+          }
+        },
+        { passive: true }
+      );
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initHeroMotion);
+    } else {
+      initHeroMotion();
+    }
+  }
+</script>
 
 <!-- ============ FRANJA DE ESTADÍSTICAS EN MOVIMIENTO ============ -->
 <section class="marquee stats-marquee" aria-label={home.stats.eyebrow}>

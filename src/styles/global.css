@@ -1168,12 +1168,7 @@ h4 {
   box-shadow: var(--shadow-card);
   overflow: hidden;
   position: relative;
-  transform: rotate(-1.5deg);
-  transition: transform 0.5s var(--ease);
-}
-
-.browser:hover {
-  transform: rotate(0deg) translateY(-4px);
+  transform: none;
 }
 
 .browser--flat {
@@ -1241,13 +1236,11 @@ h4 {
   align-items: center;
   gap: 12px;
   font-size: 0.86rem;
-  animation: floaty 5.5s ease-in-out infinite;
 }
 
 .float-card--a {
   top: 6%;
   right: -34px;
-  animation-delay: -2s;
 }
 
 .float-card--b {

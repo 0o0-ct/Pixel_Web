@@ -32,8 +32,8 @@ const contactRows = [
 
 <footer class="footer">
   <div class="container">
-    <div class="footer__grid">
-      <div>
+    <div class="footer__grid" data-reveal>
+      <div class="footer__brand">
         <a class="brand" href={pageHref(lang, 'home')} aria-label={SITE_NAME}>
           <img class="brand__logo" src="/favicon.svg" width="34" height="34" alt="" aria-hidden="true" />
           <span>{SITE_NAME}</span>
@@ -44,7 +44,7 @@ const contactRows = [
         <p class="footer__about" style="margin-top: 10px;">
           {c.shared.footerAbout}
         </p>
-        <nav aria-label={t(lang, 'footer.social')} style="display: flex; gap: 10px; margin-top: 20px;">
+        <nav class="footer__social" aria-label={t(lang, 'footer.social')}>
           {
             SOCIALS.map((s) => (
               <a class="chip" href={s.href} target="_blank" rel="noopener noreferrer">
@@ -100,12 +100,6 @@ const contactRows = [
     <div class="footer__bottom">
       <p>
         © {year} {SITE_NAME}. {t(lang, 'footer.rights')}
-      </p>
-      <p>
-        {t(lang, 'footer.built')}{' '}
-        <a href="https://astro.build" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted);">
-          Astro
-        </a>
       </p>
     </div>
   </div>

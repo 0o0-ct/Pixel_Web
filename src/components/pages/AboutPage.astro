@@ -20,7 +20,7 @@ const a = contentFor(lang).about;
 <PageHeader eyebrow={a.page.eyebrow} title={a.page.title} lead={a.page.lead} />
 
 <!-- ============ HISTORIA ============ -->
-<section class="section section--tight">
+<section class="section section--tight" data-reveal>
   <div class="container">
     <div class="split split--story">
       <div>
@@ -49,7 +49,7 @@ const a = contentFor(lang).about;
       <p class="eyebrow">{a.values.eyebrow}</p>
       <h2 class="h-section">{a.values.title}</h2>
     </div>
-    <div class="grid-features">
+    <div class="grid-features" data-stagger>
       {
         a.values.items.map((v: Value) => (
           <article class="card">

@@ -124,7 +124,7 @@ const SHARE_TITLE = t(lang, 'site.name');
 </section>
 
 <!-- ============ SHOWCASE EN VIVO ============ -->
-<section class="section" id="showcase">
+<section class="section" id="showcase" data-reveal>
   <div class="container">
     <div class="section-head">
       <p class="eyebrow">{home.showcase.eyebrow}</p>
@@ -132,7 +132,7 @@ const SHARE_TITLE = t(lang, 'site.name');
       <p class="lead" style="margin-top: 16px;">{home.showcase.lead}</p>
     </div>
 
-    <div class="project-grid">
+    <div class="project-grid" data-stagger>
       {
         home.showcase.items.map((p: Project) => {
           const img = p.image ? PROJECT_IMAGES[p.image] : undefined;
@@ -201,7 +201,7 @@ const SHARE_TITLE = t(lang, 'site.name');
 </section>
 
 <!-- ============ SERVICIOS DESTACADOS ============ -->
-<section class="section" id="servicios">
+<section class="section" id="servicios" data-reveal>
   <div class="container">
     <div class="section-head section-head--center">
       <p class="eyebrow">{home.services.eyebrow}</p>
@@ -209,7 +209,7 @@ const SHARE_TITLE = t(lang, 'site.name');
       <p class="lead" style="margin: 16px auto 0;">{home.services.lead}</p>
     </div>
 
-    <div class="grid-features">
+    <div class="grid-features" data-stagger>
       {
         home.services.items.map((f: Feature) => (
           <article class="card">
@@ -238,7 +238,7 @@ const SHARE_TITLE = t(lang, 'site.name');
       <p class="lead" style="margin-top: 16px;">{home.process.lead}</p>
     </div>
 
-    <div class="grid-process">
+    <div class="grid-process" data-stagger>
       {
         home.process.steps.map((s: Step) => (
           <div class="card">
@@ -255,7 +255,7 @@ const SHARE_TITLE = t(lang, 'site.name');
 <!-- ============ CITA ============ -->
 <section class="section section--tight">
   <div class="container">
-    <figure class="quote">
+    <figure class="quote" data-reveal="blur">
       <span class="quote__mark">“</span>
       <blockquote>{home.quote.text}</blockquote>
       <figcaption>
@@ -269,7 +269,7 @@ const SHARE_TITLE = t(lang, 'site.name');
 <!-- ============ CTA ============ -->
 <section class="section section--tight">
   <div class="container">
-    <div class="cta-band">
+    <div class="cta-band" data-reveal="scale">
       <h2 class="h-section">{home.cta.title}</h2>
       <p class="lead">{home.cta.lead}</p>
       <div class="btn-row" style="justify-content: center;">

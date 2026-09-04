@@ -20,13 +20,13 @@ const isEn = lang === 'en';
 
 <PageHeader eyebrow={b.page.eyebrow} title={b.page.title} lead={b.page.lead} />
 
-<section class="section section--tight">
+<section class="section section--tight" data-reveal>
   <div class="container">
     {
       posts.length === 0 ? (
         <p class="text-muted">{b.empty}</p>
       ) : (
-        <div class="project-grid">
+        <div class="project-grid" data-stagger>
           {
             posts.map((post) => (
               <article class="card post-card">

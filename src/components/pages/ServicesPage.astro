@@ -21,7 +21,7 @@ const s = contentFor(lang).services;
 <PageHeader eyebrow={s.page.eyebrow} title={s.page.title} lead={s.page.lead} />
 
 <!-- ============ SERVICIOS DETALLADOS ============ -->
-<section class="section section--tight">
+<section class="section section--tight" data-reveal>
   <div class="container">
     {
       s.items.map((item: ServiceItem) => (
@@ -51,7 +51,7 @@ const s = contentFor(lang).services;
 </section>
 
 <!-- ============ PRECIOS ============ -->
-<section class="section" id="precios">
+<section class="section" id="precios" data-reveal>
   <div class="container">
     <div class="section-head section-head--center">
       <p class="eyebrow">{s.pricing.eyebrow}</p>
@@ -59,7 +59,7 @@ const s = contentFor(lang).services;
       <p class="lead" style="margin: 16px auto 0;">{s.pricing.lead}</p>
     </div>
 
-    <div class="pricing-grid">
+    <div class="pricing-grid" data-stagger>
       {
         s.pricing.plans.map((plan: Plan) => (
           <article class={`card plan${plan.featured ? ' plan--featured' : ''}`}>
@@ -91,13 +91,13 @@ const s = contentFor(lang).services;
 </section>
 
 <!-- ============ FAQ ============ -->
-<section class="section section--tight" id="faq">
+<section class="section section--tight" id="faq" data-reveal>
   <div class="container">
     <div class="section-head section-head--center">
       <p class="eyebrow">{s.faq.eyebrow}</p>
       <h2 class="h-section">{s.faq.title}</h2>
     </div>
-    <div class="faq">
+    <div class="faq" data-stagger>
       {
         s.faq.items.map((f) => (
           <details>

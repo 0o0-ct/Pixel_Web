@@ -70,6 +70,7 @@ const siteName = t(lang, 'site.name');
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
 
+    <noscript><style>[data-reveal],[data-stagger]>*{opacity:1!important;transform:none!important;filter:none!important}</style></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -84,5 +85,42 @@ const siteName = t(lang, 'site.name');
       <slot />
     </main>
     <Footer lang={lang} />
+    <script is:inline>
+      // Reveal on-scroll estilo Framer Motion (whileInView, una vez, 60fps).
+      (function () {
+        var sel = '[data-reveal],[data-stagger]';
+        var els = document.querySelectorAll(sel);
+        if (!('IntersectionObserver' in window) || !els.length) {
+          document.querySelectorAll(sel).forEach(function (el) { el.classList.add('is-visible'); });
+          return;
+        }
+        var force = /[?&]motion=force/.test(window.location.search);
+        var reduce = !force && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce) {
+          els.forEach(function (el) { el.classList.add('is-visible'); });
+          return;
+        }
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                var el = e.target;
+                io.unobserve(el);
+                var d = el.getAttribute('data-delay');
+                if (d) el.style.setProperty('--reveal-delay', d + 'ms');
+                // Doble rAF: pinta el estado inicial antes de transicionar
+                requestAnimationFrame(function () {
+                  requestAnimationFrame(function () {
+                    el.classList.add('is-visible');
+                  });
+                });
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+        );
+        els.forEach(function (el) { io.observe(el); });
+      })();
+    </script>
   </body>
 </html>

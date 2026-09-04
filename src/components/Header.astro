@@ -108,10 +108,12 @@ function isActive(href: string): boolean {
   const toggle = document.querySelector<HTMLButtonElement>('.nav__toggle');
   const links = document.querySelector<HTMLElement>('#nav-links');
   if (toggle && links) {
+    const nav = document.querySelector<HTMLElement>('.nav');
     const update = () => {
       const open = toggle.getAttribute('aria-expanded') === 'true';
       const nextOpen = !open;
       links.classList.toggle('is-open', nextOpen);
+      nav?.classList.toggle('menu-open', nextOpen);
       toggle.setAttribute('aria-expanded', String(nextOpen));
       toggle.setAttribute(
         'aria-label',
@@ -121,11 +123,13 @@ function isActive(href: string): boolean {
     toggle.addEventListener('click', update);
     links.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
       links.classList.remove('is-open');
+      nav?.classList.remove('menu-open');
       toggle.setAttribute('aria-expanded', 'false');
     }));
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && links.classList.contains('is-open')) {
         links.classList.remove('is-open');
+        nav?.classList.remove('menu-open');
         toggle.setAttribute('aria-expanded', 'false');
         toggle.focus();
       }

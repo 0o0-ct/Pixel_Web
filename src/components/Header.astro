@@ -32,8 +32,12 @@ const esHref = translatePath(pathname, lang, 'es');
 const enHref = translatePath(pathname, lang, 'en');
 
 function isActive(href: string): boolean {
-  if (href === '/') return pathname === '/' || pathname === '/en';
-  return pathname === href || pathname.startsWith(href + '/');
+  const norm = (p: string) => (p.length > 1 && p.endsWith('/') ? p.slice(0, -1) : p);
+  const path = norm(pathname);
+  // Los dos homes (ES raíz y EN con prefijo) solo activan en su propia portada.
+  if (href === '/' || href === '/en') return path === '/' || path === '/en';
+  const target = norm(href);
+  return path === target || path.startsWith(target + '/');
 }
 ---
 

@@ -21,11 +21,12 @@ const s = contentFor(lang).services;
 <PageHeader eyebrow={s.page.eyebrow} title={s.page.title} lead={s.page.lead} />
 
 <!-- ============ SERVICIOS DETALLADOS ============ -->
-<section class="section section--tight" data-reveal>
-  <div class="container">
+<section class="section section--tight">
+  <div class="container service-stack" data-stack>
     {
-      s.items.map((item: ServiceItem) => (
-        <article class="service" id={item.anchor}>
+      s.items.map((item: ServiceItem, idx: number) => (
+        <div class="stack-track" style={`--i: ${idx}`} data-reveal>
+        <article class="service stack-card" id={item.anchor}>
           <div>
             <div class="service__feature-icon">
               <Icon name={item.icon} />
@@ -45,10 +46,51 @@ const s = contentFor(lang).services;
             </ul>
           </div>
         </article>
+        </div>
       ))
     }
   </div>
 </section>
+<script>
+  // Stacking cards: la anterior se encoge/oscurece cuando la siguiente la cubre.
+  (function () {
+    var stack = document.querySelector('[data-stack]');
+    if (!stack) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('requestAnimationFrame' in window)) return;
+    var cards = Array.prototype.slice.call(stack.querySelectorAll('.stack-card'));
+    var small = window.matchMedia('(max-width: 768px)');
+    var tops: number[] = [];
+    function measure() {
+      var base = small.matches ? 72 : 90;
+      var step = small.matches ? 12 : 18;
+      tops = cards.map(function (_, i) { return base + i * step; });
+    }
+    var ticking = false;
+    function update() {
+      ticking = false;
+      for (var i = 0; i < cards.length; i++) {
+        var depth = 0;
+        for (var j = i + 1; j < cards.length; j++) {
+          if (cards[j].getBoundingClientRect().top <= tops[j] + 2) depth++;
+        }
+        var scale = Math.max(0.9, 1 - depth * 0.05);
+        cards[i].style.transform = 'scale(' + scale + ')';
+        cards[i].style.filter = depth > 0 ? 'brightness(' + (1 - depth * 0.07) + ')' : '';
+      }
+    }
+    function request() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+    measure();
+    update();
+    window.addEventListener('scroll', request, { passive: true });
+    window.addEventListener('resize', function () { measure(); request(); });
+  })();
+</script>
 
 <!-- ============ PRECIOS ============ -->
 <section class="section" id="precios" data-reveal>

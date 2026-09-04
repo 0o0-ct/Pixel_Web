@@ -100,12 +100,13 @@ const siteName = t(lang, 'site.name');
           els.forEach(function (el) { el.classList.add('is-visible'); });
           return;
         }
+        // Modo bucle: al salir de pantalla se oculta y al volver se re-anima.
+        // Con data-once se anima una sola vez (como antes).
         var io = new IntersectionObserver(
           function (entries) {
             entries.forEach(function (e) {
+              var el = e.target;
               if (e.isIntersecting) {
-                var el = e.target;
-                io.unobserve(el);
                 var d = el.getAttribute('data-delay');
                 if (d) el.style.setProperty('--reveal-delay', d + 'ms');
                 // Doble rAF: pinta el estado inicial antes de transicionar
@@ -114,6 +115,9 @@ const siteName = t(lang, 'site.name');
                     el.classList.add('is-visible');
                   });
                 });
+                if (el.hasAttribute('data-once')) io.unobserve(el);
+              } else if (!el.hasAttribute('data-once')) {
+                el.classList.remove('is-visible');
               }
             });
           },

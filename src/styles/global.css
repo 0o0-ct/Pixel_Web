@@ -2285,6 +2285,31 @@ html[data-theme='dark'] .feature-icon {
   border-color: rgb(255 255 255 / 0.16);
 }
 
+/* ---------- Página Servicios en TEMA OSCURO: mismo gris ---------- */
+html[data-theme='dark'] .service {
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.012)),
+    linear-gradient(180deg, #1e1e26 0%, #131318 100%);
+  border-color: rgb(255 255 255 / 0.1);
+}
+html[data-theme='dark'] .service__panel {
+  background: rgb(255 255 255 / 0.045);
+  border-color: rgb(255 255 255 / 0.1);
+}
+html[data-theme='dark'] .plan {
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.012)),
+    linear-gradient(180deg, #1e1e26 0%, #131318 100%);
+  border-color: rgb(255 255 255 / 0.1);
+}
+html[data-theme='dark'] .plan:hover {
+  border-color: rgb(255 255 255 / 0.22);
+}
+html[data-theme='dark'] .faq details {
+  background: linear-gradient(180deg, #1e1e26 0%, #131318 100%);
+  border-color: rgb(255 255 255 / 0.1);
+}
+
 html[data-theme='light'] .hero__orb.orb-1 {
   background: rgb(0 0 0 / 0.12);
 }
@@ -2480,6 +2505,15 @@ html[data-theme='light'] .nav__toggle {
 html[data-theme='light'] .theme-toggle:hover {
   background: rgb(0 0 0 / 0.1);
 }
+/* ---------- Banda CTA en TEMA OSCURO: gris a juego ---------- */
+html[data-theme='dark'] .cta-band {
+  background:
+    radial-gradient(560px 240px at 15% 0%, rgb(255 255 255 / 0.09), transparent 60%),
+    radial-gradient(480px 220px at 90% 100%, rgb(255 255 255 / 0.05), transparent 60%),
+    linear-gradient(180deg, #1e1e26 0%, #131318 100%);
+  border-color: rgb(255 255 255 / 0.12);
+}
+
 html[data-theme='light'] .cta-band {
   background:
     radial-gradient(560px 240px at 15% 0%, rgb(0 0 0 / 0.06), transparent 60%),
@@ -2902,6 +2936,54 @@ a.chip {
   .btn:active { transform: scale(0.98); }
   .link-arrow svg { transition: transform 0.25s var(--ease-spring); }
   .link-arrow:hover svg { transform: translateX(5px); }
+}
+
+/* Stacking cards Servicios: cada card se pega y la siguiente la cubre */
+.service-stack {
+  display: grid;
+  gap: clamp(20px, 3vw, 32px);
+}
+.stack-track {
+  display: flex;
+  align-items: flex-start;
+}
+/* Aire justo para que la card respire antes de ser cubierta */
+.stack-track:not(:last-child) {
+  padding-bottom: 10vh;
+}
+.stack-card {
+  position: sticky;
+  top: calc(var(--nav-h) + 16px + var(--i, 0) * 18px);
+  flex: 1;
+  min-width: 0;
+  transform-origin: center top;
+  will-change: transform;
+  box-shadow: var(--shadow-card);
+}
+/* Cinta superior que distingue cada card apilada */
+.stack-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: clamp(22px, 3vw, 32px);
+  right: clamp(22px, 3vw, 32px);
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  opacity: 0.85;
+}
+@media (max-width: 768px) {
+  .stack-track {
+    min-height: 0;
+    display: block;
+  }
+  .stack-card {
+    top: calc(60px + 8px + var(--i, 0) * 12px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stack-track { min-height: 0; display: block; }
+  .stack-card { position: static; }
 }
 
 /* Marquee: velocidad según viewport (más lento en móvil) */

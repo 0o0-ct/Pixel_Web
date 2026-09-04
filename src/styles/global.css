@@ -116,19 +116,91 @@ body {
   min-height: 100vh;
 }
 
-/* Fibra de carbono (trama sutil) */
+/* Matriz de píxeles que sigue al cursor (spotlight global) */
+:root {
+  --mx: 50vw;
+  --my: 24vh;
+}
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   background-image:
-    repeating-linear-gradient(45deg, rgb(255 255 255 / 0.085) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(-45deg, rgb(255 255 255 / 0.085) 0 1px, transparent 1px 3px);
-  background-size: 3px 3px;
-  mask-image: radial-gradient(1200px 720px at 50% -8%, #000, transparent 82%);
-  -webkit-mask-image: radial-gradient(1200px 720px at 50% -8%, #000, transparent 82%);
+    radial-gradient(1.6px 1.6px at center, rgb(139 124 255 / 0.95) 0, rgb(139 124 255 / 0.5) 1px, transparent 1.6px),
+    radial-gradient(1.2px 1.2px at center, rgb(228 228 235 / 0.7) 0, rgb(228 228 235 / 0.35) 1px, transparent 1.4px),
+    radial-gradient(1px 1px at center, rgb(168 155 255 / 0.55) 0, transparent 1.2px);
+  background-size: 30px 30px, 30px 30px, 30px 30px;
+  background-position: 0 0, 15px 15px, 7px 22px;
+  mask-image: radial-gradient(
+    580px circle at var(--mx) var(--my),
+    #000 0%,
+    rgb(0 0 0 / 0.9) 30%,
+    rgb(0 0 0 / 0.35) 60%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    580px circle at var(--mx) var(--my),
+    #000 0%,
+    rgb(0 0 0 / 0.9) 30%,
+    rgb(0 0 0 / 0.35) 60%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+html.has-spot body::before {
+  opacity: 1;
+  animation: firefly 4.5s ease-in-out infinite;
+}
+/* Luciérnagas: los píxeles respiran (se encienden y apagan suave) */
+@keyframes firefly {
+  0%, 100% { opacity: 0.55; }
+  25% { opacity: 1; }
+  50% { opacity: 0.7; }
+  75% { opacity: 0.95; }
+}
+/* Halo suave detrás de los píxeles */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    440px circle at var(--mx) var(--my),
+    rgb(139 124 255 / 0.12),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+html.has-spot body::after {
+  opacity: 1;
+  animation: halo-pulse 4.5s ease-in-out 0.6s infinite;
+}
+@keyframes halo-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+/* Canvas de luciérnagas activo: apaga los puntos CSS (evita duplicar) */
+html.has-fireflies body::before {
+  display: none;
+}
+
+/* Sin puntero fino o con movimiento reducido: sin seguimiento */
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    display: none;
+  }
+}
+
+/* Contenido siempre sobre el efecto */
+main, footer.footer {
+  position: relative;
+  z-index: 1;
 }
 
 /* Grano de cine (eliminado por petición) */
@@ -169,8 +241,16 @@ html[data-theme='light'] .theme-toggle .icon-sun {
 
 html[data-theme='light'] body::before {
   background-image:
-    repeating-linear-gradient(45deg, rgb(0 0 0 / 0.09) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(-45deg, rgb(0 0 0 / 0.09) 0 1px, transparent 1px 3px);
+    radial-gradient(1.6px 1.6px at center, rgb(83 61 240 / 0.8) 0, rgb(83 61 240 / 0.4) 1px, transparent 1.6px),
+    radial-gradient(1.2px 1.2px at center, rgb(29 29 36 / 0.5) 0, rgb(29 29 36 / 0.25) 1px, transparent 1.4px),
+    radial-gradient(1px 1px at center, rgb(106 88 255 / 0.45) 0, transparent 1.2px);
+}
+html[data-theme='light'] body::after {
+  background: radial-gradient(
+    440px circle at var(--mx) var(--my),
+    rgb(83 61 240 / 0.1),
+    transparent 70%
+  );
 }
 
 img,
@@ -2203,7 +2283,7 @@ h4 {
 
 @keyframes marquee {
   to {
-    transform: translateX(calc(-100% / 8));
+    transform: translateX(calc(-100% / 6));
   }
 }
 
@@ -3071,4 +3151,72 @@ main { animation: page-in 0.55s var(--ease-spring) both; }
   [data-reveal], [data-stagger] > * { opacity: 1 !important; transform: none !important; filter: none !important; }
   .marquee__track { animation: none; }
   main { animation: none; }
+}
+
+/* ============================================================
+   Optimización de RENDIMIENTO / GPU (manteniendo el diseño)
+   ============================================================ */
+:root {
+  --nav-bg-solid: #0b0b14;
+}
+html[data-theme='light'] {
+  --nav-bg-solid: #ffffff;
+}
+
+/* Cabecera flotante: desenfoque más ligero + respaldo sólido sin blur */
+.nav--float {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  will-change: transform;
+}
+@media (max-width: 900px) {
+  .nav--float {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .nav--float {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--nav-bg-solid);
+  }
+}
+@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
+  .nav--float {
+    background: var(--nav-bg-solid);
+  }
+}
+
+/* Orbes y brillos: menos coste de rasterizado (mismo aspecto visual) */
+.hero__orb {
+  filter: blur(44px);
+}
+.card__glow {
+  filter: blur(18px);
+}
+
+/* Franja en movimiento: se aísla para no repintar lo que la rodea */
+.marquee {
+  contain: layout paint;
+}
+
+/* No componer ni pintar secciones fuera de pantalla durante el scroll
+   (reduce notablemente el uso de GPU/CPU en páginas largas) */
+.section,
+.hero,
+.marquee,
+.footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
+/* ============================================================
+   Garantía: en ESCRITORIO (>=901px) la cabecera SIEMPRE flota y
+   nunca se oculta; el auto-ocultado es exclusivo de móvil (<=900px).
+   ============================================================ */
+@media (min-width: 901px) {
+  .nav--hidden {
+    transform: none !important;
+  }
 }

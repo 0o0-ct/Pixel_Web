@@ -185,4 +185,12 @@ function isActive(href: string): boolean {
   };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
+  // Al cambiar el tamaño: en escritorio (>=901px) la cabecera nunca queda oculta
+  const onResize = () => {
+    if (nav && !mobileMQ.matches) {
+      nav.classList.remove('nav--hidden');
+      setFloat();
+    }
+  };
+  window.addEventListener('resize', onResize, { passive: true });
 </script>

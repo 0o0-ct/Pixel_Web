@@ -52,7 +52,7 @@ const s = contentFor(lang).services;
   </div>
 </section>
 <script>
-  import { inView, animate, spring } from 'motion';
+  import { inView, animate } from 'motion';
 
   // Framer Motion: Animaciones de entrada (spring), hover interactivo y apilamiento progresivo
   if (typeof window !== 'undefined') {
@@ -74,7 +74,7 @@ const s = contentFor(lang).services;
                 {
                   duration: 0.65,
                   delay: index * 0.08,
-                  easing: spring({ stiffness: 130, damping: 16 })
+                  type: 'spring', stiffness: 130, damping: 16
                 }
               );
             },
@@ -90,13 +90,13 @@ const s = contentFor(lang).services;
             animate(
               card,
               { y: -8 },
-              { duration: 0.35, easing: spring({ stiffness: 350, damping: 22 }) }
+              { duration: 0.35, type: 'spring', stiffness: 350, damping: 22 }
             );
             if (icon) {
               animate(
                 icon,
                 { scale: 1.12, rotate: -4 },
-                { duration: 0.35, easing: spring({ stiffness: 400, damping: 18 }) }
+                { duration: 0.35, type: 'spring', stiffness: 400, damping: 18 }
               );
             }
           }
@@ -107,13 +107,13 @@ const s = contentFor(lang).services;
             animate(
               card,
               { y: 0 },
-              { duration: 0.35, easing: spring({ stiffness: 300, damping: 25 }) }
+              { duration: 0.35, type: 'spring', stiffness: 300, damping: 25 }
             );
             if (icon) {
               animate(
                 icon,
                 { scale: 1, rotate: 0 },
-                { duration: 0.35, easing: spring({ stiffness: 300, damping: 25 }) }
+                { duration: 0.35, type: 'spring', stiffness: 300, damping: 25 }
               );
             }
           }

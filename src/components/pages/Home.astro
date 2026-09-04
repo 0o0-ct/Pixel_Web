@@ -105,7 +105,7 @@ const SHARE_TITLE = t(lang, 'site.name');
 </section>
 
 <script>
-  import { animate, spring } from 'motion';
+  import { animate } from 'motion';
 
   // Framer Motion: Movimiento 3D Tilt y Parallax al pasar el scroll / cursor sobre el cuadro héroe
   if (typeof window !== 'undefined') {
@@ -118,82 +118,94 @@ const SHARE_TITLE = t(lang, 'site.name');
       if (!container || !browser) return;
 
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduce) return;
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
+      // Solo anima con ratón (no táctil) y si el usuario no prefiere menos movimiento
+      if (reduce || !finePointer) return;
+
+      // Controles activos: evita encadenar springs solapados (mayor coste GPU/CPU)
+      let animBrowser: ReturnType<typeof animate> | null = null;
+      let animA: ReturnType<typeof animate> | null = null;
+      let animB: ReturnType<typeof animate> | null = null;
+      let pendingFrame = false;
+      let lastPX = 0;
+      let lastPY = 0;
 
       // 1. Movimiento 3D Tilt interactivo con física de resorte (spring)
-      container.addEventListener('mousemove', (e: MouseEvent) => {
-        const rect = container.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
+      // Optimizado: una sola actualización por frame (rAF) y se detiene la
+      // animación anterior antes de crear la siguiente (sin springs solapados).
+      const updateTilt = (e: PointerEvent) => {
+        lastPX = e.clientX;
+        lastPY = e.clientY;
+        if (pendingFrame) return;
+        pendingFrame = true;
+        requestAnimationFrame(() => {
+          pendingFrame = false;
+          const rect = container.getBoundingClientRect();
+          const x = (lastPX - rect.left) / rect.width - 0.5;
+          const y = (lastPY - rect.top) / rect.height - 0.5;
 
-        // Inclinación 3D del cuadro del navegador (browser)
-        animate(
-          browser,
-          {
-            transform: `perspective(1000px) rotateX(${-y * 14}deg) rotateY(${x * 14}deg) translateY(-8px) scale(1.02)`
-          },
-          { duration: 0.4, easing: spring({ stiffness: 250, damping: 20 }) }
-        );
+          animBrowser?.stop();
+          animA?.stop();
+          animB?.stop();
 
-        // Movimiento desfasado en 3D para las tarjetas flotantes
-        if (floatA) {
-          animate(
-            floatA,
+          // Inclinación 3D del cuadro del navegador (browser)
+          animBrowser = animate(
+            browser,
             {
-              transform: `translate3d(${x * -25}px, ${y * -25 - 6}px, 20px) scale(1.04)`
+              transform: `perspective(1000px) rotateX(${-y * 14}deg) rotateY(${x * 14}deg) translateY(-8px) scale(1.02)`,
             },
-            { duration: 0.45, easing: spring({ stiffness: 220, damping: 18 }) }
+            { duration: 0.35, type: 'spring', stiffness: 250, damping: 22 }
           );
-        }
 
-        if (floatB) {
-          animate(
-            floatB,
-            {
-              transform: `translate3d(${x * 30}px, ${y * 30 + 6}px, 30px) scale(1.05)`
-            },
-            { duration: 0.5, easing: spring({ stiffness: 200, damping: 16 }) }
-          );
-        }
-      });
+          // Movimiento desfasado en 3D para las tarjetas flotantes
+          if (floatA) {
+            animA = animate(
+              floatA,
+              {
+                transform: `translate3d(${x * -25}px, ${y * -25 - 6}px, 20px) scale(1.04)`,
+              },
+              { duration: 0.4, type: 'spring', stiffness: 220, damping: 20 }
+            );
+          }
+          if (floatB) {
+            animB = animate(
+              floatB,
+              {
+                transform: `translate3d(${x * 30}px, ${y * 30 + 6}px, 30px) scale(1.05)`,
+              },
+              { duration: 0.45, type: 'spring', stiffness: 200, damping: 18 }
+            );
+          }
+        });
+      };
+      container.addEventListener('pointermove', updateTilt, { passive: true });
 
       // Restablecer posición suave al salir el puntero
-      container.addEventListener('mouseleave', () => {
-        animate(
+      container.addEventListener('pointerleave', () => {
+        pendingFrame = false;
+        animBrowser?.stop();
+        animA?.stop();
+        animB?.stop();
+        animBrowser = animate(
           browser,
           { transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)' },
-          { duration: 0.6, easing: spring({ stiffness: 180, damping: 20 }) }
+          { duration: 0.5, type: 'spring', stiffness: 200, damping: 24 }
         );
-
         if (floatA) {
-          animate(
+          animA = animate(
             floatA,
             { transform: 'translate3d(0px, 0px, 0px) scale(1)' },
-            { duration: 0.6, easing: spring({ stiffness: 180, damping: 20 }) }
+            { duration: 0.5, type: 'spring', stiffness: 200, damping: 24 }
           );
         }
-
         if (floatB) {
-          animate(
+          animB = animate(
             floatB,
             { transform: 'translate3d(0px, 0px, 0px) scale(1)' },
-            { duration: 0.6, easing: spring({ stiffness: 180, damping: 20 }) }
+            { duration: 0.5, type: 'spring', stiffness: 200, damping: 24 }
           );
         }
       });
-
-      // 2. Parallax continuo de scroll sobre la sección héroe
-      window.addEventListener(
-        'scroll',
-        () => {
-          const scrollY = window.scrollY;
-          if (scrollY < 900) {
-            const shiftY = scrollY * 0.08;
-            container.style.setProperty('--scroll-parallax', `${shiftY}px`);
-          }
-        },
-        { passive: true }
-      );
     };
 
     if (document.readyState === 'loading') {
@@ -208,7 +220,7 @@ const SHARE_TITLE = t(lang, 'site.name');
 <section class="marquee stats-marquee" aria-label={home.stats.eyebrow}>
   <div class="marquee__track">
     {
-      [0, 1, 2, 3, 4, 5, 6, 7].map((i) =>
+      [0, 1, 2, 3, 4, 5].map((i) =>
         home.stats.items.map((s) => (
           <div
             class="marquee__item marquee__item--stat"

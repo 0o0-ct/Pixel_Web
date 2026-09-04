@@ -86,6 +86,140 @@ const siteName = t(lang, 'site.name');
     </main>
     <Footer lang={lang} />
     <script is:inline>
+      // Spotlight global: la matriz de píxeles sigue al cursor (solo puntero fino).
+      (function () {
+        if (!window.matchMedia('(pointer: fine)').matches) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var root = document.documentElement;
+        var queued = false;
+        var x = 0;
+        var y = 0;
+        function paint() {
+          queued = false;
+          root.style.setProperty('--mx', x + 'px');
+          root.style.setProperty('--my', y + 'px');
+          root.classList.add('has-spot');
+        }
+        document.addEventListener(
+          'mousemove',
+          function (e) {
+            x = e.clientX;
+            y = e.clientY;
+            if (!queued) {
+              queued = true;
+              requestAnimationFrame(paint);
+            }
+          },
+          { passive: true }
+        );
+        document.addEventListener('mouseleave', function () {
+          root.classList.remove('has-spot');
+        });
+      })();
+    </script>
+    <script is:inline>
+      // Luciérnagas: cada puntito con color y parpadeo propios + spotlight al cursor.
+      (function () {
+        if (!window.matchMedia('(pointer: fine)').matches) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var PALETTES = {
+          dark: ['139,124,255', '228,228,235', '168,155,255'],
+          light: ['83,61,240', '29,29,36', '106,88,255'],
+        };
+        var canvas = document.createElement('canvas');
+        canvas.setAttribute('aria-hidden', 'true');
+        canvas.style.cssText =
+          'position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .4s ease;';
+        document.body.appendChild(canvas);
+        var ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        var root = document.documentElement;
+        var dots = [];
+        var mx = -9999;
+        var my = -9999;
+        var running = true;
+        var W = 0;
+        var H = 0;
+        function palette() {
+          return root.getAttribute('data-theme') === 'light' ? PALETTES.light : PALETTES.dark;
+        }
+        function build() {
+          var dpr = Math.min(window.devicePixelRatio || 1, 2);
+          W = window.innerWidth;
+          H = window.innerHeight;
+          canvas.width = Math.floor(W * dpr);
+          canvas.height = Math.floor(H * dpr);
+          canvas.style.width = W + 'px';
+          canvas.style.height = H + 'px';
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          var gap = W < 768 ? 32 : 24;
+          dots = [];
+          for (var y = gap / 2; y < H; y += gap) {
+            for (var x = gap / 2; x < W; x += gap) {
+              dots.push({
+                x: x + (Math.random() - 0.5) * 8,
+                y: y + (Math.random() - 0.5) * 8,
+                c: (Math.random() * 3) | 0,
+                p: Math.random() * Math.PI * 2,
+                s: 0.6 + Math.random() * 0.9,
+                r: 0.9 + Math.random() * 0.7,
+              });
+            }
+          }
+        }
+        function frame(now) {
+          if (!running) return;
+          var t = now / 1000;
+          var pal = palette();
+          ctx.clearRect(0, 0, W, H);
+          var R = 470;
+          for (var i = 0; i < dots.length; i++) {
+            var d = dots[i];
+            var dx = d.x - mx;
+            var dy = d.y - my;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist > R) continue;
+            var spot = 1 - dist / R;
+            spot = spot * spot;
+            var blink = 0.55 + 0.45 * (0.5 + 0.5 * Math.sin(t * d.s + d.p));
+            var a = blink * (0.35 + 0.65 * spot);
+            if (a < 0.03) continue;
+            ctx.beginPath();
+            ctx.arc(d.x, d.y, d.r, 0, 6.2832);
+            ctx.fillStyle = 'rgba(' + pal[d.c] + ',' + a.toFixed(3) + ')';
+            ctx.fill();
+          }
+          requestAnimationFrame(frame);
+        }
+        document.addEventListener(
+          'mousemove',
+          function (e) {
+            mx = e.clientX;
+            my = e.clientY;
+            canvas.style.opacity = '1';
+            root.classList.add('has-fireflies');
+          },
+          { passive: true }
+        );
+        document.addEventListener('mouseleave', function () {
+          canvas.style.opacity = '0';
+          mx = -9999;
+          my = -9999;
+        });
+        document.addEventListener('visibilitychange', function () {
+          running = !document.hidden;
+          if (running) requestAnimationFrame(frame);
+        });
+        var rt = 0;
+        window.addEventListener('resize', function () {
+          clearTimeout(rt);
+          rt = setTimeout(build, 150);
+        });
+        build();
+        requestAnimationFrame(frame);
+      })();
+    </script>
+    <script is:inline>
       // Reveal on-scroll estilo Framer Motion (whileInView, una vez, 60fps).
       (function () {
         var sel = '[data-reveal],[data-stagger]';

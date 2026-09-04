@@ -241,14 +241,14 @@ html[data-theme='light'] .theme-toggle .icon-sun {
 
 html[data-theme='light'] body::before {
   background-image:
-    radial-gradient(1.6px 1.6px at center, rgb(83 61 240 / 0.8) 0, rgb(83 61 240 / 0.4) 1px, transparent 1.6px),
-    radial-gradient(1.2px 1.2px at center, rgb(29 29 36 / 0.5) 0, rgb(29 29 36 / 0.25) 1px, transparent 1.4px),
-    radial-gradient(1px 1px at center, rgb(106 88 255 / 0.45) 0, transparent 1.2px);
+    radial-gradient(1.6px 1.6px at center, rgb(70 25 225 / 0.95) 0, rgb(70 25 225 / 0.6) 1px, transparent 1.6px),
+    radial-gradient(1.2px 1.2px at center, rgb(15 15 35 / 0.85) 0, rgb(15 15 35 / 0.5) 1px, transparent 1.4px),
+    radial-gradient(1px 1px at center, rgb(110 20 200 / 0.75) 0, transparent 1.2px);
 }
 html[data-theme='light'] body::after {
   background: radial-gradient(
     440px circle at var(--mx) var(--my),
-    rgb(83 61 240 / 0.1),
+    rgb(70 25 225 / 0.15),
     transparent 70%
   );
 }

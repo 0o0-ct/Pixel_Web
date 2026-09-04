@@ -25,34 +25,34 @@ const s = contentFor(lang).services;
   <div class="container service-stack" data-stack>
     {
       s.items.map((item: ServiceItem, idx: number) => (
-        <div class="stack-track" style={`--i: ${idx}`} data-reveal>
-        <article class="service stack-card" id={item.anchor}>
-          <div>
-            <div class="service__feature-icon">
-              <Icon name={item.icon} />
+        <div class="stack-track" style={`--i: ${idx}`}>
+          <article class="service stack-card" id={item.anchor}>
+            <div>
+              <div class="service__feature-icon">
+                <Icon name={item.icon} />
+              </div>
+              <h2 class="h-sub" style="font-size: clamp(1.5rem, 2.6vw, 1.9rem);">
+                {item.title}
+              </h2>
+              <p class="lead" style="margin-top: 14px; font-size: 1.02rem;">{item.desc}</p>
+              <a class="btn btn-ghost btn-sm" style="margin-top: 26px;" href={item.cta.href}>
+                {item.cta.label}
+                <Icon name="arrowRight" />
+              </a>
             </div>
-            <h2 class="h-sub" style="font-size: clamp(1.5rem, 2.6vw, 1.9rem);">
-              {item.title}
-            </h2>
-            <p class="lead" style="margin-top: 14px; font-size: 1.02rem;">{item.desc}</p>
-            <a class="btn btn-ghost btn-sm" style="margin-top: 26px;" href={item.cta.href}>
-              {item.cta.label}
-              <Icon name="arrowRight" />
-            </a>
-          </div>
-          <div class="service__panel">
-            <ul class="check-list" role="list">
-              {item.features.map((f) => <li>{f}</li>)}
-            </ul>
-          </div>
-        </article>
+            <div class="service__panel">
+              <ul class="check-list" role="list">
+                {item.features.map((f) => <li>{f}</li>)}
+              </ul>
+            </div>
+          </article>
         </div>
       ))
     }
   </div>
 </section>
 <script>
-  // Stacking cards: la anterior se encoge/oscurece cuando la siguiente la cubre.
+  // Stacking cards: la anterior se encoge/oscurece suavemente cuando la siguiente la cubre.
   (function () {
     var stack = document.querySelector('[data-stack]');
     if (!stack) return;
@@ -74,9 +74,10 @@ const s = contentFor(lang).services;
         for (var j = i + 1; j < cards.length; j++) {
           if (cards[j].getBoundingClientRect().top <= tops[j] + 2) depth++;
         }
-        var scale = Math.max(0.9, 1 - depth * 0.05);
-        cards[i].style.transform = 'scale(' + scale + ')';
-        cards[i].style.filter = depth > 0 ? 'brightness(' + (1 - depth * 0.07) + ')' : '';
+        var scale = Math.max(0.94, 1 - depth * 0.035);
+        var brightness = depth > 0 ? (1 - depth * 0.06) : 1;
+        cards[i].style.setProperty('--stack-scale', scale.toString());
+        cards[i].style.setProperty('--stack-brightness', brightness.toString());
       }
     }
     function request() {

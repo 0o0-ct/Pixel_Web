@@ -2033,12 +2033,20 @@ h4 {
   border-radius: var(--radius-lg);
   padding: clamp(26px, 4vw, 46px);
   scroll-margin-top: calc(var(--nav-h) + 18px);
-  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  transition: border-color 0.35s var(--ease), box-shadow 0.35s var(--ease), transform 0.35s var(--ease), filter 0.35s var(--ease);
 }
 
 .service:hover {
-  border-color: rgb(229 229 229 / 0.4);
-  box-shadow: var(--shadow-card);
+  --hover-y: -6px;
+  border-color: var(--border-strong, rgb(229 229 229 / 0.45));
+  box-shadow: 0 22px 50px -15px rgb(0 0 0 / 0.4), var(--shadow-card);
+}
+
+.service:hover .service__feature-icon {
+  transform: scale(1.08) translateY(-2px);
+  background: var(--accent-soft, rgb(229 229 229 / 0.3));
+  border-color: var(--violet);
+  box-shadow: 0 8px 20px -6px rgb(229 229 229 / 0.3);
 }
 
 .service + .service {
@@ -2056,6 +2064,7 @@ h4 {
   border: 1px solid rgb(229 229 229 / 0.4);
   color: var(--violet);
   margin-bottom: 20px;
+  transition: transform 0.35s var(--ease), background 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
 
 .check-list {
@@ -2940,16 +2949,17 @@ a.chip {
 
 /* Stacking cards Servicios: cada card se pega y la siguiente la cubre */
 .service-stack {
-  display: grid;
-  gap: clamp(20px, 3vw, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 .stack-track {
   display: flex;
   align-items: flex-start;
 }
-/* Aire justo para que la card respire antes de ser cubierta */
+/* Separación entre tarjetas ajustada para que no haya espacios vacíos excesivos */
 .stack-track:not(:last-child) {
-  padding-bottom: 10vh;
+  padding-bottom: 20px;
 }
 .stack-card {
   position: sticky;
@@ -2957,8 +2967,11 @@ a.chip {
   flex: 1;
   min-width: 0;
   transform-origin: center top;
-  will-change: transform;
+  transform: translateY(var(--hover-y, 0px)) scale(var(--stack-scale, 1));
+  filter: brightness(var(--stack-brightness, 1));
+  will-change: transform, filter;
   box-shadow: var(--shadow-card);
+  transition: transform 0.35s var(--ease), filter 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
 /* Cinta superior que distingue cada card apilada */
 .stack-card::before {

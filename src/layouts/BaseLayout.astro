@@ -94,8 +94,14 @@ const siteName = t(lang, 'site.name');
         var queued = false;
         var x = 0;
         var y = 0;
+        var px = -1;
+        var py = -1;
         function paint() {
           queued = false;
+          // No repintar si el ratón apenas se ha movido (<0.5px)
+          if (Math.abs(x - px) < 0.5 && Math.abs(y - py) < 0.5) return;
+          px = x;
+          py = y;
           root.style.setProperty('--mx', x + 'px');
           root.style.setProperty('--my', y + 'px');
           root.classList.add('has-spot');
@@ -140,6 +146,14 @@ const siteName = t(lang, 'site.name');
         var running = true;
         var W = 0;
         var H = 0;
+        var rafId = 0;
+        var lastMoveAt = 0;
+        function stopLoop() {
+          if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = 0;
+          }
+        }
         function palette() {
           return root.getAttribute('data-theme') === 'light' ? PALETTES.light : PALETTES.dark;
         }
@@ -169,6 +183,14 @@ const siteName = t(lang, 'site.name');
         }
         function frame(now) {
           if (!running) return;
+          // Reposo: si el ratón lleva inactivo ~1.5s se pausa el bucle
+          // (antes corría a 60fps constantes aunque no hicieras nada).
+          if (now - lastMoveAt > 1500) {
+            canvas.style.opacity = '0';
+            ctx.clearRect(0, 0, W, H);
+            stopLoop();
+            return;
+          }
           var t = now / 1000;
           var pal = palette();
           ctx.clearRect(0, 0, W, H);
@@ -177,6 +199,7 @@ const siteName = t(lang, 'site.name');
             var d = dots[i];
             var dx = d.x - mx;
             var dy = d.y - my;
+            if (dx > R || dx < -R || dy > R || dy < -R) continue;
             var dist = Math.sqrt(dx * dx + dy * dy);
             if (dist > R) continue;
             var spot = 1 - dist / R;
@@ -189,15 +212,17 @@ const siteName = t(lang, 'site.name');
             ctx.fillStyle = 'rgba(' + pal[d.c] + ',' + a.toFixed(3) + ')';
             ctx.fill();
           }
-          requestAnimationFrame(frame);
+          rafId = requestAnimationFrame(frame);
         }
         document.addEventListener(
           'mousemove',
           function (e) {
             mx = e.clientX;
             my = e.clientY;
+            lastMoveAt = performance.now();
             canvas.style.opacity = '1';
             root.classList.add('has-fireflies');
+            if (!rafId) rafId = requestAnimationFrame(frame);
           },
           { passive: true }
         );
@@ -205,10 +230,15 @@ const siteName = t(lang, 'site.name');
           canvas.style.opacity = '0';
           mx = -9999;
           my = -9999;
+          stopLoop();
+          ctx.clearRect(0, 0, W, H);
         });
         document.addEventListener('visibilitychange', function () {
           running = !document.hidden;
-          if (running) requestAnimationFrame(frame);
+          if (running && !rafId) {
+            lastMoveAt = performance.now();
+            rafId = requestAnimationFrame(frame);
+          }
         });
         var rt = 0;
         window.addEventListener('resize', function () {
@@ -216,7 +246,9 @@ const siteName = t(lang, 'site.name');
           rt = setTimeout(build, 150);
         });
         build();
-        requestAnimationFrame(frame);
+        // No arranca en bucle al cargar: se activa con el primer mousemove
+        // (el ratón fuera o inactivo = 0 rAF = 0 consumo de CPU/GPU).
+        lastMoveAt = performance.now();
       })();
     </script>
     <script is:inline>

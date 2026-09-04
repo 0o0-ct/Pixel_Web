@@ -86,6 +86,12 @@ const siteName = t(lang, 'site.name');
     </main>
     <Footer lang={lang} />
     <script is:inline>
+      // Bloquea el clic derecho en toda la web.
+      document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+      });
+    </script>
+    <script is:inline>
       // Spotlight global (CSS Mask) + Luciérnagas en Canvas
       // Optimización: 0 consumo de CPU/GPU en reposo o al cambiar de pestaña.
       (function () {

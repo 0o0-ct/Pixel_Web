@@ -902,18 +902,20 @@ h4 {
 
 .footer__about {
   max-width: 34ch;
-  color: var(--text-muted);
-  font-size: 0.95rem;
+  color: var(--text);
+  opacity: 0.92;
+  font-size: 0.96rem;
+  line-height: 1.6;
 }
 
 .footer h4 {
-  font-size: 0.82rem;
+  font-size: 0.86rem;
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: var(--text-faint);
+  color: var(--text);
   margin-bottom: 16px;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .footer ul {
@@ -924,20 +926,23 @@ h4 {
 }
 
 .footer ul a {
-  color: var(--text-muted);
-  transition: color 0.2s var(--ease);
+  color: var(--text);
+  opacity: 0.88;
+  font-weight: 500;
+  transition: color 0.2s var(--ease), opacity 0.2s var(--ease);
 }
 
 .footer ul a:hover {
-  color: var(--text);
+  color: var(--accent);
+  opacity: 1;
 }
 
 .footer__contact li {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 10px;
-  color: var(--text-muted);
-  font-size: 0.93rem;
+  color: var(--text);
+  font-size: 0.94rem;
   align-items: baseline;
 }
 
@@ -945,11 +950,15 @@ h4 {
 .footer__contact span:not(.mono) {
   overflow-wrap: anywhere;
   min-width: 0;
+  color: var(--text);
+  opacity: 0.92;
 }
 
 .footer__contact .mono {
-  color: var(--text-faint);
-  font-size: 0.78rem;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
 }
 
 .footer__bottom {
@@ -959,8 +968,33 @@ h4 {
   justify-content: space-between;
   gap: 14px;
   flex-wrap: wrap;
-  color: var(--text-faint);
+  color: var(--text);
+  opacity: 0.85;
   font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.footer__social .chip {
+  color: var(--text);
+  background: rgb(255 255 255 / 0.12);
+  border-color: var(--border-strong);
+  font-weight: 500;
+}
+
+.footer__social .chip:hover {
+  background: rgb(255 255 255 / 0.22);
+  border-color: var(--text);
+}
+
+html[data-theme='light'] .footer__social .chip {
+  background: rgb(0 0 0 / 0.07);
+  border-color: rgb(0 0 0 / 0.2);
+  color: var(--text);
+}
+
+html[data-theme='light'] .footer__social .chip:hover {
+  background: rgb(0 0 0 / 0.14);
+  border-color: var(--text);
 }
 
 @media (max-width: 900px) {

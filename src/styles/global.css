@@ -832,6 +832,18 @@ h4 {
   text-align: center;
   margin: 0;
   width: 100%;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.footer__ascii-bg.is-animating pre {
+  color: var(--violet);
+  text-shadow: 0 0 24px rgb(229 229 229 / 0.4), 0 0 8px rgb(255 255 255 / 0.6);
+  animation: crt-flicker 0.12s infinite alternate;
+}
+
+@keyframes crt-flicker {
+  0% { opacity: 0.82; }
+  100% { opacity: 1; }
 }
 
 .footer__grid {

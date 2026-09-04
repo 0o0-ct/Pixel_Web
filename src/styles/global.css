@@ -790,10 +790,43 @@ h4 {
 
 /* ---------- Footer ---------- */
 .footer {
+  position: relative;
+  overflow: hidden;
   border-top: 1px solid var(--border);
   background: linear-gradient(180deg, transparent, rgb(255 255 255 / 0.015));
   padding: clamp(48px, 6vw, 72px) 0 30px;
   margin-top: 40px;
+}
+
+.footer > .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Marca de agua ASCII Art de fondo profesional */
+.footer__ascii-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.055;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, #000 50%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, #000 50%, transparent 100%);
+}
+
+.footer__ascii-bg pre {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: clamp(0.35rem, 0.95vw, 0.85rem);
+  line-height: 1.08;
+  letter-spacing: -0.06em;
+  color: var(--text);
+  white-space: pre;
+  text-align: center;
+  margin: 0;
 }
 
 .footer__grid {

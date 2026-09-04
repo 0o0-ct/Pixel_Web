@@ -86,60 +86,27 @@ const siteName = t(lang, 'site.name');
     </main>
     <Footer lang={lang} />
     <script is:inline>
-      // Spotlight global: la matriz de píxeles sigue al cursor (solo puntero fino).
+      // Spotlight global (CSS Mask) + Luciérnagas en Canvas
+      // Optimización: 0 consumo de CPU/GPU en reposo o al cambiar de pestaña.
       (function () {
         if (!window.matchMedia('(pointer: fine)').matches) return;
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
         var root = document.documentElement;
-        var queued = false;
-        var x = 0;
-        var y = 0;
-        var px = -1;
-        var py = -1;
-        function paint() {
-          queued = false;
-          // No repintar si el ratón apenas se ha movido (<0.5px)
-          if (Math.abs(x - px) < 0.5 && Math.abs(y - py) < 0.5) return;
-          px = x;
-          py = y;
-          root.style.setProperty('--mx', x + 'px');
-          root.style.setProperty('--my', y + 'px');
-          root.classList.add('has-spot');
-        }
-        document.addEventListener(
-          'mousemove',
-          function (e) {
-            x = e.clientX;
-            y = e.clientY;
-            if (!queued) {
-              queued = true;
-              requestAnimationFrame(paint);
-            }
-          },
-          { passive: true }
-        );
-        document.addEventListener('mouseleave', function () {
-          root.classList.remove('has-spot');
-        });
-      })();
-    </script>
-    <script is:inline>
-      // Luciérnagas: cada puntito con color y parpadeo propios + spotlight al cursor.
-      (function () {
-        if (!window.matchMedia('(pointer: fine)').matches) return;
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         var PALETTES = {
           dark: ['139,124,255', '228,228,235', '168,155,255'],
           light: ['83,61,240', '29,29,36', '106,88,255'],
         };
+
         var canvas = document.createElement('canvas');
         canvas.setAttribute('aria-hidden', 'true');
         canvas.style.cssText =
           'position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .4s ease;';
         document.body.appendChild(canvas);
+
         var ctx = canvas.getContext('2d');
         if (!ctx) return;
-        var root = document.documentElement;
+
         var dots = [];
         var mx = -9999;
         var my = -9999;
@@ -148,15 +115,18 @@ const siteName = t(lang, 'site.name');
         var H = 0;
         var rafId = 0;
         var lastMoveAt = 0;
+
         function stopLoop() {
           if (rafId) {
             cancelAnimationFrame(rafId);
             rafId = 0;
           }
         }
+
         function palette() {
           return root.getAttribute('data-theme') === 'light' ? PALETTES.light : PALETTES.dark;
         }
+
         function build() {
           var dpr = Math.min(window.devicePixelRatio || 1, 2);
           W = window.innerWidth;
@@ -166,6 +136,7 @@ const siteName = t(lang, 'site.name');
           canvas.style.width = W + 'px';
           canvas.style.height = H + 'px';
           ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
           var gap = W < 768 ? 20 : 14;
           dots = [];
           for (var y = gap / 2; y < H; y += gap) {
@@ -181,74 +152,103 @@ const siteName = t(lang, 'site.name');
             }
           }
         }
+
         function frame(now) {
           if (!running) return;
-          // Reposo: si el ratón lleva inactivo ~1.5s se pausa el bucle
-          // (antes corría a 60fps constantes aunque no hicieras nada).
+
+          // Reposo: si el ratón lleva inactivo ~1.5s se pausa el bucle (0% consumo GPU/CPU)
           if (now - lastMoveAt > 1500) {
             canvas.style.opacity = '0';
+            root.classList.remove('has-spot');
             ctx.clearRect(0, 0, W, H);
             stopLoop();
             return;
           }
+
           var t = now / 1000;
           var pal = palette();
           ctx.clearRect(0, 0, W, H);
           var R = 520;
+
           for (var i = 0; i < dots.length; i++) {
             var d = dots[i];
             var dx = d.x - mx;
             var dy = d.y - my;
             if (dx > R || dx < -R || dy > R || dy < -R) continue;
+
             var dist = Math.sqrt(dx * dx + dy * dy);
             if (dist > R) continue;
+
             var spot = 1 - dist / R;
             spot = spot * spot;
             var blink = 0.55 + 0.45 * (0.5 + 0.5 * Math.sin(t * d.s + d.p));
             var a = blink * (0.35 + 0.65 * spot);
             if (a < 0.03) continue;
+
             ctx.beginPath();
             ctx.arc(d.x, d.y, d.r, 0, 6.2832);
             ctx.fillStyle = 'rgba(' + pal[d.c] + ',' + a.toFixed(3) + ')';
             ctx.fill();
           }
+
           rafId = requestAnimationFrame(frame);
         }
-        document.addEventListener(
-          'mousemove',
-          function (e) {
-            mx = e.clientX;
-            my = e.clientY;
-            lastMoveAt = performance.now();
-            canvas.style.opacity = '1';
-            root.classList.add('has-fireflies');
-            if (!rafId) rafId = requestAnimationFrame(frame);
-          },
-          { passive: true }
-        );
-        document.addEventListener('mouseleave', function () {
+
+        function handlePointerMove(e) {
+          if (document.hidden) return;
+          mx = e.clientX;
+          my = e.clientY;
+
+          // Actualizar variables CSS para la máscara Spotlight
+          root.style.setProperty('--mx', mx + 'px');
+          root.style.setProperty('--my', my + 'px');
+          root.classList.add('has-spot');
+
+          lastMoveAt = performance.now();
+          canvas.style.opacity = '1';
+          root.classList.add('has-fireflies');
+
+          if (running && !rafId) {
+            rafId = requestAnimationFrame(frame);
+          }
+        }
+
+        document.addEventListener('mousemove', handlePointerMove, { passive: true });
+        document.addEventListener('pointermove', handlePointerMove, { passive: true });
+
+        function hideSpotlight() {
           canvas.style.opacity = '0';
+          root.classList.remove('has-spot');
           mx = -9999;
           my = -9999;
           stopLoop();
           ctx.clearRect(0, 0, W, H);
-        });
+        }
+
+        document.addEventListener('mouseleave', hideSpotlight);
+
+        // Al cambiar de pestaña o minimizar el navegador:
         document.addEventListener('visibilitychange', function () {
-          running = !document.hidden;
-          if (running && !rafId) {
-            lastMoveAt = performance.now();
-            rafId = requestAnimationFrame(frame);
+          if (document.hidden) {
+            running = false;
+            hideSpotlight();
+          } else {
+            running = true;
+            // No iniciamos con coordenadas viejas; esperamos al primer mousemove real
           }
         });
+
+        window.addEventListener('blur', function () {
+          hideSpotlight();
+        });
+
         var rt = 0;
         window.addEventListener('resize', function () {
           clearTimeout(rt);
           rt = setTimeout(build, 150);
         });
+
         build();
-        // No arranca en bucle al cargar: se activa con el primer mousemove
-        // (el ratón fuera o inactivo = 0 rAF = 0 consumo de CPU/GPU).
-        lastMoveAt = performance.now();
       })();
     </script>
     <script is:inline>

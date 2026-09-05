@@ -8,7 +8,7 @@ export const SITE_NAME = 'Design Web';
 export const CONTACT = {
   email: 'hola@pixelweb.dev',
   whatsapp: '+34 600 000 000',
-  location: 'Remoto · España y América Latina',
+  location: 'Remoto y América Latina',
   hours: 'Lun – Vie · 9:00 – 18:00 (CET)',
 };
 

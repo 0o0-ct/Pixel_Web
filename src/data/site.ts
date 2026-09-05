@@ -14,7 +14,6 @@ export const CONTACT = {
 
 export const SOCIALS = [
   { label: 'Instagram', href: 'https://instagram.com/pixelweb' },
-  { label: 'X / Twitter', href: 'https://x.com/pixelweb' },
   { label: 'LinkedIn', href: 'https://linkedin.com/company/pixelweb' },
   { label: 'GitHub', href: 'https://github.com/pixelweb' },
 ] as const;

@@ -249,11 +249,11 @@ export const content: SiteContent = {
     ],
     pricing: {
       eyebrow: 'Precios',
-      title: 'Planes transparentes, sin letra pequeña',
+      title: 'Planes que se adecuen a tus necesidades',
       lead: 'Precios de salida orientativos. Cada proyecto se presupuesta a medida tras la primera llamada.',
       plans: [
         {
-          name: 'Landing',
+          name: 'Educativo',
           tagline: 'Para lanzar una campaña o validar una idea.',
           price: 'Desde 490 €',
           priceNote: 'Pago único · Entrega en 7 días',

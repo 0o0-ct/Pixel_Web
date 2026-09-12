@@ -255,7 +255,7 @@ export const content: SiteContent = {
         {
           name: 'Educativo',
           tagline: 'Para lanzar una campaña o validar una idea.',
-          price: 'Desde 490 €',
+          price: 'Desde $490',
           priceNote: 'Pago único · Entrega en 7 días',
           featured: false,
           features: [
@@ -271,7 +271,7 @@ export const content: SiteContent = {
         {
           name: 'Profesional',
           tagline: 'La opción completa para negocios que crecen.',
-          price: 'Desde 1.290 €',
+          price: 'Desde $1.290',
           priceNote: 'Pago único · Entrega en 2–3 semanas',
           featured: true,
           features: [
@@ -287,7 +287,7 @@ export const content: SiteContent = {
         {
           name: 'Tienda online',
           tagline: 'Para vender productos con todas las garantías.',
-          price: 'Desde 2.490 €',
+          price: 'Desde $2.490',
           priceNote: 'Pago único · Entrega en 3–5 semanas',
           featured: false,
           features: [
@@ -341,7 +341,7 @@ export const content: SiteContent = {
     page: {
       eyebrow: 'Nosotros',
       title: 'Una agencia que enseña lo que hace',
-      lead: 'No vendemos humo: cada proyecto que construimos se puede visitar, navegar y comprobar en nuestro showcase en vivo.',
+      lead: 'Resultados reales, no promesas. Explora y comprueba la calidad de cada proyecto que construimos en nuestro showcase en vivo.',
     },
     story: {
       heading: 'Nuestra historia',
@@ -436,13 +436,6 @@ export const content: SiteContent = {
           href: 'https://wa.me/34600000000',
           hint: 'Respuesta inmediata',
         },
-        {
-          icon: 'message',
-          title: 'Llamada gratuita',
-          text: '30 minutos · sin compromiso',
-          href: 'mailto:hola@pixelweb.dev?subject=Reservar%20llamada',
-          hint: 'Agenda vía email',
-        },
       ],
     },
     form: {
@@ -472,10 +465,10 @@ export const content: SiteContent = {
         { value: 'other', label: 'Otro' },
       ],
       budgets: [
-        { value: 'under-1000', label: 'Menos de 1.000 €' },
-        { value: '1000-2500', label: '1.000 – 2.500 €' },
-        { value: '2500-5000', label: '2.500 – 5.000 €' },
-        { value: 'over-5000', label: 'Más de 5.000 €' },
+        { value: 'under-1000', label: 'Menos de $1.000' },
+        { value: '1000-2500', label: '$1.000 – $2.500' },
+        { value: '2500-5000', label: '$2.500 – $5.000' },
+        { value: 'over-5000', label: 'Más de $5.000' },
         { value: 'not-sure', label: 'Aún no lo sé' },
       ],
       success:

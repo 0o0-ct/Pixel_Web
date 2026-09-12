@@ -255,7 +255,7 @@ export const content: SiteContent = {
         {
           name: 'Landing',
           tagline: 'To launch a campaign or validate an idea.',
-          price: 'From €490',
+          price: 'From $490',
           priceNote: 'One-time · Delivered in 7 days',
           featured: false,
           features: [
@@ -271,7 +271,7 @@ export const content: SiteContent = {
         {
           name: 'Professional',
           tagline: 'The complete option for growing businesses.',
-          price: 'From €1,290',
+          price: 'From $1,290',
           priceNote: 'One-time · Delivered in 2–3 weeks',
           featured: true,
           features: [
@@ -287,7 +287,7 @@ export const content: SiteContent = {
         {
           name: 'Online store',
           tagline: 'To sell products with every guarantee.',
-          price: 'From €2,490',
+          price: 'From $2,490',
           priceNote: 'One-time · Delivered in 3–5 weeks',
           featured: false,
           features: [
@@ -436,13 +436,6 @@ export const content: SiteContent = {
           href: 'https://wa.me/34600000000',
           hint: 'Instant reply',
         },
-        {
-          icon: 'message',
-          title: 'Free call',
-          text: '30 minutes · no obligation',
-          href: 'mailto:hola@pixelweb.dev?subject=Book%20a%20call',
-          hint: 'Book via email',
-        },
       ],
     },
     form: {
@@ -472,10 +465,10 @@ export const content: SiteContent = {
         { value: 'other', label: 'Other' },
       ],
       budgets: [
-        { value: 'under-1000', label: 'Under €1,000' },
-        { value: '1000-2500', label: '€1,000 – €2,500' },
-        { value: '2500-5000', label: '€2,500 – €5,000' },
-        { value: 'over-5000', label: 'Over €5,000' },
+        { value: 'under-1000', label: 'Under $1,000' },
+        { value: '1000-2500', label: '$1,000 – $2,500' },
+        { value: '2500-5000', label: '$2,500 – $5,000' },
+        { value: 'over-5000', label: 'Over $5,000' },
         { value: 'not-sure', label: 'Not sure yet' },
       ],
       success:

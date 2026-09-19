@@ -6,6 +6,7 @@
 import type { Lang } from '../../i18n/ui';
 import { contentFor, CONTACT } from '../../data';
 import Icon from '../Icon.astro';
+import CustomSelect from '../CustomSelect.astro';
 import PageHeader from '../sections/PageHeader.astro';
 
 interface Props {
@@ -65,28 +66,21 @@ const mailtoBase = `mailto:${CONTACT.email}`;
               <label for="cf-email">{l.email}</label>
               <input id="cf-email" name="email" type="email" autocomplete="email" placeholder={l.emailPh} required />
             </div>
-            <div class="field">
-              <label for="cf-type">{l.type}</label>
-              <select id="cf-type" name="type" required>
-                <option value="" disabled selected>
-                  {l.typePh}
-                </option>
-                {
-                  ct.form.types.map((o) => <option value={o.value}>{o.label}</option>)
-                }
-              </select>
-            </div>
-            <div class="field">
-              <label for="cf-budget">{l.budget}</label>
-              <select id="cf-budget" name="budget">
-                <option value="" disabled selected>
-                  {l.budgetPh}
-                </option>
-                {
-                  ct.form.budgets.map((o) => <option value={o.value}>{o.label}</option>)
-                }
-              </select>
-            </div>
+            <CustomSelect
+              id="cf-type"
+              name="type"
+              label={l.type}
+              placeholder={l.typePh}
+              options={ct.form.types}
+              required
+            />
+            <CustomSelect
+              id="cf-budget"
+              name="budget"
+              label={l.budget}
+              placeholder={l.budgetPh}
+              options={ct.form.budgets}
+            />
             <div class="field field--full">
               <label for="cf-message">{l.message}</label>
               <textarea id="cf-message" name="message" placeholder={l.messagePh} required></textarea>

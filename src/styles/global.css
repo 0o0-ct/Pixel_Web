@@ -1350,6 +1350,9 @@ html[data-theme='light'] .footer__social .chip:hover {
 
 /* Tarjeta fantasma “tu proyecto aquí” */
 .project-card--ghost {
+  grid-column: 1 / -1;
+  width: min(100%, 420px);
+  justify-self: center;
   border-style: dashed;
   border-color: var(--border-strong);
   background: transparent;
@@ -1477,6 +1480,7 @@ html[data-theme='light'] .footer__social .chip:hover {
 }
 
 .cta-band h2 {
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
   max-width: 24ch;
   margin-inline: auto;
 }

@@ -101,13 +101,6 @@ export const content: SiteContent = {
           tags: ['Local', 'Digital menu'],
           theme: 'linear-gradient(135deg,#1c1917 0%,#44403c 55%,#78350f 100%)',
         },
-        {
-          name: 'FitPulse',
-          url: 'https://fitpulse.fit',
-          desc: 'Fitness app with personalized plans and a community.',
-          tags: ['App', 'Subscription'],
-          theme: 'linear-gradient(135deg,#4a044e 0%,#86198f 50%,#7e22ce 100%)',
-        },
       ],
       ghost: {
         title: 'Yours could be next',

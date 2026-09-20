@@ -149,7 +149,7 @@ function isActive(href: string): boolean {
       } catch (e) {}
       themeBtn.setAttribute('aria-pressed', String(next === 'light'));
       const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', next === 'light' ? '#f5f5f7' : '#07070d');
+      if (meta) meta.setAttribute('content', next === 'light' ? '#f5f5f5' : '#000000');
     };
     // aria-pressed inicial según el tema ya aplicado (evita parpadeo del head).
     applyTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');

@@ -5,16 +5,16 @@
 
 :root {
   /* Paleta */
-  --bg: #07070d;
-  --bg-soft: #0b0b14;
-  --surface: #12121e;
-  --surface-2: #191928;
-  --surface-3: #202033;
+  --bg: #000000;
+  --bg-soft: #070708;
+  --surface: #121214;
+  --surface-2: #1a1a1d;
+  --surface-3: #242428;
   --border: rgb(255 255 255 / 0.14);
   --border-strong: rgb(255 255 255 / 0.28);
-  --text: #f4f4f8;
-  --text-muted: #b6b6c4;
-  --text-faint: #8c8c9e;
+  --text: #f4f4f5;
+  --text-muted: #b4b4b8;
+  --text-faint: #8a8a91;
 
   --violet: #e5e5e5;
   --fuchsia: #a1a1aa;
@@ -41,8 +41,8 @@
   --shadow-card: 0 20px 50px -22px rgb(0 0 0 / 0.7);
 
   --scheme: dark;
-  --nav-bg: rgb(7 7 13 / 0.78);
-  --btn-primary-text: #0b0716;
+  --nav-bg: rgb(0 0 0 / 0.72);
+  --btn-primary-text: #0a0a0a;
   /* Acento navegacion — funciona en oscuro y claro */
   --accent: #8b7cff;
   --accent-strong: #a89bff;
@@ -54,16 +54,16 @@
 
 /* ---------- Tema claro (activado con el botón de tema) ---------- */
 html[data-theme='light'] {
-  --bg: #f5f5f7;
+  --bg: #f5f5f5;
   --bg-soft: #ececef;
   --surface: #ffffff;
-  --surface-2: #f7f7f9;
-  --surface-3: #ececf0;
+  --surface-2: #f7f7f7;
+  --surface-3: #ececec;
   --border: rgb(0 0 0 / 0.1);
   --border-strong: rgb(0 0 0 / 0.2);
-  --text: #0e0e12;
-  --text-muted: #4b4b56;
-  --text-faint: #64646f;
+  --text: #0e0e0e;
+  --text-muted: #4b4b4d;
+  --text-faint: #666666;
 
   --violet: #494952;
   --fuchsia: #6b6b76;
@@ -219,12 +219,12 @@ ol[role='list'] {
     background: var(--bg);
   }
   ::-webkit-scrollbar-thumb {
-    background: #26263a;
+    background: #26262a;
     border-radius: 99px;
     border: 3px solid var(--bg);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #34344e;
+    background: #3a3a40;
   }
 }
 
@@ -1809,7 +1809,7 @@ html[data-theme='light'] .footer__social .chip:hover {
 }
 
 .prose pre {
-  background: #0d0d18;
+  background: #0c0c0d;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 18px 20px;
@@ -2367,11 +2367,11 @@ html[data-theme='light'] .card__glow {
 html[data-theme='dark'] .card {
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.015)),
-    linear-gradient(180deg, #1e1e26 0%, #131318 100%);
-  border-color: rgb(255 255 255 / 0.1);
+    var(--surface);
+  border-color: var(--border);
 }
 html[data-theme='dark'] .card:hover {
-  border-color: rgb(255 255 255 / 0.22);
+  border-color: var(--border-strong);
 }
 html[data-theme='dark'] .feature-icon {
   background: rgb(255 255 255 / 0.07);
@@ -2382,25 +2382,25 @@ html[data-theme='dark'] .feature-icon {
 html[data-theme='dark'] .service {
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.012)),
-    linear-gradient(180deg, #1e1e26 0%, #131318 100%);
-  border-color: rgb(255 255 255 / 0.1);
+    var(--surface);
+  border-color: var(--border);
 }
 html[data-theme='dark'] .service__panel {
   background: rgb(255 255 255 / 0.045);
-  border-color: rgb(255 255 255 / 0.1);
+  border-color: var(--border);
 }
 html[data-theme='dark'] .plan {
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.012)),
-    linear-gradient(180deg, #1e1e26 0%, #131318 100%);
-  border-color: rgb(255 255 255 / 0.1);
+    var(--surface);
+  border-color: var(--border);
 }
 html[data-theme='dark'] .plan:hover {
-  border-color: rgb(255 255 255 / 0.22);
+  border-color: var(--border-strong);
 }
 html[data-theme='dark'] .faq details {
-  background: linear-gradient(180deg, #1e1e26 0%, #131318 100%);
-  border-color: rgb(255 255 255 / 0.1);
+  background: var(--surface);
+  border-color: var(--border);
 }
 
 html[data-theme='light'] .hero__orb.orb-1 {
@@ -2441,7 +2441,7 @@ html[data-theme='light'] .field textarea:focus {
   --space-8: 64px;
   --focus-ring: #e5e5e5;
   --selection-bg: rgb(229 229 229 / 0.35);
-  --scrollbar-thumb: #26263a;
+  --scrollbar-thumb: #26262a;
 }
 html[data-theme='light'] {
   --focus-ring: #494952;
@@ -2603,7 +2603,7 @@ html[data-theme='dark'] .cta-band {
   background:
     radial-gradient(560px 240px at 15% 0%, rgb(255 255 255 / 0.09), transparent 60%),
     radial-gradient(480px 220px at 90% 100%, rgb(255 255 255 / 0.05), transparent 60%),
-    linear-gradient(180deg, #1e1e26 0%, #131318 100%);
+    var(--surface-2);
   border-color: rgb(255 255 255 / 0.12);
 }
 
@@ -3111,7 +3111,7 @@ main { animation: page-in 0.55s var(--ease-spring) both; }
    Optimización de RENDIMIENTO / GPU (manteniendo el diseño)
    ============================================================ */
 :root {
-  --nav-bg-solid: #0b0b14;
+  --nav-bg-solid: #0a0a0b;
 }
 html[data-theme='light'] {
   --nav-bg-solid: #ffffff;
@@ -3250,8 +3250,12 @@ html[data-theme='light'] {
   border: 1px solid var(--border-strong);
   border-radius: 18px;
   box-shadow: 0 30px 60px -24px rgb(0 0 0 / 0.75), 0 0 0 1px rgb(255 255 255 / 0.03) inset;
-  max-height: 320px;
+  max-height: min(64vh, 400px);
   overflow-y: auto;
+  /* Sin barra visible: el panel se desplaza igual (rueda/teclado) si hiciera falta */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior: contain;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-8px) scale(0.985);
@@ -3309,3 +3313,103 @@ html[data-theme='light'] .cselect__opt[data-active='true'] {
     transition: none;
   }
 }
+
+/* Panel del desplegable: oculta la barra de scroll (WebKit/Blink) */
+.cselect__list::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* ============================================================
+   Contacto: texto a la izquierda más estrecho y formulario
+   más ancho a la derecha (los campos respiran mejor)
+   ============================================================ */
+.split--form {
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: clamp(var(--space-6), 4vw, var(--space-7));
+}
+
+/* Un pelín más de aire interno del card del formulario */
+.split--form .card {
+  padding: clamp(var(--space-5), 2.6vw, var(--space-6));
+}
+
+@media (max-width: 860px) {
+  .split--form {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   Contacto: título a la IZQUIERDA y formulario a su misma altura
+   ============================================================ */
+.contact-section {
+  padding-top: clamp(56px, 8vw, 96px);
+}
+
+.contact-title {
+  font-size: clamp(2rem, 4.6vw, 3.2rem);
+  margin-top: 0;
+  max-width: 18ch;
+}
+
+.contact-lead {
+  margin-top: var(--space-5);
+}
+
+.contact-channels {
+  margin-top: clamp(var(--space-7), 6vw, var(--space-8));
+}
+
+.contact-list {
+  margin-top: var(--space-5);
+}
+
+/* Reparto más equilibrado ahora que el título vive en la izquierda */
+.split--form {
+  grid-template-columns: 0.95fr 1.05fr;
+}
+
+/* Contacto: en pantallas estrechas vuelve a una columna
+   (debe ir al final para ganar a la proporción de arriba) */
+@media (max-width: 860px) {
+  .split--form {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   Contacto — ajuste fino por pantallas
+   ============================================================ */
+/* 1) Cuando el formulario no es ancho, los campos pasan a una columna
+      (evita inputs de 190-220px en portátiles/tablets) */
+@media (max-width: 1100px) {
+  .split--form .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 2) Apilado alineado con el breakpoint del menú (tablet/móvil) */
+@media (max-width: 900px) {
+  .split--form {
+    grid-template-columns: 1fr;
+  }
+  .contact-channels {
+    margin-top: clamp(var(--space-6), 6vw, var(--space-7));
+  }
+  .contact-title {
+    max-width: 22ch;
+  }
+}
+
+/* 3) En pantallas muy grandes, un poco más de aire vertical */
+@media (min-width: 1600px) {
+  .contact-section {
+    padding-top: clamp(80px, 7vw, 110px);
+  }
+  .split--form {
+    gap: var(--space-7);
+  }
+}
+

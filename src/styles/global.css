@@ -2601,10 +2601,10 @@ html[data-theme='light'] .theme-toggle:hover {
 /* ---------- Banda CTA en TEMA OSCURO: gris a juego ---------- */
 html[data-theme='dark'] .cta-band {
   background:
-    radial-gradient(560px 240px at 15% 0%, rgb(255 255 255 / 0.09), transparent 60%),
-    radial-gradient(480px 220px at 90% 100%, rgb(255 255 255 / 0.05), transparent 60%),
+    radial-gradient(560px 240px at 15% 0%, rgb(255 255 255 / 0.055), transparent 68%),
+    radial-gradient(480px 220px at 90% 100%, rgb(255 255 255 / 0.03), transparent 68%),
     linear-gradient(180deg, #1e1e26 0%, #131318 100%);
-  border-color: rgb(255 255 255 / 0.12);
+  border-color: rgb(255 255 255 / 0.1);
 }
 
 html[data-theme='light'] .cta-band {

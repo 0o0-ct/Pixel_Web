@@ -1353,20 +1353,34 @@ html[data-theme='light'] .footer__social .chip:hover {
   width: min(100%, 420px);
   justify-self: center;
   border-style: dashed;
+  border-width: 1px;
   border-color: var(--border-strong);
-  background: transparent;
+  background: var(--surface-2);
   align-items: center;
   justify-content: center;
   text-align: center;
   min-height: 260px;
-  color: var(--text-faint);
+  color: var(--text);
+  padding: 32px 24px;
+  transition: all 0.25s var(--ease);
+}
+
+.project-card--ghost p {
+  color: #d4d4d8;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+html[data-theme='light'] .project-card--ghost p {
+  color: #3f3f46;
 }
 
 .project-card--ghost:hover {
-  transform: none;
-  border-color: rgb(212 212 216 / 0.6);
-  color: var(--text-muted);
-  box-shadow: 0 0 50px -20px rgb(212 212 216 / 0.4);
+  transform: translateY(-2px);
+  border-color: var(--text);
+  background: var(--surface-3);
+  color: var(--text);
+  box-shadow: 0 10px 30px -10px rgb(255 255 255 / 0.1);
 }
 
 /* ---------- Rejillas ---------- */

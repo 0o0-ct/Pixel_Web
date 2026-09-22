@@ -423,8 +423,7 @@ h4 {
 
 /* ---------- Tarjetas ---------- */
 .card {
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.085), rgb(255 255 255 / 0.012)),
-    var(--surface);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: clamp(22px, 3vw, 32px);
@@ -449,14 +448,7 @@ h4 {
 }
 
 .card__glow {
-  position: absolute;
-  inset: auto -30% -55% 35%;
-  height: 70%;
-  background: radial-gradient(closest-side, rgb(229 229 229 / 0.28), transparent);
-  filter: blur(30px);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.4s var(--ease);
+  display: none;
 }
 
 .card:hover .card__glow {
@@ -1518,10 +1510,9 @@ html[data-theme='light'] .footer__social .chip:hover {
 }
 
 .plan--featured {
-  border: 1px solid rgb(229 229 229 / 0.6);
-  background: linear-gradient(180deg, rgb(229 229 229 / 0.1), rgb(255 255 255 / 0.015)),
-    var(--surface);
-  box-shadow: 0 24px 70px -28px rgb(229 229 229 / 0.7);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  box-shadow: 0 24px 70px -28px rgb(0 0 0 / 0.5);
   transform: translateY(-8px);
 }
 
@@ -2115,8 +2106,7 @@ html[data-theme='light'] .footer__social .chip:hover {
   grid-template-columns: 1.1fr 0.9fr;
   gap: clamp(22px, 3vw, 40px);
   align-items: center;
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.045), rgb(255 255 255 / 0.01)),
-    var(--surface);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: clamp(26px, 4vw, 46px);
@@ -2148,8 +2138,8 @@ html[data-theme='light'] .footer__social .chip:hover {
   display: grid;
   place-items: center;
   font-size: 1.5rem;
-  background: linear-gradient(160deg, rgb(229 229 229 / 0.2), rgb(212 212 216 / 0.12));
-  border: 1px solid rgb(229 229 229 / 0.4);
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
   color: var(--violet);
   margin-bottom: 20px;
   transition: transform 0.35s var(--ease), background 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
@@ -2367,36 +2357,29 @@ html[data-theme='light'] .card__glow {
   background: radial-gradient(closest-side, rgb(0 0 0 / 0.14), transparent);
 }
 
-/* ---------- Cards en TEMA OSCURO: gris que combina con el fondo ---------- */
+/* ---------- Cards y Servicios en TEMA OSCURO: color sólido plano ---------- */
 html[data-theme='dark'] .card {
-  background:
-    linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.015)),
-    var(--surface);
+  background: var(--surface);
   border-color: var(--border);
 }
 html[data-theme='dark'] .card:hover {
   border-color: var(--border-strong);
 }
 html[data-theme='dark'] .feature-icon {
-  background: rgb(255 255 255 / 0.07);
-  border-color: rgb(255 255 255 / 0.16);
+  background: var(--surface-2);
+  border-color: var(--border-strong);
 }
 
-/* ---------- Página Servicios en TEMA OSCURO: mismo gris ---------- */
 html[data-theme='dark'] .service {
-  background:
-    linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.012)),
-    var(--surface);
+  background: var(--surface);
   border-color: var(--border);
 }
 html[data-theme='dark'] .service__panel {
-  background: rgb(255 255 255 / 0.045);
+  background: var(--surface-2);
   border-color: var(--border);
 }
 html[data-theme='dark'] .plan {
-  background:
-    linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.012)),
-    var(--surface);
+  background: var(--surface);
   border-color: var(--border);
 }
 html[data-theme='dark'] .plan:hover {

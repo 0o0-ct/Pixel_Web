@@ -242,13 +242,13 @@ export const content: SiteContent = {
     ],
     pricing: {
       eyebrow: 'Precios',
-      title: 'Planes que se adecuen a tus necesidades',
+      title: 'Planes que se adecúen a tus necesidades',
       lead: 'Precios de salida orientativos. Cada proyecto se presupuesta a medida tras la primera llamada.',
       plans: [
         {
           name: 'Educativo',
           tagline: 'Para lanzar una campaña o validar una idea.',
-          price: 'Desde $490',
+          price: 'Desde Q3,900',
           priceNote: 'Pago único · Entrega en 7 días',
           featured: false,
           features: [
@@ -264,7 +264,7 @@ export const content: SiteContent = {
         {
           name: 'Profesional',
           tagline: 'La opción completa para negocios que crecen.',
-          price: 'Desde $1.290',
+          price: 'Desde Q9,900',
           priceNote: 'Pago único · Entrega en 2–3 semanas',
           featured: true,
           features: [
@@ -280,7 +280,7 @@ export const content: SiteContent = {
         {
           name: 'Tienda online',
           tagline: 'Para vender productos con todas las garantías.',
-          price: 'Desde $2.490',
+          price: 'Desde Q19,900',
           priceNote: 'Pago único · Entrega en 3–5 semanas',
           featured: false,
           features: [
@@ -458,10 +458,12 @@ export const content: SiteContent = {
         { value: 'other', label: 'Otro' },
       ],
       budgets: [
-        { value: 'under-1000', label: 'Menos de $1.000' },
-        { value: '1000-2500', label: '$1.000 – $2.500' },
-        { value: '2500-5000', label: '$2.500 – $5.000' },
-        { value: 'over-5000', label: 'Más de $5.000' },
+        { value: 'under-1000', label: 'Menos de Q1,000' },
+        { value: '1000-2500', label: 'Q1,000 – Q2,500' },
+        { value: '2500-5000', label: 'Q2,500 – Q5,000' },
+        { value: '5000-10000', label: 'Q5,000 – Q10,000' },
+        { value: '10000-20000', label: 'Q10,000 – Q20,000' },
+        { value: 'over-20000', label: 'Más de Q20,000' },
         { value: 'not-sure', label: 'Aún no lo sé' },
       ],
       success:

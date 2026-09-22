@@ -55,7 +55,7 @@ const SHARE_TITLE = t(lang, 'site.name');
           <div class="browser__dots">
             <i></i><i></i><i></i>
           </div>
-          <div class="browser__url">{SHARE_TITLE.toLowerCase()}.dev</div>
+          <div class="browser__url">{SHARE_TITLE.toLowerCase().replace(/[^a-z0-9]/g, '')}.dev</div>
         </div>
         <div class="browser__body">
           <div class="mini-nav">

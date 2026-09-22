@@ -246,7 +246,7 @@ export const content: SiteContent = {
       lead: 'Indicative starting prices. Every project is quoted individually after a first call.',
       plans: [
         {
-          name: 'Educational',
+          name: 'Starter',
           tagline: 'To launch a campaign or validate an idea.',
           price: 'From $490',
           priceNote: 'One-time · Delivered in 7 days',

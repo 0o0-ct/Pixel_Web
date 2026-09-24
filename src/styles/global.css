@@ -884,7 +884,7 @@ h4 {
 
 .footer__ascii-bg pre {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: clamp(0.45rem, 1.4vw, 1.85rem);
+  font-size: clamp(0.35rem, 1.35vw, 1.75rem);
   line-height: 1.05;
   letter-spacing: -0.04em;
   color: var(--text);
@@ -893,7 +893,51 @@ h4 {
   text-align: center;
   margin: 0;
   width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
   transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .footer__ascii-bg {
+    opacity: 0.12;
+  }
+  .footer__ascii-bg pre {
+    font-size: clamp(0.22rem, 2.1vw, 0.55rem);
+    letter-spacing: -0.05em;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer__ascii-bg pre {
+    font-size: clamp(0.18rem, 2.6vw, 0.42rem);
+    letter-spacing: -0.06em;
+  }
+}
+
+/* Marca Design Web en el pie de página */
+.footer__brand .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.footer__brand .brand__logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  filter: drop-shadow(0 4px 10px rgb(0 0 0 / 0.25));
+}
+
+.footer__brand .brand span {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
 }
 
 .footer__ascii-bg.is-animating pre {

@@ -29,31 +29,9 @@ const contactRows = [
   { label: t(lang, 'footer.location'), value: CONTACT.location, href: '' },
 ] as const;
 ---
-
 <footer class="footer">
   <div class="footer__ascii-bg" aria-hidden="true" data-footer-ascii>
-    <pre class="ascii-desktop" data-ascii-target>
-░▒▓███████▓▒░░▒▓████████▓▒░░▒▓███████▓▒░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░       ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓███████▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░  ░▒▓██████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒▒▓███▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░ ░▒▓███████▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓███████▓▒░░▒▓████████▓▒░▒▓███████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░        ░▒▓█████████████▓▒░░▒▓████████▓▒░▒▓███████▓▒░
-    </pre>
-    <pre class="ascii-mobile" data-ascii-target>
-░▒▓███████▓▒░░▒▓████████▓▒░░▒▓███████▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓██████▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░ ░▒▓██████▓▒░ ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░            ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░
-░▒▓███████▓▒░░▒▓████████▓▒░▒▓███████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░
-
-░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓███████▓▒░
-░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░ ░▒▓███████▓▒░
-░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█████████████▓▒░░▒▓████████▓▒░▒▓███████▓▒░
-    </pre>
+    <canvas data-footer-ascii-canvas class="footer-ascii-canvas"></canvas>
   </div>
   <div class="container">
     <div class="footer__grid" data-reveal>
@@ -130,73 +108,140 @@ const contactRows = [
 </footer>
 
 <script>
-  // Matrix Cyberpunk Decode Effect para el ASCII Art del Footer (Escritorio y Móvil)
+  // Matrix Cyberpunk Decode Effect renderizado en HTML5 Canvas (100% fluido y responsivo)
   if (typeof window !== 'undefined') {
-    const initFooterMatrix = () => {
-      const container = document.querySelector('[data-footer-ascii]');
-      const targets = document.querySelectorAll<HTMLPreElement>('[data-ascii-target]');
-      if (!container || !targets.length) return;
+    const initFooterCanvas = () => {
+      const container = document.querySelector<HTMLElement>('[data-footer-ascii]');
+      const canvas = document.querySelector<HTMLCanvasElement>('[data-footer-ascii-canvas]');
+      if (!container || !canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const desktopLines = [
+        "░▒▓███████▓▒░░▒▓████████▓▒░░▒▓███████▓▒░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░       ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓███████▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░  ░▒▓██████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒▒▓███▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░ ░▒▓███████▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓███████▓▒░░▒▓████████▓▒░▒▓███████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░        ░▒▓█████████████▓▒░░▒▓████████▓▒░▒▓███████▓▒░"
+      ];
+
+      const mobileLines = [
+        "░▒▓███████▓▒░░▒▓████████▓▒░░▒▓███████▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓██████▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░ ░▒▓██████▓▒░ ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░            ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓███████▓▒░░▒▓████████▓▒░▒▓███████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░",
+        "",
+        "░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓███████▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░ ░▒▓███████▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓█████████████▓▒░░▒▓████████▓▒░▒▓███████▓▒░"
+      ];
 
       const glitchedChars = '░▒▓██01_<>[]/*#@%&$!▓▒░█';
       let hasAnimated = false;
 
-      const animateMatrixDecode = () => {
+      const renderCanvas = (progress = 1) => {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const rect = container.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+
+        if (!width || !height) return;
+
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+
+        ctx.save();
+        ctx.scale(dpr, dpr);
+        ctx.clearRect(0, 0, width, height);
+
+        const isMobile = width < 768;
+        const targetLines = isMobile ? mobileLines : desktopLines;
+        const maxCols = Math.max(...targetLines.map((l) => l.length));
+
+        const fontPadding = isMobile ? 12 : 36;
+        const availableWidth = Math.max(100, width - fontPadding * 2);
+
+        // En canvas la tipografía mono mide aprox 0.60em por carácter
+        const fontSize = Math.max(5, Math.min(isMobile ? 15 : 28, availableWidth / (maxCols * 0.60)));
+        ctx.font = `700 ${fontSize}px 'JetBrains Mono', 'Courier New', monospace`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        const theme = document.documentElement.getAttribute('data-theme');
+        const textColor = theme === 'light' ? 'rgba(0, 0, 0, 0.12)' : 'rgba(244, 244, 245, 0.16)';
+        const glitchColor = theme === 'light' ? 'rgba(83, 61, 240, 0.25)' : 'rgba(229, 229, 229, 0.38)';
+
+        ctx.fillStyle = progress < 1 ? glitchColor : textColor;
+
+        const lineGap = fontSize * (isMobile ? 1.25 : 1.15);
+        const totalHeight = targetLines.length * lineGap;
+        const startY = (height - totalHeight) / 2 + lineGap / 2;
+
+        targetLines.forEach((line, rowIndex) => {
+          let lineToDraw = line;
+
+          if (progress < 1 && line.trim().length > 0) {
+            lineToDraw = line
+              .split('')
+              .map((char, colIndex) => {
+                if (char === ' ') return ' ';
+                const charProgress = colIndex / maxCols;
+                if (progress > charProgress + 0.3) {
+                  return char;
+                } else if (progress > charProgress - 0.1) {
+                  return glitchedChars[Math.floor(Math.random() * glitchedChars.length)];
+                } else {
+                  return ' ';
+                }
+              })
+              .join('');
+          }
+
+          const yPos = startY + rowIndex * lineGap;
+          ctx.fillText(lineToDraw, width / 2, yPos);
+        });
+
+        ctx.restore();
+      };
+
+      const startDecodeAnimation = () => {
         if (hasAnimated) return;
         hasAnimated = true;
 
-        container.classList.add('is-animating');
+        let frame = 0;
+        const totalFrames = 46;
 
-        targets.forEach((target) => {
-          const rawContent = target.getAttribute('data-raw') || target.textContent || '';
-          if (!target.hasAttribute('data-raw')) {
-            target.setAttribute('data-raw', rawContent);
+        const interval = setInterval(() => {
+          frame++;
+          const progress = frame / totalFrames;
+          renderCanvas(progress);
+
+          if (frame >= totalFrames) {
+            clearInterval(interval);
+            renderCanvas(1);
           }
-          const rawLines = rawContent.split('\n').filter((l) => l.trim().length > 0);
-          if (!rawLines.length) return;
-
-          const maxCols = Math.max(...rawLines.map((l) => l.length));
-          let frame = 0;
-          const totalFrames = 48;
-
-          const interval = setInterval(() => {
-            frame++;
-            const progress = frame / totalFrames;
-
-            const currentLines = rawLines.map((line) => {
-              return line
-                .split('')
-                .map((char, index) => {
-                  if (char === ' ' || char === '\t') return ' ';
-                  const charProgress = index / maxCols;
-
-                  if (progress > charProgress + 0.3) {
-                    return char;
-                  } else if (progress > charProgress - 0.1) {
-                    return glitchedChars[Math.floor(Math.random() * glitchedChars.length)];
-                  } else {
-                    return ' ';
-                  }
-                })
-                .join('');
-            });
-
-            target.textContent = currentLines.join('\n');
-
-            if (frame >= totalFrames) {
-              clearInterval(interval);
-              target.textContent = rawLines.join('\n');
-              container.classList.remove('is-animating');
-              container.classList.add('is-decoded');
-            }
-          }, 30);
-        });
+        }, 30);
       };
+
+      let resizeTimer: number;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(() => renderCanvas(1), 80);
+      });
 
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              animateMatrixDecode();
+              startDecodeAnimation();
               observer.disconnect();
             }
           });
@@ -208,9 +253,9 @@ const contactRows = [
     };
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initFooterMatrix);
+      document.addEventListener('DOMContentLoaded', initFooterCanvas);
     } else {
-      initFooterMatrix();
+      initFooterCanvas();
     }
   }
 </script>

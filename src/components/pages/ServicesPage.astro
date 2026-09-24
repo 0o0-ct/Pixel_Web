@@ -183,6 +183,7 @@ const s = contentFor(lang).services;
         s.pricing.plans.map((plan: Plan) => (
           <article class={`card plan${plan.featured ? ' plan--featured' : ''}`}>
             {plan.featured && <span class="plan__badge">{t(lang, 'badge.popular')}</span>}
+            {plan.badge && <span class="plan__tag">{plan.badge}</span>}
             <h3 style="font-size: 1.3rem;">{plan.name}</h3>
             <p class="text-muted" style="margin-top: 6px; font-size: 0.92rem;">
               {plan.tagline}

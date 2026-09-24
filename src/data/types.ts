@@ -65,6 +65,7 @@ export interface Step {
 
 export interface Plan {
   name: string;
+  badge?: string;
   tagline: string;
   price: string;
   priceNote: string;

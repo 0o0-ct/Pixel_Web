@@ -247,7 +247,7 @@ export const content: SiteContent = {
       plans: [
         {
           name: 'Inicial',
-          badge: '🏫 Colegios y Proyectos',
+          badge: 'Colegios y Proyectos',
           tagline: 'Ideal para colegios, instituciones educativas, proyectos comunitarios o páginas de inicio.',
           price: 'Desde Q3,900',
           priceNote: 'Pago único · Entrega en 7 días',
@@ -264,7 +264,7 @@ export const content: SiteContent = {
         },
         {
           name: 'Profesional',
-          badge: '💼 Empresas y Servicios',
+          badge: 'Empresas y Servicios',
           tagline: 'La solución corporativa para empresas, consultoras y servicios que buscan captar clientes.',
           price: 'Desde Q9,900',
           priceNote: 'Pago único · Entrega en 2–3 semanas',
@@ -281,7 +281,7 @@ export const content: SiteContent = {
         },
         {
           name: 'Tienda online',
-          badge: '🛒 Vender Productos',
+          badge: 'Vender Productos',
           tagline: 'E-commerce completo para tiendas y negocios que venden productos físicos o digitales.',
           price: 'Desde Q19,900',
           priceNote: 'Pago único · Entrega en 3–5 semanas',

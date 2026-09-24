@@ -247,7 +247,7 @@ export const content: SiteContent = {
       plans: [
         {
           name: 'Starter',
-          badge: '🏫 Schools & Projects',
+          badge: 'Schools & Projects',
           tagline: 'Ideal for schools, educational institutions, community projects, or landing pages.',
           price: 'From $490',
           priceNote: 'One-time · Delivered in 7 days',
@@ -264,7 +264,7 @@ export const content: SiteContent = {
         },
         {
           name: 'Professional',
-          badge: '💼 Businesses & Services',
+          badge: 'Businesses & Services',
           tagline: 'The corporate solution for companies, consulting firms, and service providers.',
           price: 'From $1,290',
           priceNote: 'One-time · Delivered in 2–3 weeks',
@@ -281,7 +281,7 @@ export const content: SiteContent = {
         },
         {
           name: 'Online store',
-          badge: '🛒 Sell Products',
+          badge: 'Sell Products',
           tagline: 'Full e-commerce platform for retail brands and stores selling physical or digital goods.',
           price: 'From $2,490',
           priceNote: 'One-time · Delivered in 3–5 weeks',

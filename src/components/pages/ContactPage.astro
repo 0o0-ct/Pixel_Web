@@ -6,7 +6,7 @@
 import type { Lang } from '../../i18n/ui';
 import { contentFor, CONTACT } from '../../data';
 import Icon from '../Icon.astro';
-import PageHeader from '../sections/PageHeader.astro';
+import CustomSelect from '../CustomSelect.astro';
 
 interface Props {
   lang: Lang;
@@ -18,39 +18,39 @@ const l = ct.form.labels;
 const mailtoBase = `mailto:${CONTACT.email}`;
 ---
 
-<PageHeader eyebrow={ct.page.eyebrow} title={ct.page.title} lead={ct.page.lead} />
-
-<section class="section section--tight" data-reveal>
+<section class="section section--tight contact-section" data-reveal>
   <div class="container">
-    <div class="split" data-stagger>
-      <!-- Canales -->
+    <p class="eyebrow">{ct.page.eyebrow}</p>
+    <div class="split split--form" data-stagger>
+      <!-- Columna izquierda: título de la página + canales -->
       <div>
-        <p class="eyebrow">{ct.channels.eyebrow}</p>
-        <h2 class="h-sub">{ct.channels.title}</h2>
-        <div style="margin-top: 28px;">
-          {
-            ct.channels.items.map((ch) => (
-              <div class="contact-item">
-                <div class="contact-item__icon">
-                  <Icon name={ch.icon} style="color: var(--violet)" />
+        <h1 class="h-display contact-title">{ct.page.title}</h1>
+        <p class="lead contact-lead">{ct.page.lead}</p>
+
+        <div class="contact-channels">
+          <p class="eyebrow">{ct.channels.eyebrow}</p>
+          <h2 class="h-sub">{ct.channels.title}</h2>
+          <div class="contact-list">
+            {
+              ct.channels.items.map((ch) => (
+                <div class="contact-item">
+                  <div class="contact-item__icon">
+                    <Icon name={ch.icon} style="color: var(--violet)" />
+                  </div>
+                  <div>
+                    <h3>{ch.title}</h3>
+                    {ch.href ? <a href={ch.href}>{ch.text}</a> : <p>{ch.text}</p>}
+                    <span class="mono text-faint" style="font-size: 0.8rem;">{ch.hint}</span>
+                  </div>
                 </div>
-                <div>
-                  <h3>{ch.title}</h3>
-                  {ch.href ? (
-                    <a href={ch.href}>{ch.text}</a>
-                  ) : (
-                    <p>{ch.text}</p>
-                  )}
-                  <span class="mono text-faint" style="font-size: 0.8rem;">{ch.hint}</span>
-                </div>
-              </div>
-            ))
-          }
+              ))
+            }
+          </div>
         </div>
       </div>
 
       <!-- Formulario -->
-      <div class="card" style="padding: clamp(24px, 3vw, 36px);">
+      <div class="card" style="padding: clamp(24px, 3vw, 36px); overflow: visible; z-index: 10;">
         <p class="eyebrow">{ct.form.eyebrow}</p>
         <h2 class="h-sub" style="font-size: 1.5rem;">{ct.form.title}</h2>
         <p class="text-muted" style="margin-top: 8px; font-size: 0.95rem;">{ct.form.lead}</p>
@@ -65,28 +65,21 @@ const mailtoBase = `mailto:${CONTACT.email}`;
               <label for="cf-email">{l.email}</label>
               <input id="cf-email" name="email" type="email" autocomplete="email" placeholder={l.emailPh} required />
             </div>
-            <div class="field">
-              <label for="cf-type">{l.type}</label>
-              <select id="cf-type" name="type" required>
-                <option value="" disabled selected>
-                  {l.typePh}
-                </option>
-                {
-                  ct.form.types.map((o) => <option value={o.value}>{o.label}</option>)
-                }
-              </select>
-            </div>
-            <div class="field">
-              <label for="cf-budget">{l.budget}</label>
-              <select id="cf-budget" name="budget">
-                <option value="" disabled selected>
-                  {l.budgetPh}
-                </option>
-                {
-                  ct.form.budgets.map((o) => <option value={o.value}>{o.label}</option>)
-                }
-              </select>
-            </div>
+            <CustomSelect
+              id="cf-type"
+              name="type"
+              label={l.type}
+              placeholder={l.typePh}
+              options={ct.form.types}
+              required
+            />
+            <CustomSelect
+              id="cf-budget"
+              name="budget"
+              label={l.budget}
+              placeholder={l.budgetPh}
+              options={ct.form.budgets}
+            />
             <div class="field field--full">
               <label for="cf-message">{l.message}</label>
               <textarea id="cf-message" name="message" placeholder={l.messagePh} required></textarea>

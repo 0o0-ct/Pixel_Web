@@ -246,7 +246,7 @@ export const content: SiteContent = {
       lead: 'Indicative starting prices. Every project is quoted individually after a first call.',
       plans: [
         {
-          name: 'Landing',
+          name: 'Starter',
           tagline: 'To launch a campaign or validate an idea.',
           price: 'From $490',
           priceNote: 'One-time · Delivered in 7 days',
@@ -461,7 +461,9 @@ export const content: SiteContent = {
         { value: 'under-1000', label: 'Under $1,000' },
         { value: '1000-2500', label: '$1,000 – $2,500' },
         { value: '2500-5000', label: '$2,500 – $5,000' },
-        { value: 'over-5000', label: 'Over $5,000' },
+        { value: '5000-10000', label: '$5,000 – $10,000' },
+        { value: '10000-20000', label: '$10,000 – $20,000' },
+        { value: 'over-20000', label: 'Over $20,000' },
         { value: 'not-sure', label: 'Not sure yet' },
       ],
       success:

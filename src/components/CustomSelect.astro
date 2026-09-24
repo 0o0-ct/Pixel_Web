@@ -1,0 +1,255 @@
+---
+/**
+ * Desplegable personalizado (listbox accesible) adaptado al diseño del sitio:
+ * botón flotante redondeado + panel flotante con opciones.
+ * Mantiene un <input type="hidden"> para el envío y un <select> de respaldo sin JS.
+ */
+interface Option {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  placeholder: string;
+  options: Option[];
+  required?: boolean;
+}
+
+const { id, name, label, placeholder, options, required = false } = Astro.props;
+---
+
+<div class="cselect" data-cselect data-required={required ? 'true' : undefined}>
+  <label class="cselect__label" id={`${id}-label`} for={`${id}-btn`}>{label}</label>
+
+  <button
+    type="button"
+    class="cselect__btn"
+    id={`${id}-btn`}
+    role="combobox"
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    aria-controls={`${id}-list`}
+    aria-labelledby={`${id}-label ${id}-btn`}
+  >
+    <span class="cselect__value" data-placeholder={placeholder} data-empty="true">{placeholder}</span>
+    <span class="cselect__chevron" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </span>
+  </button>
+
+  <ul class="cselect__list" id={`${id}-list`} role="listbox" aria-labelledby={`${id}-label`} data-open="false" tabindex="-1">
+    {
+      options.map((o, i) => (
+        <li
+          class="cselect__opt"
+          id={`${id}-opt-${i}`}
+          role="option"
+          aria-selected="false"
+          data-value={o.value}
+        >
+          {o.label}
+        </li>
+      ))
+    }
+  </ul>
+
+  <input type="hidden" name={name} value="" data-cselect-input data-required={required ? 'true' : undefined} />
+
+  <p class="cselect__error" data-cselect-error hidden>{label} — elige una opción.</p>
+
+  <noscript>
+    <select name={name} class="cselect__fallback" required={required}>
+      <option value="" disabled selected>{placeholder}</option>
+      {options.map((o) => <option value={o.value}>{o.label}</option>)}
+    </select>
+  </noscript>
+</div>
+
+<script is:inline>
+  // Inicializa todos los desplegables de la página (idempotente, una sola vez).
+  (function () {
+    if (window.__cselectReady) {
+      // Si ya estaba inicializado, reinicializa los nuevos (por si acaso)
+      window.__cselectInitAll && window.__cselectInitAll();
+      return;
+    }
+    window.__cselectReady = true;
+
+    window.__cselectInitAll = function () {
+      var roots = document.querySelectorAll('[data-cselect]');
+      roots.forEach(function (root) {
+        if (root.dataset.cselectInit === '1') return;
+        root.dataset.cselectInit = '1';
+
+        var btn = root.querySelector('.cselect__btn');
+        var list = root.querySelector('.cselect__list');
+        var valueEl = root.querySelector('.cselect__value');
+        var input = root.querySelector('[data-cselect-input]');
+        var errorEl = root.querySelector('[data-cselect-error]');
+        var opts = Array.prototype.slice.call(root.querySelectorAll('.cselect__opt'));
+        if (!btn || !list || !valueEl || !input || !opts.length) return;
+
+        var active = -1;
+        var isOpen = false;
+
+        function setActive(i) {
+          if (i < 0) i = 0;
+          if (i > opts.length - 1) i = opts.length - 1;
+          active = i;
+          opts.forEach(function (o, idx) {
+            o.setAttribute('data-active', idx === i ? 'true' : 'false');
+          });
+          list.setAttribute('aria-activedescendant', opts[i].id);
+        }
+
+        function open() {
+          if (isOpen) return;
+          isOpen = true;
+          list.setAttribute('data-open', 'true');
+          btn.setAttribute('aria-expanded', 'true');
+          var selected = opts.findIndex(function (o) {
+            return o.getAttribute('aria-selected') === 'true';
+          });
+          setActive(selected >= 0 ? selected : 0);
+          // El panel se hace visible con transición: el foco se mueve en el
+          // siguiente frame, cuando ya es visible y focusable.
+          requestAnimationFrame(function () {
+            list.focus();
+          });
+        }
+
+        function close(focusBtn) {
+          if (!isOpen) return;
+          isOpen = false;
+          list.setAttribute('data-open', 'false');
+          btn.setAttribute('aria-expanded', 'false');
+          list.removeAttribute('aria-activedescendant');
+          if (focusBtn) btn.focus();
+        }
+
+        function select(i) {
+          var o = opts[i];
+          if (!o) return;
+          opts.forEach(function (x) {
+            x.setAttribute('aria-selected', x === o ? 'true' : 'false');
+          });
+          valueEl.textContent = o.textContent.trim();
+          valueEl.setAttribute('data-empty', 'false');
+          input.value = o.getAttribute('data-value') || '';
+          if (errorEl) errorEl.hidden = true;
+          btn.removeAttribute('aria-invalid');
+          // Notifica a cualquier listener del formulario
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+          close(true);
+        }
+
+        btn.addEventListener('click', function () {
+          isOpen ? close(true) : open();
+        });
+
+        btn.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            open();
+          }
+        });
+
+        list.addEventListener('keydown', function (e) {
+          switch (e.key) {
+            case 'ArrowDown':
+              e.preventDefault();
+              setActive(active + 1);
+              break;
+            case 'ArrowUp':
+              e.preventDefault();
+              setActive(active - 1);
+              break;
+            case 'Home':
+              e.preventDefault();
+              setActive(0);
+              break;
+            case 'End':
+              e.preventDefault();
+              setActive(opts.length - 1);
+              break;
+            case 'Enter':
+            case ' ':
+              e.preventDefault();
+              select(active);
+              break;
+            case 'Escape':
+              e.preventDefault();
+              close(true);
+              break;
+            case 'Tab':
+              close(false);
+              break;
+            default:
+              // Búsqueda por letra
+              if (e.key.length === 1) {
+                var ch = e.key.toLowerCase();
+                var found = opts.findIndex(function (o, idx) {
+                  return idx > active && o.textContent.trim().toLowerCase().charAt(0) === ch;
+                });
+                if (found < 0) {
+                  found = opts.findIndex(function (o) {
+                    return o.textContent.trim().toLowerCase().charAt(0) === ch;
+                  });
+                }
+                if (found >= 0) setActive(found);
+              }
+          }
+        });
+
+        opts.forEach(function (o, idx) {
+          o.addEventListener('mouseenter', function () {
+            setActive(idx);
+          });
+          o.addEventListener('mousedown', function (e) {
+            e.preventDefault();
+          });
+          o.addEventListener('click', function () {
+            select(idx);
+          });
+        });
+
+        document.addEventListener('click', function (e) {
+          if (!root.contains(e.target)) close(false);
+        });
+      });
+    };
+
+    window.__cselectInitAll();
+
+    // Validación de campos obligatorios antes de enviar
+    var form = document.getElementById('contact-form');
+    if (form) {
+      form.addEventListener(
+        'submit',
+        function (e) {
+          var missing = null;
+          form.querySelectorAll('[data-cselect][data-required="true"]').forEach(function (root) {
+            var input = root.querySelector('[data-cselect-input]');
+            var errorEl = root.querySelector('[data-cselect-error]');
+            var btn = root.querySelector('.cselect__btn');
+            if (input && !input.value) {
+              if (errorEl) errorEl.hidden = false;
+              if (btn) btn.setAttribute('aria-invalid', 'true');
+              if (!missing) missing = btn;
+            }
+          });
+          if (missing) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            missing.focus();
+          }
+        },
+        true
+      );
+    }
+  })();
+</script>

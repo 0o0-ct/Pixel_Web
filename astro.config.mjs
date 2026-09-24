@@ -10,6 +10,11 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
+  vite: {
+    server: {
+      allowedHosts: true,
+    },
+  },
   integrations: [sitemap()],
   i18n: {
     defaultLocale: 'es',

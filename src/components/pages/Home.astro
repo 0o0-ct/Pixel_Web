@@ -55,7 +55,7 @@ const SHARE_TITLE = t(lang, 'site.name');
           <div class="browser__dots">
             <i></i><i></i><i></i>
           </div>
-          <div class="browser__url">{SHARE_TITLE.toLowerCase()}.dev</div>
+          <div class="browser__url">{SHARE_TITLE.toLowerCase().replace(/[^a-z0-9]/g, '')}.dev</div>
         </div>
         <div class="browser__body">
           <div class="mini-nav">
@@ -104,39 +104,7 @@ const SHARE_TITLE = t(lang, 'site.name');
   </div>
 </section>
 
-<script>
-  import { animate } from 'motion';
-
-  // Framer Motion: Movimiento 3D Tilt y Parallax al pasar el scroll / cursor sobre el cuadro héroe
-  if (typeof window !== 'undefined') {
-    const initHeroMotion = () => {
-      const container = document.querySelector<HTMLElement>('[data-hero-visual]');
-      const browser = document.querySelector<HTMLElement>('[data-hero-browser]');
-      const floatA = document.querySelector<HTMLElement>('[data-hero-float-a]');
-      const floatB = document.querySelector<HTMLElement>('[data-hero-float-b]');
-
-      if (!container || !browser) return;
-
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const finePointer = window.matchMedia('(pointer: fine)').matches;
-      // Solo anima con ratón (no táctil) y si el usuario no prefiere menos movimiento
-      if (reduce || !finePointer) return;
-
-
-      // Tilt/parallax desactivados por petición: mockup y badges estáticos.
-      void container;
-      void browser;
-      void floatA;
-      void floatB;
-    };
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initHeroMotion);
-    } else {
-      initHeroMotion();
-    }
-  }
-</script>
+<!-- Tilt/parallax del hero desactivado a propósito (mockup estático, sin script) -->
 
 <!-- ============ FRANJA DE ESTADÍSTICAS EN MOVIMIENTO ============ -->
 <section class="marquee stats-marquee" aria-label={home.stats.eyebrow}>
@@ -221,10 +189,10 @@ const SHARE_TITLE = t(lang, 'site.name');
       <!-- Tarjeta fantasma: tu próximo proyecto -->
       <a class="project-card project-card--ghost" href={home.showcase.ghost.href}>
         <div>
-          <Icon name="sparkle" style="width: 34px; height: 34px; color: var(--cyan); margin: 0 auto 14px; display: block;" />
-          <h3 class="h-sub" style="color: var(--text);">{home.showcase.ghost.title}</h3>
-          <p style="max-width: 30ch; margin: 10px auto 0;">{home.showcase.ghost.desc}</p>
-          <span class="link-arrow" style="justify-content: center; margin-top: 18px;">
+          <Icon name="sparkle" style="width: 32px; height: 32px; color: var(--text); margin: 0 auto 14px; display: block;" />
+          <h3 class="h-sub" style="color: var(--text); font-weight: 600; font-size: 1.35rem; margin-bottom: 8px;">{home.showcase.ghost.title}</h3>
+          <p style="max-width: 32ch; margin: 10px auto 0; font-size: 0.95rem; line-height: 1.5;">{home.showcase.ghost.desc}</p>
+          <span class="link-arrow" style="justify-content: center; margin-top: 20px; color: var(--text); font-weight: 600;">
             {home.showcase.ghost.cta}
             <Icon name="arrowRight" />
           </span>

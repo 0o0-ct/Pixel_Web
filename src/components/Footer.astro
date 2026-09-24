@@ -29,18 +29,9 @@ const contactRows = [
   { label: t(lang, 'footer.location'), value: CONTACT.location, href: '' },
 ] as const;
 ---
-
 <footer class="footer">
   <div class="footer__ascii-bg" aria-hidden="true" data-footer-ascii>
-    <pre data-ascii-target>
-░▒▓███████▓▒░░▒▓████████▓▒░░▒▓███████▓▒░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░       ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓███████▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░  ░▒▓██████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒▒▓███▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░ ░▒▓███████▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓███████▓▒░░▒▓████████▓▒░▒▓███████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░        ░▒▓█████████████▓▒░░▒▓████████▓▒░▒▓███████▓▒░
-    </pre>
+    <canvas data-footer-ascii-canvas class="footer-ascii-canvas"></canvas>
   </div>
   <div class="container">
     <div class="footer__grid" data-reveal>
@@ -117,40 +108,92 @@ const contactRows = [
 </footer>
 
 <script>
-  // Matrix Cyberpunk Decode Effect para el ASCII Art del Footer
+  // Matrix Cyberpunk Decode Effect renderizado en HTML5 Canvas (100% fluido y responsivo)
   if (typeof window !== 'undefined') {
-    const initFooterMatrix = () => {
-      const container = document.querySelector('[data-footer-ascii]');
-      const target = document.querySelector<HTMLPreElement>('[data-ascii-target]');
-      if (!container || !target) return;
+    const initFooterCanvas = () => {
+      const container = document.querySelector<HTMLElement>('[data-footer-ascii]');
+      const canvas = document.querySelector<HTMLCanvasElement>('[data-footer-ascii-canvas]');
+      if (!container || !canvas) return;
 
-      const rawContent = target.textContent || '';
-      const rawLines = rawContent.split('\n').filter((l) => l.trim().length > 0);
-      if (!rawLines.length) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const desktopLines = [
+        "░▒▓███████▓▒░░▒▓████████▓▒░░▒▓███████▓▒░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░       ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓███████▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░  ░▒▓██████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒▒▓███▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░ ░▒▓███████▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓███████▓▒░░▒▓████████▓▒░▒▓███████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░        ░▒▓█████████████▓▒░░▒▓████████▓▒░▒▓███████▓▒░"
+      ];
+
+      const mobileLines = [
+        "░▒▓███████▓▒░░▒▓████████▓▒░░▒▓███████▓▒░▒▓█▓▒░▒▓███████▓▒░░▒▓██████▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░ ░▒▓██████▓▒░ ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░            ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓███████▓▒░░▒▓████████▓▒░▒▓███████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░",
+        "",
+        "░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓███████▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░ ░▒▓███████▓▒░",
+        "░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░",
+        "░▒▓█████████████▓▒░░▒▓████████▓▒░▒▓███████▓▒░"
+      ];
 
       const glitchedChars = '░▒▓██01_<>[]/*#@%&$!▓▒░█';
       let hasAnimated = false;
 
-      const animateMatrixDecode = () => {
-        if (hasAnimated) return;
-        hasAnimated = true;
+      const renderCanvas = (progress = 1) => {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const rect = container.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
 
-        container.classList.add('is-animating');
-        const maxCols = Math.max(...rawLines.map((l) => l.length));
-        let frame = 0;
-        const totalFrames = 50;
+        if (!width || !height) return;
 
-        const interval = setInterval(() => {
-          frame++;
-          const progress = frame / totalFrames;
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
 
-          const currentLines = rawLines.map((line) => {
-            return line
+        ctx.save();
+        ctx.scale(dpr, dpr);
+        ctx.clearRect(0, 0, width, height);
+
+        const isMobile = width < 900;
+        const targetLines = isMobile ? mobileLines : desktopLines;
+        const maxCols = Math.max(...targetLines.map((l) => l.length));
+
+        const fontPadding = isMobile ? 28 : 56;
+        const availableWidth = Math.max(80, (width - fontPadding * 2) * 0.86);
+
+        // En canvas la tipografía mono mide aprox 0.62em por carácter
+        const fontSize = Math.max(4, Math.min(isMobile ? 13 : 26, availableWidth / (maxCols * 0.62)));
+        ctx.font = `700 ${fontSize}px 'JetBrains Mono', 'Courier New', monospace`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        const theme = document.documentElement.getAttribute('data-theme');
+        const textColor = theme === 'light' ? 'rgba(0, 0, 0, 0.12)' : 'rgba(244, 244, 245, 0.16)';
+        const glitchColor = theme === 'light' ? 'rgba(83, 61, 240, 0.25)' : 'rgba(229, 229, 229, 0.38)';
+
+        ctx.fillStyle = progress < 1 ? glitchColor : textColor;
+
+        const lineGap = fontSize * (isMobile ? 1.25 : 1.15);
+        const totalHeight = targetLines.length * lineGap;
+        const startY = (height - totalHeight) / 2 + lineGap / 2;
+
+        targetLines.forEach((line, rowIndex) => {
+          let lineToDraw = line;
+
+          if (progress < 1 && line.trim().length > 0) {
+            lineToDraw = line
               .split('')
-              .map((char, index) => {
+              .map((char, colIndex) => {
                 if (char === ' ') return ' ';
-                const charProgress = index / maxCols;
-
+                const charProgress = colIndex / maxCols;
                 if (progress > charProgress + 0.3) {
                   return char;
                 } else if (progress > charProgress - 0.1) {
@@ -160,38 +203,59 @@ const contactRows = [
                 }
               })
               .join('');
-          });
+          }
 
-          target.textContent = currentLines.join('\n');
+          const yPos = startY + rowIndex * lineGap;
+          ctx.fillText(lineToDraw, width / 2, yPos);
+        });
+
+        ctx.restore();
+      };
+
+      const startDecodeAnimation = () => {
+        if (hasAnimated) return;
+        hasAnimated = true;
+
+        let frame = 0;
+        const totalFrames = 46;
+
+        const interval = setInterval(() => {
+          frame++;
+          const progress = frame / totalFrames;
+          renderCanvas(progress);
 
           if (frame >= totalFrames) {
             clearInterval(interval);
-            target.textContent = rawLines.join('\n');
-            container.classList.remove('is-animating');
-            container.classList.add('is-decoded');
+            renderCanvas(1);
           }
-        }, 28);
+        }, 30);
       };
+
+      let resizeTimer: number;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(() => renderCanvas(1), 80);
+      });
 
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              animateMatrixDecode();
+              startDecodeAnimation();
               observer.disconnect();
             }
           });
         },
-        { threshold: 0.15 }
+        { threshold: 0.1 }
       );
 
       observer.observe(container);
     };
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initFooterMatrix);
+      document.addEventListener('DOMContentLoaded', initFooterCanvas);
     } else {
-      initFooterMatrix();
+      initFooterCanvas();
     }
   }
 </script>

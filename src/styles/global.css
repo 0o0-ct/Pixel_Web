@@ -898,20 +898,25 @@ h4 {
   transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-@media (max-width: 768px) {
-  .footer__ascii-bg {
-    opacity: 0.12;
-  }
-  .footer__ascii-bg pre {
-    font-size: clamp(0.22rem, 2.1vw, 0.55rem);
-    letter-spacing: -0.05em;
-  }
+.ascii-desktop {
+  display: block;
+}
+.ascii-mobile {
+  display: none;
 }
 
-@media (max-width: 480px) {
-  .footer__ascii-bg pre {
-    font-size: clamp(0.18rem, 2.6vw, 0.42rem);
-    letter-spacing: -0.06em;
+@media (max-width: 768px) {
+  .footer__ascii-bg {
+    opacity: 0.15;
+  }
+  .ascii-desktop {
+    display: none !important;
+  }
+  .ascii-mobile {
+    display: block !important;
+    font-size: clamp(0.48rem, 2.6vw, 0.95rem) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.02em !important;
   }
 }
 

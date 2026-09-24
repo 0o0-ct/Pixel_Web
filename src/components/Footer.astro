@@ -162,15 +162,15 @@ const contactRows = [
         ctx.scale(dpr, dpr);
         ctx.clearRect(0, 0, width, height);
 
-        const isMobile = width < 768;
+        const isMobile = width < 900;
         const targetLines = isMobile ? mobileLines : desktopLines;
         const maxCols = Math.max(...targetLines.map((l) => l.length));
 
-        const fontPadding = isMobile ? 12 : 36;
-        const availableWidth = Math.max(100, width - fontPadding * 2);
+        const fontPadding = isMobile ? 28 : 56;
+        const availableWidth = Math.max(80, (width - fontPadding * 2) * 0.86);
 
-        // En canvas la tipografía mono mide aprox 0.60em por carácter
-        const fontSize = Math.max(5, Math.min(isMobile ? 15 : 28, availableWidth / (maxCols * 0.60)));
+        // En canvas la tipografía mono mide aprox 0.62em por carácter
+        const fontSize = Math.max(4, Math.min(isMobile ? 13 : 26, availableWidth / (maxCols * 0.62)));
         ctx.font = `700 ${fontSize}px 'JetBrains Mono', 'Courier New', monospace`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';

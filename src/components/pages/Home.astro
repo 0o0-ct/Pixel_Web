@@ -206,9 +206,9 @@ const SHARE_TITLE = t(lang, 'site.name');
                   </a>
                 </div>
                 <div class="project-card__tags">
-                  <span class="chip chip--accent">
+                  <span class={`chip chip--accent${p.url ? ' chip--live' : ''}`}>
                     <span class="dot dot--live"></span>
-                    {home.showcase.liveLabel}
+                    <span class="chip__live-label">LIVE</span>
                   </span>
                   {p.tags.map((tag) => <span class="chip">{tag}</span>)}
                 </div>

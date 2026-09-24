@@ -31,34 +31,17 @@ const contactRows = [
 ---
 
 <footer class="footer">
-  <div class="footer__ascii-bg" aria-hidden="true" data-footer-ascii>
-    <pre class="ascii-desktop" data-ascii-target>
-░▒▓███████▓▒░░▒▓████████▓▒░░▒▓███████▓▒░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░       ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓███████▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░  ░▒▓██████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒▒▓███▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░ ░▒▓███████▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓███████▓▒░░▒▓████████▓▒░▒▓███████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░        ░▒▓█████████████▓▒░░▒▓████████▓▒░▒▓███████▓▒░
-    </pre>
-    <pre class="ascii-mobile" data-ascii-target>
-░▒▓███████▓▒░░▒▓████████▓▒░░▒▓███████▓▒░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░  ░▒▓██████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒▒▓███▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░             ░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░
-░▒▓███████▓▒░░▒▓████████▓▒░▒▓███████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░
+  <div class="footer__ascii-bg" aria-hidden="true">
+    {/* Marca de agua vectorial para Escritorio: DESIGN WEB en 1 fila */}
+    <svg class="watermark-svg watermark-desktop" viewBox="0 0 1000 160" preserveAspectRatio="xMidYMid meet" fill="none">
+      <text x="50%" y="68%" text-anchor="middle" font-family="'Space Grotesk', system-ui, sans-serif" font-weight="900" font-size="105" letter-spacing="16" fill="currentColor">DESIGN WEB</text>
+    </svg>
 
-
-░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓███████▓▒░
-░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░ ░▒▓███████▓▒░
-░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░
-░▒▓█████████████▓▒░░▒▓████████▓▒░▒▓███████▓▒░
-    </pre>
+    {/* Marca de agua vectorial para Teléfono: DESIGN arriba y WEB abajo, 100% proporcional y nunca se corta */}
+    <svg class="watermark-svg watermark-mobile" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" fill="none">
+      <text x="50%" y="36%" text-anchor="middle" font-family="'Space Grotesk', system-ui, sans-serif" font-weight="900" font-size="78" letter-spacing="10" fill="currentColor">DESIGN</text>
+      <text x="50%" y="78%" text-anchor="middle" font-family="'Space Grotesk', system-ui, sans-serif" font-weight="900" font-size="78" letter-spacing="14" fill="currentColor">WEB</text>
+    </svg>
   </div>
   <div class="container">
     <div class="footer__grid" data-reveal>
@@ -133,86 +116,3 @@ const contactRows = [
     </div>
   </div>
 </footer>
-
-<script>
-  // Matrix Cyberpunk Decode Effect para el ASCII Art del Footer (Escritorio y Móvil)
-  if (typeof window !== 'undefined') {
-    const initFooterMatrix = () => {
-      const container = document.querySelector('[data-footer-ascii]');
-      const targets = document.querySelectorAll<HTMLPreElement>('[data-ascii-target]');
-      if (!container || !targets.length) return;
-
-      const glitchedChars = '░▒▓██01_<>[]/*#@%&$!▓▒░█';
-      let hasAnimated = false;
-
-      const animateMatrixDecode = () => {
-        if (hasAnimated) return;
-        hasAnimated = true;
-
-        container.classList.add('is-animating');
-
-        targets.forEach((target) => {
-          const rawContent = target.textContent || '';
-          const rawLines = rawContent.split('\n').filter((l) => l.trim().length > 0);
-          if (!rawLines.length) return;
-
-          const maxCols = Math.max(...rawLines.map((l) => l.length));
-          let frame = 0;
-          const totalFrames = 50;
-
-          const interval = setInterval(() => {
-            frame++;
-            const progress = frame / totalFrames;
-
-            const currentLines = rawLines.map((line) => {
-              return line
-                .split('')
-                .map((char, index) => {
-                  if (char === ' ') return ' ';
-                  const charProgress = index / maxCols;
-
-                  if (progress > charProgress + 0.3) {
-                    return char;
-                  } else if (progress > charProgress - 0.1) {
-                    return glitchedChars[Math.floor(Math.random() * glitchedChars.length)];
-                  } else {
-                    return ' ';
-                  }
-                })
-                .join('');
-            });
-
-            target.textContent = currentLines.join('\n');
-
-            if (frame >= totalFrames) {
-              clearInterval(interval);
-              target.textContent = rawLines.join('\n');
-              container.classList.remove('is-animating');
-              container.classList.add('is-decoded');
-            }
-          }, 28);
-        });
-      };
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              animateMatrixDecode();
-              observer.disconnect();
-            }
-          });
-        },
-        { threshold: 0.15 }
-      );
-
-      observer.observe(container);
-    };
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initFooterMatrix);
-    } else {
-      initFooterMatrix();
-    }
-  }
-</script>

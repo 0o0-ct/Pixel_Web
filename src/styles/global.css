@@ -513,10 +513,10 @@ h4 {
 
 .chip--live {
   color: #fff;
-  background: #ff0000;
-  border-color: #ff0000;
+  background: #d94c4c;
+  border-color: #d94c4c;
   padding-inline: 1.05em;
-  box-shadow: 0 4px 12px rgb(255 0 0 / 0.2);
+  box-shadow: 0 4px 12px rgb(217 76 76 / 0.18);
 }
 
 .chip__live-label {
@@ -3882,8 +3882,8 @@ html[data-theme='light'] .feature-icon {
 
 html[data-theme='light'] .project-card .chip--live {
   color: #fff;
-  background: #ff0000;
-  border-color: #ff0000;
+  background: #d94c4c;
+  border-color: #d94c4c;
 }
 
 html[data-theme='light'] .project-card .dot--live {

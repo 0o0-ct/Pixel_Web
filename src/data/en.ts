@@ -42,15 +42,6 @@ export const content: SiteContent = {
       floatA: { title: 'Live right now', sub: 'lumenstudio.dev' },
       floatB: { title: '+30 projects', sub: 'running in real time' },
     },
-    stats: {
-      eyebrow: 'Results',
-      items: [
-        { value: '12+', label: 'Projects launched' },
-        { value: '99.9%', label: 'Live uptime' },
-        { value: '4.9/5', label: 'Average client rating' },
-        { value: '48h', label: 'First proposal' },
-      ],
-    },
     showcase: {
       eyebrow: 'Live showcase',
       title: 'Projects running right now',
@@ -115,8 +106,8 @@ export const content: SiteContent = {
       lead: 'Complete, transparent, tailored solutions: we pick technology for performance, not for hype.',
       items: [
         {
-          icon: 'zap',
-          title: 'Landing pages',
+          icon: 'school',
+          title: 'Educational institutions',
           desc: 'High-converting pages for campaigns and launches.',
           href: '/en/services#landing',
         },
@@ -188,8 +179,8 @@ export const content: SiteContent = {
     },
     items: [
       {
-        icon: 'zap',
-        title: 'Landing pages',
+        icon: 'school',
+        title: 'Educational institutions',
         desc: 'One page, one goal: turning visitors into customers. Designed with copywriting and visual hierarchy focused on results.',
         features: [
           'Custom design for your brand',

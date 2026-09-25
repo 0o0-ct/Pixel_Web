@@ -42,15 +42,6 @@ export const content: SiteContent = {
       floatA: { title: 'En vivo ahora', sub: 'lumenstudio.dev' },
       floatB: { title: '+30 proyectos', sub: 'funcionando en tiempo real' },
     },
-    stats: {
-      eyebrow: 'Resultados',
-      items: [
-        { value: '12+', label: 'Proyectos lanzados' },
-        { value: '99.9%', label: 'Disponibilidad en vivo' },
-        { value: '4.9/5', label: 'Valoración media de clientes' },
-        { value: '48h', label: 'Primera propuesta' },
-      ],
-    },
     showcase: {
       eyebrow: 'Showcase en vivo',
       title: 'Proyectos funcionando ahora mismo',
@@ -110,13 +101,13 @@ export const content: SiteContent = {
       },
     },
     services: {
-      eyebrow: 'Servicio',
+      eyebrow: 'Servicios',
       title: 'La presencia digital que tu negocio necesita para destacar',
       lead: 'Soluciones completas, transparentes y a medida: elegimos la tecnología por rendimiento, no por moda.',
       items: [
         {
-          icon: 'zap',
-          title: 'Landing Pages de Conversión',
+          icon: 'school',
+          title: 'Instituciones educativas',
           desc: 'Páginas enfocadas en convertir visitantes en clientes, ideales para lanzamientos, promociones o captación de prospectos.',
           href: '/servicios#landing',
         },
@@ -133,9 +124,9 @@ export const content: SiteContent = {
           href: '/servicios#corporate',
         },
         {
-          icon: 'trending',
-          title: 'SEO Local y Visibilidad',
-          desc: 'Optimización para que los clientes potenciales de tu zona encuentren tu negocio rápidamente en los motores de búsqueda.',
+          icon: 'wrench',
+          title: 'Renovación y Soporte de Sitios Web',
+          desc: 'Renovamos, ampliamos y mantenemos tu sitio web actual: cambios de diseño, migración de dominio, nuevas secciones y más. Tu página sigue creciendo, sin partir de cero.',
           href: '/servicios#seo',
         },
       ],
@@ -173,7 +164,7 @@ export const content: SiteContent = {
       role: 'Fundadora · Verde Market',
     },
     cta: {
-      title: 'Moderniza la presencia digital de tu negocio de forma ágil, segura y sin complicaciones',
+      title: 'La inovación te aguarda',
       lead: 'Te decimos exactamente qué necesita tu proyecto.',
       btnPrimary: { label: 'Hablemos', href: '/contacto' },
       btnSecondary: { label: 'Ver cómo trabajamos', href: '/servicios' },
@@ -182,14 +173,14 @@ export const content: SiteContent = {
 
   services: {
     page: {
-      eyebrow: 'Servicio',
+      eyebrow: 'Servicios',
       title: 'Soluciones web que funcionan y se ven',
       lead: 'Del presupuesto claro a la entrega en vivo: así trabajamos cada proyecto de Design Web.',
     },
     items: [
       {
-        icon: 'zap',
-        title: 'Landing Pages de Conversión',
+        icon: 'school',
+        title: 'Instituciones educativas',
         desc: 'Páginas enfocadas en convertir visitantes en clientes, ideales para lanzamientos, promociones o captación de prospectos.',
         features: [
           'Diseño alineado a la identidad y valores de tu marca.',
@@ -227,9 +218,9 @@ export const content: SiteContent = {
         cta: { label: 'Solicitar presupuesto', href: '/contacto' },
       },
       {
-        icon: 'trending',
-        title: 'SEO Local y Visibilidad',
-        desc: 'Optimización para que los clientes potenciales de tu zona encuentren tu negocio rápidamente en los motores de búsqueda.',
+        icon: 'wrench',
+        title: 'Renovación y Soporte de Sitios Web',
+        desc: 'Renovamos, ampliamos y mantenemos tu sitio web actual: cambios de diseño, migración de dominio, nuevas secciones y más. Tu página sigue creciendo, sin partir de cero.',
         features: [
           'Estrategia local para que tu marca sea la primera opción en tu sector.',
           'Posicionamiento orgánico para destacar frente a tus competidores.',

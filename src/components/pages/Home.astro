@@ -106,25 +106,6 @@ const SHARE_TITLE = t(lang, 'site.name');
 
 <!-- Tilt/parallax del hero desactivado a propósito (mockup estático, sin script) -->
 
-<!-- ============ FRANJA DE ESTADÍSTICAS EN MOVIMIENTO ============ -->
-<section class="marquee stats-marquee" aria-label={home.stats.eyebrow}>
-  <div class="marquee__track">
-    {
-      [0, 1, 2, 3, 4, 5].map((i) =>
-        home.stats.items.map((s) => (
-          <div
-            class="marquee__item marquee__item--stat"
-            aria-hidden={i > 0 ? 'true' : undefined}
-          >
-            <span class="marquee__value text-gradient">{s.value}</span>
-            <span class="marquee__label">{s.label}</span>
-          </div>
-        )),
-      )
-    }
-  </div>
-</section>
-
 <!-- ============ SHOWCASE EN VIVO ============ -->
 <section class="section" id="showcase" data-reveal>
   <div class="container">

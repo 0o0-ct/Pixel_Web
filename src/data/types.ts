@@ -7,6 +7,7 @@ export type IconName =
   | 'rocket'
   | 'cart'
   | 'building'
+  | 'school'
   | 'wrench'
   | 'layout'
   | 'search'
@@ -92,7 +93,6 @@ export interface HomeContent {
     floatA: { title: string; sub: string };
     floatB: { title: string; sub: string };
   };
-  stats: { eyebrow: string; items: Stat[] };
   showcase: {
     eyebrow: string;
     title: string;

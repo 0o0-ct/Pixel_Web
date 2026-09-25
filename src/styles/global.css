@@ -1657,8 +1657,7 @@ html[data-theme='light'] .project-card--ghost p {
 .plan__badge {
   position: absolute;
   top: -16px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 20px;
   z-index: 3;
   background: var(--grad-accent);
   color: var(--btn-primary-text);
@@ -1670,6 +1669,26 @@ html[data-theme='light'] .project-card--ghost p {
   border-radius: 999px;
   white-space: nowrap;
   box-shadow: 0 8px 20px -8px rgb(0 0 0 / 0.6);
+}
+
+.plan__tag {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text-heading);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px -8px rgb(0 0 0 / 0.6);
+  backdrop-filter: blur(8px);
 }
 
 .plan__price {
@@ -3107,9 +3126,10 @@ a.chip {
 }
 
 /* Microcopy legible (≥12px) */
-.plan__badge {
-  font-size: 0.8rem;
-  padding: 6px 16px;
+.plan__badge,
+.plan__tag {
+  font-size: 0.72rem;
+  padding: 5px 12px;
 }
 
 .post-card time {

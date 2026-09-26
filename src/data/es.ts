@@ -108,7 +108,7 @@ export const content: SiteContent = {
         {
           icon: 'school',
           title: 'Instituciones educativas',
-          desc: 'Páginas enfocadas en convertir visitantes en clientes, ideales para lanzamientos, promociones o captación de prospectos.',
+          desc: 'Plataformas web diseñadas para optimizar el proceso de admisiones y centralizar la información de tu institución en un solo lugar. Simplificamos la comunicación con las familias y agilizamos la captación de nuevos estudiantes.',
           href: '/servicios#landing',
         },
         {
@@ -181,7 +181,7 @@ export const content: SiteContent = {
       {
         icon: 'school',
         title: 'Instituciones educativas',
-        desc: 'Páginas enfocadas en convertir visitantes en clientes, ideales para lanzamientos, promociones o captación de prospectos.',
+        desc: 'Plataformas web diseñadas para optimizar el proceso de admisiones y centralizar la información de tu institución en un solo lugar. Simplificamos la comunicación con las familias y agilizamos la captación de nuevos estudiantes.',
         features: [
           'Diseño alineado a la identidad y valores de tu marca.',
           'Textos enfocados en resaltar tu propuesta de valor y generar ventas.',

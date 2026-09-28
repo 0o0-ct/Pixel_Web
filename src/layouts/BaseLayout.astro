@@ -89,8 +89,7 @@ const siteName = t(lang, 'site.name');
       });
     </script>
     <script is:inline>
-      // Spotlight global 100% Canvas de altísimo rendimiento
-      // 0.0% consumo GPU/CPU en reposo (pausa completa del bucle rAF al estar inactivo o en otra pestaña)
+      // Spotlight global Canvas — optimizado para bajo consumo GPU/CPU
       (function () {
         if (!window.matchMedia('(pointer: fine)').matches) return;
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -118,6 +117,8 @@ const siteName = t(lang, 'site.name');
         var H = 0;
         var rafId = 0;
         var lastMoveAt = 0;
+        var lastFrameAt = 0;
+        var FRAME_BUDGET = 33; // ~30fps máximo (en vez de 60fps)
 
         function stopLoop() {
           if (rafId) {
@@ -127,7 +128,7 @@ const siteName = t(lang, 'site.name');
         }
 
         function build() {
-          var dpr = Math.min(window.devicePixelRatio || 1, 2);
+          var dpr = Math.min(window.devicePixelRatio || 1, 1.5); // Limitar DPR a 1.5x
           W = window.innerWidth;
           H = window.innerHeight;
           canvas.width = Math.floor(W * dpr);
@@ -136,7 +137,7 @@ const siteName = t(lang, 'site.name');
           canvas.style.height = H + 'px';
           ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-          var gap = W < 768 ? 24 : 18;
+          var gap = W < 768 ? 38 : 28; // Menos puntos (era 24/18)
           dots = [];
           for (var y = gap / 2; y < H; y += gap) {
             for (var x = gap / 2; x < W; x += gap) {
@@ -153,30 +154,37 @@ const siteName = t(lang, 'site.name');
         function frame(now) {
           if (!running) return;
 
-          // Reposo: si el ratón lleva inactivo ~1.5s se apaga el canvas y se cancela el bucle rAF (0.0% consumo GPU/CPU)
-          if (now - lastMoveAt > 1500) {
+          // Reposo: si el ratón lleva inactivo ~1.2s se apaga
+          if (now - lastMoveAt > 1200) {
             canvas.style.opacity = '0';
             ctx.clearRect(0, 0, W, H);
             stopLoop();
             return;
           }
 
+          // Throttle a ~30fps
+          if (now - lastFrameAt < FRAME_BUDGET) {
+            rafId = requestAnimationFrame(frame);
+            return;
+          }
+          lastFrameAt = now;
+
           var isLight = root.getAttribute('data-theme') === 'light';
           var pal = isLight ? PALETTES.light : PALETTES.dark;
           ctx.clearRect(0, 0, W, H);
 
-          var R = 420;
+          var R = 300; // Radio reducido (era 420)
           var R2 = R * R;
 
-          // Halo suave de resplandor radial estilo Aceternity CardSpotlight directo en Canvas
+          // Halo suave radial
           var halo = ctx.createRadialGradient(mx, my, 0, mx, my, R);
           if (isLight) {
-            halo.addColorStop(0, 'rgba(70, 25, 225, 0.12)');
-            halo.addColorStop(0.5, 'rgba(70, 25, 225, 0.04)');
+            halo.addColorStop(0, 'rgba(70, 25, 225, 0.10)');
+            halo.addColorStop(0.5, 'rgba(70, 25, 225, 0.03)');
             halo.addColorStop(1, 'rgba(70, 25, 225, 0)');
           } else {
-            halo.addColorStop(0, 'rgba(139, 124, 255, 0.16)');
-            halo.addColorStop(0.5, 'rgba(99, 102, 241, 0.05)');
+            halo.addColorStop(0, 'rgba(139, 124, 255, 0.13)');
+            halo.addColorStop(0.5, 'rgba(99, 102, 241, 0.04)');
             halo.addColorStop(1, 'rgba(139, 124, 255, 0)');
           }
           ctx.beginPath();
@@ -184,7 +192,7 @@ const siteName = t(lang, 'site.name');
           ctx.fillStyle = halo;
           ctx.fill();
 
-          // Renderizado súper empaquetado: 3 llamadas a ctx.fill() en lugar de 10.000+ (reducción del 99.9% de carga GPU/CPU)
+          // Puntos: 3 colores empaquetados
           for (var c = 0; c < 3; c++) {
             ctx.beginPath();
             var count = 0;
@@ -224,7 +232,6 @@ const siteName = t(lang, 'site.name');
           }
         }
 
-        document.addEventListener('mousemove', handlePointerMove, { passive: true });
         document.addEventListener('pointermove', handlePointerMove, { passive: true });
 
         function hideSpotlight() {
@@ -237,7 +244,6 @@ const siteName = t(lang, 'site.name');
 
         document.addEventListener('mouseleave', hideSpotlight);
 
-        // Al cambiar de pestaña o minimizar el navegador:
         document.addEventListener('visibilitychange', function () {
           if (document.hidden) {
             running = false;
@@ -254,7 +260,7 @@ const siteName = t(lang, 'site.name');
         var rt = 0;
         window.addEventListener('resize', function () {
           clearTimeout(rt);
-          rt = setTimeout(build, 150);
+          rt = setTimeout(build, 200);
         });
 
         build();
@@ -299,6 +305,25 @@ const siteName = t(lang, 'site.name');
           { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
         );
         els.forEach(function (el) { io.observe(el); });
+      })();
+    </script>
+    <script is:inline>
+      // Pausar animaciones CSS infinitas fuera de viewport (ahorra GPU)
+      (function () {
+        if (!('IntersectionObserver' in window)) return;
+        var animSel = '.hero__orb, .marquee__track, .float-card, .dot--live';
+        var animEls = document.querySelectorAll(animSel);
+        if (!animEls.length) return;
+
+        var pio = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              e.target.style.animationPlayState = e.isIntersecting ? 'running' : 'paused';
+            });
+          },
+          { threshold: 0, rootMargin: '50px' }
+        );
+        animEls.forEach(function (el) { pio.observe(el); });
       })();
     </script>
   </body>

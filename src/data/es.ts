@@ -183,10 +183,10 @@ export const content: SiteContent = {
         title: 'Instituciones educativas',
         desc: 'Plataformas web diseñadas para optimizar el proceso de admisiones y centralizar la información de tu institución en un solo lugar. Simplificamos la comunicación con las familias y agilizamos la captación de nuevos estudiantes.',
         features: [
-          'Diseño alineado a la identidad y valores de tu marca.',
-          'Textos enfocados en resaltar tu propuesta de valor y generar ventas.',
-          'Navegación veloz para evitar que los usuarios abandonen el sitio.',
-          'Formularios de contacto e integración de llamados a la acción.',
+          'Identidad y prestigio institucional.',
+          'Módulo de inscripción ágil.',
+          'Centralización de datos e información.',
+          'Atención rápida a familias.',
         ],
         anchor: 'landing',
         cta: { label: 'Solicitar presupuesto', href: '/contacto' },
@@ -317,7 +317,7 @@ export const content: SiteContent = {
       ],
     },
     cta: {
-      title: '¿Listo para impulsar la presencia digital de tu negocio?',
+      title: '¿Listo para transformar tu presencia digital?',
       btnLabel: 'Reservar llamada',
       btnHref: '/contacto',
     },

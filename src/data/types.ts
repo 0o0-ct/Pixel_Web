@@ -141,7 +141,7 @@ export interface ServicePageContent {
   faq: { eyebrow: string; title: string; items: FaqItem[] };
   cta: {
     title: string;
-    lead: string;
+    lead?: string;
     btnLabel: string;
     btnHref: string;
   };

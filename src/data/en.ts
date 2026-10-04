@@ -318,7 +318,6 @@ export const content: SiteContent = {
     },
     cta: {
       title: 'Shall we talk about your project?',
-      lead: "The first call is free and without obligation. You'll leave knowing what you need and what it costs.",
       btnLabel: 'Book a call',
       btnHref: '/en/contact',
     },

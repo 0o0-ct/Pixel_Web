@@ -28,9 +28,6 @@ const s = contentFor(lang).services;
         <div class="stack-track" style={`--i: ${idx}`}>
           <article class="service stack-card" id={item.anchor}>
             <div>
-              <div class="service__feature-icon">
-                <Icon name={item.icon} />
-              </div>
               <h2 class="h-sub" style="font-size: clamp(1.5rem, 2.6vw, 1.9rem);">
                 {item.title}
               </h2>
@@ -83,8 +80,6 @@ const s = contentFor(lang).services;
         }
 
         // 2. Animaciones de gestos / hover interactivo con Framer Motion spring physics
-        const icon = card.querySelector<HTMLElement>('.service__feature-icon');
-
         card.addEventListener('mouseenter', () => {
           if (!reduce) {
             animate(
@@ -92,13 +87,6 @@ const s = contentFor(lang).services;
               { y: -8 },
               { duration: 0.35, type: 'spring', stiffness: 350, damping: 22 }
             );
-            if (icon) {
-              animate(
-                icon,
-                { scale: 1.12, rotate: -4 },
-                { duration: 0.35, type: 'spring', stiffness: 400, damping: 18 }
-              );
-            }
           }
         });
 
@@ -109,13 +97,6 @@ const s = contentFor(lang).services;
               { y: 0 },
               { duration: 0.35, type: 'spring', stiffness: 300, damping: 25 }
             );
-            if (icon) {
-              animate(
-                icon,
-                { scale: 1, rotate: 0 },
-                { duration: 0.35, type: 'spring', stiffness: 300, damping: 25 }
-              );
-            }
           }
         });
       });

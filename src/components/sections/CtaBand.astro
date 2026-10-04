@@ -6,7 +6,7 @@ import Icon from '../Icon.astro';
 
 interface Props {
   title: string;
-  lead: string;
+  lead?: string;
   btn: { label: string; href: string };
   btnAlt?: { label: string; href: string };
 }
@@ -18,7 +18,7 @@ const { title, lead, btn, btnAlt } = Astro.props;
   <div class="container">
     <div class="cta-band" data-reveal="scale">
       <h2 class="h-section">{title}</h2>
-      <p class="lead">{lead}</p>
+      {lead && <p class="lead">{lead}</p>}
       <div class="btn-row" style="justify-content: center;">
         <a class="btn btn-primary" href={btn.href}>
           {btn.label}

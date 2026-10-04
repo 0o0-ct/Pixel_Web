@@ -197,9 +197,6 @@ const SHARE_TITLE = t(lang, 'site.name');
         home.services.items.map((f: Feature) => (
           <article class="card">
             <span class="card__glow"></span>
-            <div class="feature-icon">
-              <Icon name={f.icon} style="color: var(--violet)" />
-            </div>
             <h3 class="h-sub" style="font-size: 1.2rem;">{f.title}</h3>
             <p class="text-muted" style="margin-top: 10px; font-size: 0.97rem;">{f.desc}</p>
             <a class="link-arrow" href={f.href} aria-label={f.title}>

@@ -318,7 +318,6 @@ export const content: SiteContent = {
     },
     cta: {
       title: '¿Listo para impulsar la presencia digital de tu negocio?',
-      lead: 'La primera llamada es gratuita y sin compromiso. Saldrás de ella sabiendo qué necesitas y cuánto cuesta.',
       btnLabel: 'Reservar llamada',
       btnHref: '/contacto',
     },
@@ -335,7 +334,7 @@ export const content: SiteContent = {
       paragraphs: [
         'Design Web nació de una frustración simple: demasiadas agencias venden webs con capturas bonitas que no sabes si funcionan de verdad. Nosotros decidimos hacer lo contrario.',
         'Construimos sitios con tecnología moderna —rápidos, seguros y fáciles de mantener— y los mostramos funcionando en tiempo real. Si algo está en nuestro showcase, está publicado y activo.',
-        'Hoy ayudamos a marcas, negocios locales y emprendedores a tener una presencia digital que de verdad vende. Y cada nuevo proyecto se suma a la prueba: nuestro propio catálogo vivo.',
+        'Impulsamos a instituciones educativas, marcas, tiendas en línea y empresas a consolidar una presencia digital moderna, funcional y orientada a resultados. Cada proyecto completado respalda nuestro compromiso y forma parte de nuestro portafolio activo.',
       ],
     },
     values: {
@@ -469,7 +468,7 @@ export const content: SiteContent = {
     page: {
       eyebrow: 'Blog',
       title: 'Ideas, guías y lo que aprendemos construyendo',
-      lead: 'Consejos prácticos sobre diseño web, rendimiento, SEO y negocios online. Sin humo, con datos.',
+      lead: 'Criterios técnicos de desarrollo, SEO y rendimiento web. Análisis honestos para decisiones digitales acertadas.',
     },
     empty: 'Todavía no hay artículos publicados. ¡Vuelve pronto!',
     readMore: 'Leer artículo',

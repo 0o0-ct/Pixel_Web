@@ -187,7 +187,7 @@ export const content: SiteContent = {
           'Direct contact channel for families and students.',
         ],
         anchor: 'landing',
-        cta: { label: 'Request a quote', href: '/en/contact' },
+        cta: { label: 'Request a quote', href: '/en/contact?tipo=school' },
       },
       {
         icon: 'cart',
@@ -200,7 +200,7 @@ export const content: SiteContent = {
           'Automated invoices, receipts, and order notifications.',
         ],
         anchor: 'store',
-        cta: { label: 'Request a quote', href: '/en/contact' },
+        cta: { label: 'Request a quote', href: '/en/contact?tipo=store' },
       },
       {
         icon: 'building',
@@ -213,7 +213,7 @@ export const content: SiteContent = {
           'Flawless display and instant loading on any mobile device.',
         ],
         anchor: 'corporate',
-        cta: { label: 'Request a quote', href: '/en/contact' },
+        cta: { label: 'Request a quote', href: '/en/contact?tipo=corporate' },
       },
       {
         icon: 'wrench',
@@ -226,7 +226,7 @@ export const content: SiteContent = {
           'Continuous technical support, security updates, and enhancements.',
         ],
         anchor: 'seo',
-        cta: { label: 'Request a quote', href: '/en/contact' },
+        cta: { label: 'Request a quote', href: '/en/contact?tipo=redesign' },
       },
     ],
     pricing: {
@@ -249,7 +249,7 @@ export const content: SiteContent = {
             'Google Maps location + Basic technical SEO',
             'Domain, hosting setup & SSL certificate ready',
           ],
-          cta: { label: 'Start a project', href: '/en/contact' },
+          cta: { label: 'Start a project', href: '/en/contact?tipo=school' },
         },
         {
           name: 'Professional',
@@ -266,7 +266,7 @@ export const content: SiteContent = {
             'Advanced SEO + Google Analytics setup',
             'Easy editor panel + 3 months of technical support',
           ],
-          cta: { label: 'Start my website', href: '/en/contact' },
+          cta: { label: 'Start my website', href: '/en/contact?tipo=corporate' },
         },
         {
           name: 'Online Store',
@@ -283,7 +283,7 @@ export const content: SiteContent = {
             'One-on-one training to manage your store',
             '3 months of included technical maintenance',
           ],
-          cta: { label: 'Start my store', href: '/en/contact' },
+          cta: { label: 'Start my store', href: '/en/contact?tipo=store' },
         },
       ],
       note: 'Need a custom portal or an editorial blog at scale? We also build 100% bespoke projects and provide monthly maintenance. Reach out.',

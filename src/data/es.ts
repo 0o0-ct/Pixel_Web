@@ -187,7 +187,7 @@ export const content: SiteContent = {
           'Canal de atención directa para familias y comunidad educativa.',
         ],
         anchor: 'landing',
-        cta: { label: 'Solicitar presupuesto', href: '/contacto' },
+        cta: { label: 'Solicitar presupuesto', href: '/contacto?tipo=school' },
       },
       {
         icon: 'cart',
@@ -200,7 +200,7 @@ export const content: SiteContent = {
           'Generación de comprobantes y confirmaciones automáticas de compra.',
         ],
         anchor: 'store',
-        cta: { label: 'Solicitar presupuesto', href: '/contacto' },
+        cta: { label: 'Solicitar presupuesto', href: '/contacto?tipo=store' },
       },
       {
         icon: 'building',
@@ -213,7 +213,7 @@ export const content: SiteContent = {
           'Visualización perfecta y carga instantánea en cualquier celular.',
         ],
         anchor: 'corporate',
-        cta: { label: 'Solicitar presupuesto', href: '/contacto' },
+        cta: { label: 'Solicitar presupuesto', href: '/contacto?tipo=corporate' },
       },
       {
         icon: 'wrench',
@@ -226,7 +226,7 @@ export const content: SiteContent = {
           'Soporte técnico, mantenimiento preventivo y mejoras continuas.',
         ],
         anchor: 'seo',
-        cta: { label: 'Solicitar presupuesto', href: '/contacto' },
+        cta: { label: 'Solicitar presupuesto', href: '/contacto?tipo=redesign' },
       },
     ],
     pricing: {
@@ -249,7 +249,7 @@ export const content: SiteContent = {
             'Ubicación en Google Maps + SEO técnico básico',
             'Publicación, dominio y certificado SSL listos',
           ],
-          cta: { label: 'Empezar proyecto', href: '/contacto' },
+          cta: { label: 'Empezar proyecto', href: '/contacto?tipo=school' },
         },
         {
           name: 'Profesional',
@@ -266,7 +266,7 @@ export const content: SiteContent = {
             'SEO avanzado + Google Analytics configurado',
             'Panel de edición fácil + 3 meses de soporte técnico',
           ],
-          cta: { label: 'Empezar mi web', href: '/contacto' },
+          cta: { label: 'Empezar mi web', href: '/contacto?tipo=corporate' },
         },
         {
           name: 'Tienda online',
@@ -283,7 +283,7 @@ export const content: SiteContent = {
             'Capacitación personalizada para administrar la tienda',
             '3 meses de soporte técnico y mantenimiento',
           ],
-          cta: { label: 'Empezar mi tienda', href: '/contacto' },
+          cta: { label: 'Empezar mi tienda', href: '/contacto?tipo=store' },
         },
       ],
       note: '¿Tienes un proyecto especial o necesitas un blog editorial de alta escala? También hacemos rediseños, mantenimiento mensual y proyectos a medida. Cuéntanoslo.',

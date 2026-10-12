@@ -3738,6 +3738,87 @@ html[data-theme='light'] .cselect__opt[data-active='true'] {
   padding: clamp(var(--space-5), 2.6vw, var(--space-6));
 }
 
+/* Banner de servicio preseleccionado en formulario de contacto */
+.selected-service-banner {
+  margin-top: 18px;
+  padding: 12px 16px;
+  background: rgb(139 124 255 / 0.12);
+  border: 1px solid rgb(139 124 255 / 0.35);
+  border-radius: var(--radius-sm, 10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  animation: rise 0.35s var(--ease) both;
+  box-shadow: 0 4px 20px -6px rgb(139 124 255 / 0.18);
+}
+
+.selected-service-banner__content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.selected-service-banner__icon {
+  color: var(--accent-strong, #a89bff);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.selected-service-banner__info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 0.92rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.selected-service-banner__label {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.selected-service-banner__name {
+  color: var(--accent-text, #cfc6ff);
+  font-weight: 600;
+}
+
+.selected-service-banner__clear {
+  background: transparent;
+  border: none;
+  color: var(--text-faint);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.selected-service-banner__clear:hover {
+  color: var(--text);
+  background: rgb(255 255 255 / 0.08);
+}
+
+html[data-theme='light'] .selected-service-banner {
+  background: rgb(139 124 255 / 0.08);
+  border-color: rgb(139 124 255 / 0.28);
+}
+
+html[data-theme='light'] .selected-service-banner__name {
+  color: #6347e8;
+}
+
+html[data-theme='light'] .selected-service-banner__clear:hover {
+  background: rgb(0 0 0 / 0.06);
+}
+
 @media (max-width: 860px) {
   .split--form {
     grid-template-columns: 1fr;

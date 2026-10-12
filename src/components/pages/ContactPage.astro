@@ -16,6 +16,9 @@ const { lang } = Astro.props;
 const ct = contentFor(lang).contact;
 const l = ct.form.labels;
 const mailtoBase = `mailto:${CONTACT.email}`;
+
+
+// En SSG, el parámetro `tipo` de la URL se procesa dinámicamente en el cliente
 ---
 
 <section class="section section--tight contact-section" data-reveal>
@@ -54,6 +57,39 @@ const mailtoBase = `mailto:${CONTACT.email}`;
         <p class="eyebrow">{ct.form.eyebrow}</p>
         <h2 class="h-sub" style="font-size: 1.5rem;">{ct.form.title}</h2>
         <p class="text-muted" style="margin-top: 8px; font-size: 0.95rem;">{ct.form.lead}</p>
+
+        <!-- Banner reactivo: servicio seleccionado desde Servicios -->
+        <div
+          id="selected-service-banner"
+          class="selected-service-banner"
+          style="display: none;"
+          role="status"
+          aria-live="polite"
+        >
+          <div class="selected-service-banner__content">
+            <span class="selected-service-banner__icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </span>
+            <div class="selected-service-banner__info">
+              <span class="selected-service-banner__label">
+                {lang === 'es' ? 'Servicio seleccionado:' : 'Selected service:'}
+              </span>
+              <strong id="selected-service-name" class="selected-service-banner__name"></strong>
+            </div>
+          </div>
+          <button
+            type="button"
+            id="selected-service-clear"
+            class="selected-service-banner__clear"
+            title={lang === 'es' ? 'Cambiar selección' : 'Change selection'}
+            aria-label={lang === 'es' ? 'Cambiar selección' : 'Change selection'}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
 
         <form id="contact-form" data-mailto={mailtoBase} style="margin-top: 26px;">
           <div class="form-grid">
@@ -104,20 +140,82 @@ const mailtoBase = `mailto:${CONTACT.email}`;
   </div>
 </section>
 
-<script is:inline define:vars={{ lName: l.name, lEmail: l.email, lType: l.type, lBudget: l.budget }}>
+<script is:inline define:vars={{ lName: l.name, lEmail: l.email, lType: l.type, lBudget: l.budget, formTypes: ct.form.types }}>
+  (function () {
+    const banner = document.getElementById('selected-service-banner');
+    const bannerName = document.getElementById('selected-service-name');
+    const clearBtn = document.getElementById('selected-service-clear');
+    const typeInput = document.getElementById('cf-type');
+    const typeRoot = typeInput ? typeInput.closest('[data-cselect]') : null;
+
+    function getLabelFor(val) {
+      if (!val) return '';
+      const found = formTypes.find((t) => t.value === val);
+      return found ? found.label : val;
+    }
+
+    function updateBanner(label) {
+      if (!banner || !bannerName) return;
+      if (label) {
+        bannerName.textContent = label;
+        banner.style.display = 'flex';
+      } else {
+        banner.style.display = 'none';
+      }
+    }
+
+    // Escucha cambios del desplegable
+    if (typeRoot) {
+      typeRoot.addEventListener('cselect:change', (e) => {
+        const detail = e.detail;
+        const label = detail && detail.value ? (detail.label || getLabelFor(detail.value)) : '';
+        updateBanner(label);
+      });
+    }
+
+    // Botón para limpiar o cambiar la selección
+    if (clearBtn && typeRoot) {
+      clearBtn.addEventListener('click', () => {
+        if (typeof typeRoot.cselectSet === 'function') {
+          typeRoot.cselectSet('');
+        }
+        updateBanner('');
+      });
+    }
+
+    // Sincronizar al cargar la página
+    function syncInitial() {
+      if (typeRoot) {
+        const input = typeRoot.querySelector('[data-cselect-input]');
+        const val = input ? input.value : '';
+        if (val) {
+          const label = getLabelFor(val);
+          updateBanner(label);
+        }
+      }
+    }
+
+    syncInitial();
+    setTimeout(syncInitial, 80);
+  })();
+
   const form = document.querySelector('#contact-form');
   const success = document.querySelector('#cf-success');
   if (form && success) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const data = new FormData(form);
+      const rawType = String(data.get('type') ?? '');
+      const matched = formTypes.find((t) => t.value === rawType);
+      const typeDisplay = matched ? matched.label : rawType;
+
       const subject = encodeURIComponent(
-        `[Design Web] ${String(data.get('type') ?? '')} — ${String(data.get('name') ?? '')}`,
+        `[Design Web] ${typeDisplay} — ${String(data.get('name') ?? '')}`,
       );
       const lines = [
         `${lName}: ${String(data.get('name') ?? '')}`,
         `${lEmail}: ${String(data.get('email') ?? '')}`,
-        `${lType}: ${String(data.get('type') ?? '')}`,
+        `${lType}: ${typeDisplay}`,
         `${lBudget}: ${String(data.get('budget') ?? '')}`,
         '',
         String(data.get('message') ?? ''),

@@ -31,6 +31,7 @@
   --font-display: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+  --font-logo: 'Julee', cursive;
 
   /* Geometría */
   --container: 1440px;
@@ -600,10 +601,10 @@ h4 {
   display: inline-flex;
   align-items: center;
   gap: 11px;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.22rem;
-  letter-spacing: -0.01em;
+  font-family: var(--font-logo);
+  font-weight: 400;
+  font-size: 1.48rem;
+  letter-spacing: 0.01em;
 }
 
 .brand__logo {
@@ -963,8 +964,9 @@ h4 {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  font-size: 1.35rem;
-  font-weight: 700;
+  font-family: var(--font-logo);
+  font-size: 1.6rem;
+  font-weight: 400;
   color: var(--text);
 }
 
@@ -976,10 +978,10 @@ h4 {
 }
 
 .footer__brand .brand span {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--font-logo);
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
   color: var(--text);
 }
 
@@ -2874,7 +2876,7 @@ body {
   }
 
   .brand {
-    font-size: 1.08rem;
+    font-size: 1.28rem;
     gap: 9px;
   }
 
@@ -2997,7 +2999,7 @@ html {
   }
 
   .nav--float .brand {
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
 
   .nav--float .brand__logo {

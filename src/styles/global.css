@@ -39,6 +39,8 @@
   --radius: 16px;
   --radius-lg: 26px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --shadow-card: 0 20px 50px -22px rgb(0 0 0 / 0.7);
 
   --scheme: dark;
@@ -172,7 +174,7 @@ footer.footer {
   border-radius: 12px;
   cursor: pointer;
   transition: background 0.25s var(--ease), border-color 0.25s var(--ease),
-    transform 0.25s var(--ease);
+    transform 0.16s var(--ease-out);
 }
 
 .theme-toggle:hover {
@@ -394,13 +396,14 @@ h4 {
   font-size: 0.98rem;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease),
-    background 0.25s var(--ease), border-color 0.25s var(--ease);
+  transition: transform 0.16s var(--ease-out), box-shadow 0.25s var(--ease-out),
+    background 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
   white-space: nowrap;
 }
 
 .btn:active {
-  transform: translateY(1px) scale(0.99);
+  transform: scale(0.97);
+  transition-duration: 80ms;
 }
 
 .btn-primary {
@@ -677,6 +680,32 @@ h4 {
   outline-offset: 2px;
 }
 
+@media (min-width: 861px) {
+  .nav__links li:nth-child(1) .nav__link {
+    animation: nav-link-in 0.24s var(--ease-out) 0.04s both;
+  }
+  .nav__links li:nth-child(2) .nav__link {
+    animation: nav-link-in 0.24s var(--ease-out) 0.08s both;
+  }
+  .nav__links li:nth-child(3) .nav__link {
+    animation: nav-link-in 0.24s var(--ease-out) 0.12s both;
+  }
+  .nav__links li:nth-child(4) .nav__link {
+    animation: nav-link-in 0.24s var(--ease-out) 0.16s both;
+  }
+}
+
+@keyframes nav-link-in {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .nav__right {
   display: flex;
   align-items: center;
@@ -697,7 +726,7 @@ h4 {
   padding: 0.32em 0.8em;
   border-radius: 999px;
   color: var(--text-faint);
-  transition: color 0.2s var(--ease), background 0.2s var(--ease);
+  transition: color 0.2s var(--ease), background 0.2s var(--ease), transform 0.16s var(--ease-out);
 }
 
 .lang-switch a[aria-current='true'] {
@@ -717,6 +746,7 @@ h4 {
   cursor: pointer;
   align-items: center;
   justify-content: center;
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.16s var(--ease-out);
 }
 
 .nav__toggle span,
@@ -847,9 +877,26 @@ h4 {
     transform: translateY(-50%);
   }
 
+  .nav__links.is-open li:nth-child(1) .nav__link {
+    animation: nav-link-in 0.22s var(--ease-out) 0.03s both;
+  }
+
+  .nav__links.is-open li:nth-child(2) .nav__link {
+    animation: nav-link-in 0.22s var(--ease-out) 0.07s both;
+  }
+
+  .nav__links.is-open li:nth-child(3) .nav__link {
+    animation: nav-link-in 0.22s var(--ease-out) 0.11s both;
+  }
+
+  .nav__links.is-open li:nth-child(4) .nav__link {
+    animation: nav-link-in 0.22s var(--ease-out) 0.15s both;
+  }
+
   .nav__links.is-open .nav-cta-mobile {
     min-height: 48px;
     justify-content: center;
+    animation: nav-link-in 0.22s var(--ease-out) 0.19s both;
   }
 
   /* Hamburguesa en estado abierto: acento visible */
@@ -1476,7 +1523,8 @@ html[data-theme='light'] .footer__social .chip:hover {
   min-height: 260px;
   color: var(--text);
   padding: 32px 24px;
-  transition: all 0.25s var(--ease);
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out), background 0.25s var(--ease-out);
 }
 
 .project-card--ghost p {
@@ -3218,27 +3266,27 @@ a.chip {
 }
 
 [data-stagger].is-visible>*:nth-child(2) {
-  transition-delay: 80ms;
+  transition-delay: 35ms;
 }
 
 [data-stagger].is-visible>*:nth-child(3) {
-  transition-delay: 160ms;
+  transition-delay: 70ms;
 }
 
 [data-stagger].is-visible>*:nth-child(4) {
-  transition-delay: 240ms;
+  transition-delay: 105ms;
 }
 
 [data-stagger].is-visible>*:nth-child(5) {
-  transition-delay: 320ms;
+  transition-delay: 140ms;
 }
 
 [data-stagger].is-visible>*:nth-child(6) {
-  transition-delay: 400ms;
+  transition-delay: 175ms;
 }
 
 [data-stagger].is-visible>*:nth-child(n + 7) {
-  transition-delay: 480ms;
+  transition-delay: 200ms;
 }
 
 [data-stagger].is-visible>* {
@@ -3289,6 +3337,7 @@ a.chip {
 
   .card,
   .project-card,
+  .project-card--ghost,
   .post-card,
   .plan {
     transition: transform var(--dur-fast) var(--ease-spring), box-shadow var(--dur-fast) var(--ease-spring), border-color 0.25s var(--ease);
@@ -3300,8 +3349,19 @@ a.chip {
     transform: translateY(-6px);
   }
 
-  .project-card:hover {
+  .project-card:hover,
+  .project-card--ghost:hover,
+  [data-stagger].is-visible>.project-card:hover,
+  [data-stagger].is-visible>.project-card--ghost:hover {
     transform: translateY(-8px) scale(1.005);
+    box-shadow: 0 20px 48px -18px rgb(0 0 0 / 0.7);
+  }
+
+  html[data-theme='light'] .project-card:hover,
+  html[data-theme='light'] .project-card--ghost:hover,
+  html[data-theme='light'] [data-stagger].is-visible>.project-card:hover,
+  html[data-theme='light'] [data-stagger].is-visible>.project-card--ghost:hover {
+    box-shadow: 0 20px 40px -16px rgb(0 0 0 / 0.14);
   }
 
   .plan--featured:hover {
@@ -3337,7 +3397,8 @@ a.chip {
   }
 
   .btn:active {
-    transform: scale(0.98);
+    transform: scale(0.97);
+    transition-duration: 80ms;
   }
 
   .link-arrow svg {
@@ -3657,17 +3718,18 @@ html[data-theme='light'] {
   scrollbar-width: none;
   -ms-overflow-style: none;
   overscroll-behavior: contain;
+  transform-origin: center top;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-8px) scale(0.985);
+  transform: translateY(-8px) scale(0.97);
   pointer-events: none;
-  transition: opacity 0.18s var(--ease), transform 0.18s var(--ease);
+  transition: opacity 0.2s var(--ease-out), transform 0.2s var(--ease-out), visibility 0.2s var(--ease-out);
 }
 
 .cselect__list[data-open='true'] {
   opacity: 1;
   visibility: visible;
-  transform: none;
+  transform: translateY(0) scale(1);
   pointer-events: auto;
 }
 
@@ -3805,8 +3867,13 @@ html[data-theme='light'] .cselect__opt[data-active='true'] {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: color 0.2s var(--ease-out), background 0.2s var(--ease-out), transform 0.16s var(--ease-out);
   flex-shrink: 0;
+}
+
+.selected-service-banner__clear:active {
+  transform: scale(0.95);
+  transition-duration: 80ms;
 }
 
 .selected-service-banner__clear:hover {
@@ -4060,8 +4127,11 @@ html[data-theme='light'] .mini-nav span {
 }
 
 .theme-toggle:active,
-.cselect__btn:active {
-  transform: translateY(1px) scale(0.99);
+.cselect__btn:active,
+.nav__toggle:active,
+.lang-switch a:active {
+  transform: scale(0.97);
+  transition-duration: 80ms;
 }
 
 /* --- Estado de error de los campos nativos (antes solo el globo del navegador) --- */

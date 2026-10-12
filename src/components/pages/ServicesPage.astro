@@ -59,15 +59,18 @@ const s = contentFor(lang).services;
 
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+      const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
       cards.forEach((card, index) => {
         // 1. Animación de entrada con Framer Motion inView y física de resorte (spring)
+        // Usar full transform string para aceleración por hardware GPU (Emil Kowalski standard)
         if (!reduce) {
           inView(
             card,
             () => {
               animate(
                 card,
-                { opacity: [0, 1], y: [45, 0] },
+                { opacity: [0, 1], transform: ['translateY(45px)', 'translateY(0px)'] },
                 {
                   duration: 0.65,
                   delay: index * 0.08,
@@ -79,26 +82,28 @@ const s = contentFor(lang).services;
           );
         }
 
-        // 2. Animaciones de gestos / hover interactivo con Framer Motion spring physics
-        card.addEventListener('mouseenter', () => {
-          if (!reduce) {
-            animate(
-              card,
-              { y: -8 },
-              { duration: 0.35, type: 'spring', stiffness: 350, damping: 22 }
-            );
-          }
-        });
+        // 2. Animaciones de gestos / hover interactivo con aceleración GPU (gated para fine pointer)
+        if (isFinePointer) {
+          card.addEventListener('mouseenter', () => {
+            if (!reduce) {
+              animate(
+                card,
+                { transform: 'translateY(-8px)' },
+                { duration: 0.35, type: 'spring', stiffness: 350, damping: 22 }
+              );
+            }
+          });
 
-        card.addEventListener('mouseleave', () => {
-          if (!reduce) {
-            animate(
-              card,
-              { y: 0 },
-              { duration: 0.35, type: 'spring', stiffness: 300, damping: 25 }
-            );
-          }
-        });
+          card.addEventListener('mouseleave', () => {
+            if (!reduce) {
+              animate(
+                card,
+                { transform: 'translateY(0px)' },
+                { duration: 0.35, type: 'spring', stiffness: 300, damping: 25 }
+              );
+            }
+          });
+        }
       });
 
       // 3. Stacking scroll calculation con escala y brillo suave

@@ -105,12 +105,12 @@ const siteName = t(lang, 'site.name');
             '53, 76, 43',    // #354C2B (verde oscuro)
           ],
           light: [
-            '53, 76, 43',    // #354C2B
-            '78, 101, 61',   // #4E653D
-            '105, 126, 80',  // #697E50
-            '133, 152, 100', // #859864
-            '164, 177, 123', // #A4B17B
-            '195, 202, 146', // #C3CA92
+            '42, 64, 34',    // #2A4022 (verde bosque muy oscuro - alto contraste)
+            '53, 76, 43',    // #354C2B (verde oscuro - alto contraste)
+            '70, 95, 55',    // #465F37 (verde bosque - contraste nítido)
+            '78, 101, 61',   // #4E653D (verde bosque medio - visible)
+            '95, 118, 72',   // #5F7648 (verde oliva definido - visible)
+            '105, 126, 80',  // #697E50 (verde oliva medio - visible)
           ],
         };
 
@@ -187,14 +187,15 @@ const siteName = t(lang, 'site.name');
           var pal = isLight ? PALETTES.light : PALETTES.dark;
           ctx.clearRect(0, 0, W, H);
 
-          var R = 300; // Radio reducido (era 420)
+          var R = isLight ? 330 : 300; // Radio ligeramente mayor en modo claro
           var R2 = R * R;
 
           // Halo suave radial con tonos de la paleta
           var halo = ctx.createRadialGradient(mx, my, 0, mx, my, R);
           if (isLight) {
-            halo.addColorStop(0, 'rgba(105, 126, 80, 0.10)');
-            halo.addColorStop(0.5, 'rgba(133, 152, 100, 0.03)');
+            halo.addColorStop(0, 'rgba(85, 115, 65, 0.22)');
+            halo.addColorStop(0.45, 'rgba(105, 126, 80, 0.09)');
+            halo.addColorStop(0.8, 'rgba(133, 152, 100, 0.03)');
             halo.addColorStop(1, 'rgba(133, 152, 100, 0)');
           } else {
             halo.addColorStop(0, 'rgba(195, 202, 146, 0.12)');
@@ -220,12 +221,13 @@ const siteName = t(lang, 'site.name');
 
               if (dx * dx + dy * dy > R2) continue;
 
-              ctx.moveTo(d.x + d.r, d.y);
-              ctx.arc(d.x, d.y, d.r, 0, 6.2832);
+              var radius = isLight ? d.r * 1.35 : d.r;
+              ctx.moveTo(d.x + radius, d.y);
+              ctx.arc(d.x, d.y, radius, 0, 6.2832);
               count++;
             }
             if (count > 0) {
-              ctx.fillStyle = 'rgba(' + pal[c] + ', 0.85)';
+              ctx.fillStyle = 'rgba(' + pal[c] + ', ' + (isLight ? '0.92' : '0.85') + ')';
               ctx.fill();
             }
           }

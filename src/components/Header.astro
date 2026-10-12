@@ -42,7 +42,7 @@ function isActive(href: string): boolean {
 ---
 
 <header class="nav">
-  <div class="container nav__inner">
+  <div class="container nav__inner" style="--container: var(--container-nav);">
     <a class="brand" href={homeHref} aria-label={t(lang, 'site.name')}>
       <img class="brand__logo" src="/favicon.svg" width="34" height="34" alt="" aria-hidden="true" />
       <span>{t(lang, 'site.name')}</span>

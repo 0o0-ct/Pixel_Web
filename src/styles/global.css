@@ -33,7 +33,8 @@
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
 
   /* Geometría */
-  --container: 1180px;
+  --container: 1440px;
+  --container-nav: 1180px;
   --nav-h: 74px;
   --radius-sm: 10px;
   --radius: 16px;
@@ -578,7 +579,7 @@ h4 {
 .nav--float {
   top: 14px;
   margin-inline: auto;
-  width: min(100% - 28px, var(--container));
+  width: min(100% - 28px, var(--container-nav));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   background: var(--nav-bg);
